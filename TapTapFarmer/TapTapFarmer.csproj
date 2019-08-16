@@ -63,6 +63,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="GlobalVariables.cs" />
+    <Compile Include="OCR\DoOcr.cs" />
+    <Compile Include="OCR\OCRResults.cs" />
     <Compile Include="WindowCapture.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
