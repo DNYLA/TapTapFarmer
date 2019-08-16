@@ -66,6 +66,16 @@
     <Compile Include="Constants\LocationConstants.cs" />
     <Compile Include="Constants\OtherConstants.cs" />
     <Compile Include="Constants\TextConstants.cs" />
+    <Compile Include="Functions\Attack.cs" />
+    <Compile Include="Functions\BotMain.cs" />
+    <Compile Include="Functions\ImageToText.cs" />
+    <Compile Include="Functions\KeyHandler.cs" />
+    <Compile Include="Functions\Main.cs" />
+    <Compile Include="Functions\MouseHandler.cs" />
+    <Compile Include="Functions\OCRResult.cs" />
+    <Compile Include="Functions\OpenObjects.cs" />
+    <Compile Include="Functions\PixelChecker.cs" />
+    <Compile Include="Functions\UpdatePlayerInfo.cs" />
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="OCR\DoOcr.cs" />
     <Compile Include="OCR\OCRResults.cs" />
