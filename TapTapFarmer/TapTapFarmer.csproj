@@ -62,6 +62,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Constants\ColorConstants.cs" />
+    <Compile Include="Constants\LocationConstants.cs" />
+    <Compile Include="Constants\OtherConstants.cs" />
+    <Compile Include="Constants\TextConstants.cs" />
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="OCR\DoOcr.cs" />
     <Compile Include="OCR\OCRResults.cs" />
