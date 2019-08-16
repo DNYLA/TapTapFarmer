@@ -1,0 +1,327 @@
+﻿<Window x:Class="TapTapFarmer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TapTapFarmer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Border Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition Height="396*" />
+            </Grid.RowDefinitions>
+
+            <Grid Background="#808080" Margin="9,0,9,0" Grid.Row="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="5 5 0 0">
+                    <TextBlock Margin ="5 2 0 0" FontSize="14" Text="Bot State: Idling" />
+                    <TextBlock Margin ="5 2 0 0" FontSize="14" Text="Version: 1.5" />
+                    <TextBlock Margin ="5 2 0 0" FontSize="14" Text="BotState: Idling" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="0 5 0 0" HorizontalAlignment="Center">
+                    <TextBlock Margin ="5 2 0 0" FontSize="15" Text="For More Information or Support Go To www.TapHeroBot.org" />
+                    <Button Style="{StaticResource RoundButton}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Margin="0 5 5 0" HorizontalAlignment="Right">
+                    <TextBlock Margin ="5 2 0 0" FontSize="14" Text="Loged In As: Dan" />
+                </StackPanel>
+            </Grid>
+
+            <TabControl Margin="0,5,0,0" Height="310" Grid.Row="1">
+                <TabItem Style="{StaticResource TabTest}" Header="General">
+                    <Grid Background="#f4f4f4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Console Logs" Padding="5 5 0 2"/>
+                            <TextBox x:Name="ConsoleLog" x:FieldModifier="public" TextWrapping="Wrap" AcceptsReturn="True" Width="500" Height="250" Margin="0,0,0,0" IsReadOnly="True" VerticalAlignment="Top" VerticalScrollBarVisibility="Visible" />
+                        </StackPanel>
+
+                        <StackPanel>
+
+                            <Grid Margin="0 8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Once Buttons Are Removed Add Section To Set Minmum Resource Values -->
+                                <StackPanel Grid.Column="0">
+                                    <Button x:Name="TakeScreen" Content="Take Screenshot" Click="TakeScreen_Click" Width="100" Height="25"/>
+                                    <Button x:Name="CheckSize" Content="Check Size" Click="CheckSize_Click" Width="100" Height="25"/>
+                                    <Button x:Name="ResetToHome" Content="Reset To Home" Click="ResetToHome_Click" Width="100" Height="25"/>
+                                    <Button x:Name="ClaimDailyBonuses" Content="Claim Daily Bonuses" Click="ClaimDailyBonuses_Click" Width="100" Height="25"/>
+                                    <Button x:Name="CheckAvievements" Content="Check Achievements" Click="CheckAvievements_Click" Width="100" Height="25"/>
+                                    <Button x:Name="ScrollUp" Content="Scroll Up" Click="ScrollUp_Click" Width="100" Height="25"/>
+                                    <Button x:Name="ScrollDown" Content="Scroll Down" Click="ScrollDown_Click" Width="100" Height="25"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1">
+                                    <Button x:Name="MailCheck" Content="Check Mail" Click="MailCheck_Click" Width="100" Height="25"/>
+                                    <Button x:Name="CheckShards" Content="Check Shards" Click="CheckShards_Click" Width="100" Height="25"/>
+                                    <Button x:Name="OpenObjectsTest" Content="Open Objects" Click="OpenObjectsTest_Click" Width="100" Height="25"/>
+                                    <Button x:Name="AttackHandler" Content="Attack Handler" Click="AttackHandler_Click" Width="100" Height="25"/>
+                                    <Button x:Name="CheckCrate" Content="Check Crate" Click="CheckCrate_Click" Width="100" Height="25"/>
+                                    <Button x:Name="TextTest" Content="Image To Text" Click="TextTest_Click" Width="100" Height="25"/>
+                                </StackPanel>
+                            </Grid>
+
+                        </StackPanel>
+
+
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+                            <GroupBox Header="Controls" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 7" Height="75" Width="210">
+                                <Grid>
+                                    <Button x:Name="StartBot" Click="StartBot_Click" Height="33" Width="75" HorizontalAlignment="Left" Margin="10,0,0,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="{Binding Path=StartStopState}" Width="16" Height="16" Margin="2" Grid.Column="0" />
+                                            <StackPanel Grid.Column="1" Margin="2">
+                                                <TextBlock Text="Start" TextAlignment="Center" HorizontalAlignment="Right" Width="24" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Button>
+                                    <Button Click="Button_Click" Height="33" Width="75" HorizontalAlignment="Right" Margin="0,0,10,0" Visibility="Visible">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Path Data="M31.687237,10.667C38.231297,14.096666 42.666001,19.463814 42.666001,19.463814 42.666001,19.463814 33.114207,31.052 21.333262,31.052 19.11721,31.052 16.981756,30.641903 14.974,29.97641L17.968835,26.516945C19.064911,26.760542 20.189886,26.903641 21.333262,26.903641 27.822621,26.903641 33.739193,22.471584 37.004723,19.463814 35.21846,17.82023 32.632517,15.76165 29.602583,14.222665 29.836977,14.907658 29.968575,15.631751 29.968575,16.382744 29.968575,20.541902 26.101458,23.913969 21.333262,23.913969 20.97387,23.913969 20.622277,23.889471 20.275885,23.851471L28.911198,13.874968z M21.333649,7.8749999C22.367567,7.8749999,23.375384,7.991208,24.369999,8.1538057L23.543387,9.1103305 23.544586,9.1103305 13.919428,20.229303C13.148615,19.102821 12.698008,17.790342 12.698008,16.382666 12.698008,15.627777 12.82831,14.901288 13.065114,14.213799 10.031464,15.749875 7.4478719,17.817741 5.6614729,19.463716 7.0313649,20.726396 8.8751452,22.238071 11.028781,23.570051L8.3228858,26.695002C3.2681233,23.407453 -2.3841858E-07,19.463716 0,19.463716 -2.3841858E-07,19.463716 9.5521562,7.8749999 21.333649,7.8749999z M34.252037,0L36.449997,1.9038253 6.0807195,36.990002 3.8829998,35.089188z" Stretch="Uniform" Fill="#BBFFFFFF" Width="15" Height="15" Margin="2" Grid.Column="0" RenderTransformOrigin="0.5,0.5" />
+                                            <StackPanel Grid.Column="1" Margin="2">
+                                                <TextBlock Text="Hide" TextAlignment="Center" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Button>
+                                </Grid>
+                            </GroupBox>
+                        </StackPanel>
+
+                    </Grid>
+                </TabItem>
+
+
+                <TabItem Style="{StaticResource TabTest}" Header="Attack Settings" >
+                    <Grid Background="#f4f4f4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                            <GroupBox Header="Battles" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 7" Height="200" Width="210">
+                                <StackPanel Margin="5 0 5 0">
+                                    <CheckBox FontSize="15" Content="Boss Battle (Main Menu)" Padding="5 -3 0 4" />
+                                    <CheckBox Content="Friend Boss" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Club Boss" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Battle League" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Battle Subway" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Sky Pillar" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Gym" Padding="5 -5 0 4" />
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <GroupBox FontSize="18" Header="Sky Pillar Settings" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 7" Height="90" Width="210">
+                                <Grid>
+                                    <Label  FontSize="12" Content="Max Retry Amount" Height="25" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <TextBox Text="3"   MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,12,10,0" VerticalAlignment="Top" Width="60" />
+                                    <CheckBox FontSize="12" Content="Auto Retry Attack After Certain Time" Margin="15 40 0 0" />
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Header="Battle League" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 7" Height="110" Width="210">
+                                <Grid>
+                                    <Label Content="Maximum Tickets to Use" Height="25" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <Label Content="Maximum CE:" Height="25" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <TextBox Text="0"  MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,12,10,0" VerticalAlignment="Top" Width="60" />
+                                    <TextBox Text="100000" MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,40,10,0" VerticalAlignment="Top" Width="60" />
+                                    <CheckBox Content="Attack More Than Twice A Day" Margin="15 68 0 0" />
+                                </Grid>
+                            </GroupBox>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <GroupBox FontSize="18" Header="Guild Boss Settings" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 7" Height="90" Width="210">
+                                <Grid>
+                                    <Label  FontSize="12" Content="Maximum Ammount Of Attacks:" Height="25" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <TextBox Text="3"  MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,12,10,0" VerticalAlignment="Top" Width="60" />
+                                    <CheckBox FontSize="12" Content="Attack More Than Twice A Day" Margin="15 40 0 0" />
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Header="Friend Boss" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 7" Height="110" Width="210">
+                                <Grid>
+                                    <Label Content="Attack Retry Amount: " Height="25" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <TextBox Text="10"  MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,12,10,0" VerticalAlignment="Top" Width="60" />
+                                    <CheckBox Content="Only Attack When At 10 Hearts" Margin="15 40 0 0" />
+                                </Grid>
+                            </GroupBox>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Style="{StaticResource TabTest}" Header="Daily Settings" >
+                    <Grid Background="#f4f4f4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                            <GroupBox Header="Daily Pass Quests" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 7" Height="210" Width="210">
+                                <StackPanel Margin="5 0 5 0">
+                                    <CheckBox FontSize="15" Content="Send 5 Hearts" Padding="5 -3 0 4" />
+                                    <CheckBox Content="Perform 1 Common Capture" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Defeat 3 Waves" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Complete Two Battle League" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Complete 2 Dispatch" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Complete 2 Training" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Perform Meowth Coin Twice" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Spin The Roullete Twice in Game Corner" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Perform 1 Grand Capture" Padding="5 -5 0 4" />
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <GroupBox FontSize="18" Header="Sky Pillar Settings" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 7" Height="90" Width="210">
+                                <Grid>
+                                    <Label  FontSize="12" Content="Max Retry Amount" Height="25" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <TextBox Text="3"   MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,12,10,0" VerticalAlignment="Top" Width="60" />
+                                    <CheckBox FontSize="12" Content="Auto Retry Attack After Certain Time" Margin="15 40 0 0" />
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Header="Battle League" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 7" Height="110" Width="210">
+                                <Grid>
+                                    <Label Content="Maximum Tickets to Use" Height="25" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <Label Content="Maximum CE:" Height="25" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <TextBox Text="0"  MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,12,10,0" VerticalAlignment="Top" Width="60" />
+                                    <TextBox Text="100000" MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,40,10,0" VerticalAlignment="Top" Width="60" />
+                                    <CheckBox Content="Attack More Than Twice A Day" Margin="15 68 0 0" />
+                                </Grid>
+                            </GroupBox>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <GroupBox FontSize="18" Header="Guild Boss Settings" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 7" Height="90" Width="210">
+                                <Grid>
+                                    <Label  FontSize="12" Content="Maximum Ammount Of Attacks:" Height="25" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <TextBox Text="3"  MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,12,10,0" VerticalAlignment="Top" Width="60" />
+                                    <CheckBox FontSize="12" Content="Attack More Than Twice A Day" Margin="15 40 0 0" />
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Header="Friend Boss" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 7" Height="110" Width="210">
+                                <Grid>
+                                    <Label Content="Attack Retry Amount: " Height="25" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <TextBox Text="10"  MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,12,10,0" VerticalAlignment="Top" Width="60" />
+                                    <CheckBox Content="Only Attack When At 10 Hearts" Margin="15 40 0 0" />
+                                </Grid>
+                            </GroupBox>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Style="{StaticResource TabTest}" Header="Pokemon Upgrade" >
+                    <Grid Background="#f4f4f4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                            <GroupBox Header="Upgrade Settings" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 7" Height="210" Width="210">
+                                <StackPanel Margin="5 0 5 0">
+                                    <CheckBox Content="Auto Upgrade Pokemon" Padding="5 -3 0 4" />
+                                    <CheckBox Content="Auto Evolve Pokemon (1-4*)" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Auto Evolve Pokemon (5*)" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Auto Evolve Pokemon (6*+)" Padding="5 -5 0 4" />
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <GroupBox FontSize="18" Header="Pokemon Team" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 7" Height="250" Width="210">
+                                <Grid>
+                                    <Label  FontSize="12" Content="Pokemon 1:" Height="25" HorizontalAlignment="Left"  Margin="10,10,0,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <Label  FontSize="12" Content="Pokemon 2:" Height="25" HorizontalAlignment="Left"  Margin="10,40,0,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <Label  FontSize="12" Content="Pokemon 3:" Height="25" HorizontalAlignment="Left"  Margin="10,70,0,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <Label  FontSize="12" Content="Pokemon 4:" Height="25" HorizontalAlignment="Left"  Margin="10 100,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <Label  FontSize="12" Content="Pokemon 5:" Height="25" HorizontalAlignment="Left"  Margin="10,130,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <Label  FontSize="12" Content="Pokemon 6:" Height="25" HorizontalAlignment="Left"  Margin="10,160,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <ComboBox FontSize="14" SelectedIndex="0"  HorizontalAlignment="Right" Height="25" Margin="0,10,10,0"  VerticalAlignment="Top" Width="100" >
+                                        <ComboBoxItem>Charizard</ComboBoxItem>
+                                    </ComboBox>
+                                    <ComboBox FontSize="14" SelectedIndex="0"  HorizontalAlignment="Right" Height="25" Margin="0,40,10,0"  VerticalAlignment="Top" Width="100" >
+                                        <ComboBoxItem>Charizard</ComboBoxItem>
+                                    </ComboBox>
+                                    <ComboBox FontSize="14" SelectedIndex="0"  HorizontalAlignment="Right" Height="25" Margin="0,70,10,0"  VerticalAlignment="Top" Width="100" >
+                                        <ComboBoxItem>Charizard</ComboBoxItem>
+                                    </ComboBox>
+                                    <ComboBox FontSize="14" SelectedIndex="0"  HorizontalAlignment="Right" Height="25" Margin="0,100,10,0" VerticalAlignment="Top" Width="100" >
+                                        <ComboBoxItem>Charizard</ComboBoxItem>
+                                    </ComboBox>
+                                    <ComboBox FontSize="14" SelectedIndex="0"  HorizontalAlignment="Right" Height="25" Margin="0,130,10,0" VerticalAlignment="Top" Width="100" >
+                                        <ComboBoxItem>Charizard</ComboBoxItem>
+                                    </ComboBox>
+                                    <ComboBox FontSize="14" SelectedIndex="0"  HorizontalAlignment="Right" Height="25" Margin="0,160,10,0" VerticalAlignment="Top" Width="100" >
+                                        <ComboBoxItem>Charizard</ComboBoxItem>
+                                    </ComboBox>
+                                </Grid>
+                            </GroupBox>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <GroupBox Header="Evolve Settings" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 7" Height="110" Width="210">
+                                <Grid>
+                                    <Label Content="Maximum Tickets to Use" Height="25" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <Label Content="Maximum CE:" Height="25" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <TextBox Text="0"  MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,12,10,0" VerticalAlignment="Top" Width="60" />
+                                    <TextBox Text="100000" MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,40,10,0" VerticalAlignment="Top" Width="60" />
+                                    <CheckBox Content="Max Pokemon Level Before Evolving (For Whole Team)" Margin="15 68 0 0" />
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Header="Friend Boss" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 7" Height="110" Width="210">
+                                <Grid>
+                                    <Label Content="Attack Retry Amount: " Height="25" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <TextBox Text="10"  MaxLength="6"  TextAlignment="Right" HorizontalAlignment="Right" Height="23" Margin="0,12,10,0" VerticalAlignment="Top" Width="60" />
+                                    <CheckBox Content="Only Attack When At 10 Hearts" Margin="15 40 0 0" />
+                                </Grid>
+                            </GroupBox>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+            </TabControl>
+
+        </Grid>
+    </Border>
+</Window>
