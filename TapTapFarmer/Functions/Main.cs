@@ -39,8 +39,8 @@ namespace TapTapFarmer.Functions
                 MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
             }
 
-            //Force Back To Main Menu && Collect any gold (Ran 30 Times because it will click nonstop)
-            for (int i = 0; i < 30; i++)
+            //Force Back To Main Menu && Collect any gold (Ran 50 Times because it will click nonstop)
+            for (int i = 0; i < 50; i++)
             {
                 MouseHandler.MoveCursor(LocationConstants.HOME_BOTTOM_BATTLE, true);
             }

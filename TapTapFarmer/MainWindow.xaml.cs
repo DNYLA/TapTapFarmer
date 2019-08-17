@@ -112,8 +112,8 @@ namespace TapTapFarmer
         private void AttackHandler_Click(object sender, RoutedEventArgs e)
         {
 
-            //Thread AttackThread = new Thread(Attack.GymAttackHandler);
-            //AttackThread.Start();
+            Thread AttackThread = new Thread(Attack.DenOfSecretAttackHandler);
+            AttackThread.Start();
         }
 
         private void ScrollUp_Click(object sender, RoutedEventArgs e)

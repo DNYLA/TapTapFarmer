@@ -76,7 +76,7 @@ namespace TapTapFarmer.Functions
 
                     Console.WriteLine("Checking If Account Alreay Logged In");
                     //Check If Bot Logged In
-                    if (PixelChecker.CheckPixelValue(LocationConstants.HOME_ACCOUNT_ALREADY_LOGGED, ColorConstants.GLOBAL_OK_BOTTON))
+                    if (PixelChecker.CheckPixelValue(LocationConstants.HOME_ACCOUNT_ALREADY_LOGGED, ColorConstants.GLOBAL_OK_BUTTON))
                     {
                         Console.WriteLine("Account Logged In From Another Account Waiting 5 More Seconds To Re-Log");
                         Thread.Sleep(5);

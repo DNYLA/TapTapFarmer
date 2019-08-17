@@ -16,17 +16,17 @@ namespace TapTapFarmer.Functions
          * the Attack Object when something goes wrong.
          */
 
-        //public static void SkyPillarAttackHandler()
-        //{
-        //    WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+        public static void DenOfSecretAttackHandler()
+        {
+            WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
 
-        //    Main.ResetToHome();
+            Main.ResetToHome();
 
-        //    OpenObjects.OpenSkyPilar();
+            OpenObjects.OpenDoS();
 
-        //    AttackSkyPillar();
-            
-        //}
+            AttackDenOfSecrets();
+
+        }
 
         //public static void BattleLeagueAttackHandler()
         //{
@@ -223,16 +223,16 @@ namespace TapTapFarmer.Functions
         }
 
 
-        public static void AttackSkyPillar()
+        public static void AttackDenOfSecrets()
         {
-            bool AttackingPillar = true;
+            bool AttackingDOS = true;
 
-            while (AttackingPillar)
+            while (AttackingDOS)
             {
                 for (int CurrentTry = 0; CurrentTry < OtherConstants.ATTACK_RETRY_AMOUNT; CurrentTry++)
                 {
                     Main.Sleep(2);
-                    MouseHandler.MoveCursor(LocationConstants.SKYPILLAR_BATTLE_LOCATION, true);
+                    MouseHandler.MoveCursor(LocationConstants.DOS_BATTLE_LOCATION, true); //Maybe Add SearchPixel If Problems Occur
                     Main.Sleep(1);
                     MouseHandler.MoveCursor(LocationConstants.GLOBAL_ENEMYINFO_BATTLE_CONFIRM, true);
                     Main.Sleep(1);
@@ -269,7 +269,7 @@ namespace TapTapFarmer.Functions
                         MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
                         if (CurrentTry == 2)
                         {
-                            AttackingPillar = false;
+                            AttackingDOS = false;
                         }
                     }
 

@@ -16,8 +16,12 @@ namespace TapTapFarmer.Functions
             //Get Attention of screen incase its not ontop
             WindowCapture.CaptureApplication("Nox");
 
-            //Opening up Castle And Resetting it
-            MouseHandler.MoveCursor(LocationConstants.HOME_BOTTOM_CASTLE_LOCATION, true);
+            /* Opening up Castle (Runs 30 Times Becuase Sometimes Gold Isn't Collected. This is rare for it to not be collected but running this
+            *  this 50 times ensures that the bug doesn't occur */
+            for (int i = 0; i < 30; i++)
+            {
+                MouseHandler.MoveCursor(LocationConstants.HOME_BOTTOM_CASTLE_LOCATION, true);
+            }
             Main.Sleep(1);
             MouseHandler.MoveCursor(LocationConstants.CASTLE_SCROLL_LOCATION);
             Main.Sleep(1);

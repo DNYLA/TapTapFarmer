@@ -10,14 +10,14 @@ namespace TapTapFarmer.Constants
     class LocationConstants
     {
         //Global Locations || Locations that are used throughout the game
-        public static Point GLOBAL_BOT_IDLE_CLICK = new Point(300, 725); // D
-        public static Point GLOBAL_BATTLE_SKIP = new Point(514, 861); // D
-        public static Point GLOBAL_BATTLE_SKIP_CONFIRM = new Point(180, 620); //D
-        public static Point GLOBAL_BATTLE_FINISHED = new Point(272, 834); //D
-        public static Point GLOBAL_BATTLE_CHECK_WIN = new Point(269, 380);
+        //public static Point GLOBAL_BOT_IDLE_CLICK = new Point(300, 725); // D
+        //public static Point GLOBAL_BATTLE_SKIP = new Point(514, 861); // D
+        //public static Point GLOBAL_BATTLE_SKIP_CONFIRM = new Point(180, 620); //D
+        //public static Point GLOBAL_BATTLE_FINISHED = new Point(272, 834); //D
+        //public static Point GLOBAL_BATTLE_CHECK_WIN = new Point(252, 399);
         public static Point GLOBAL_LEVEL_BAR = new Point(130, 20);
 
-        public static Point GLOBAL_ENEMYINFO_BATTLE_CONFIRM = new Point(320, 735); //D
+        //public static Point GLOBAL_ENEMYINFO_BATTLE_CONFIRM = new Point(320, 735); //D
         public static Point GLOBAL_TEAM_BATTLE_CONFIRM = new Point(269, 869); //D
 
 
@@ -95,13 +95,14 @@ namespace TapTapFarmer.Constants
         ////
         /////
         //Global
-        public static Point GLOBAL_BATTLE_ENEMYINFO_CONFIRM_LOCATION = new Point(320, 735);
-        public static Point GLOBAL_BATTLE_TEAM_CONFIRM_LOCATION = new Point(315, 880);
-        public static Point GLOBAL_BATTLE_SKIP_LOCATION = new Point(514, 861);
-        public static Point GLOBAL_BATTLE_SKIP_CONFIRM_LOCATION = new Point(180, 620);
-        public static Point GLOBAL_BATLE_FINISHED_LOCATION = new Point(314, 860);
-        public static Point GLOBAL_BATTLE_WINCHECK_LOCATION = new Point(285, 449);
-        public static Point IDLE_CLICK = new Point(300, 725);
+        public static Point GLOBAL_BOT_IDLE_CLICK = new Point(300, 725);
+        public static Point GLOBAL_ENEMYINFO_BATTLE_CONFIRM = new Point(263, 682);
+        public static Point GLOBAL_BATTLE_TEAM_CONFIRM_LOCATION = new Point(266, 823);
+        public static Point GLOBAL_BATTLE_SKIP = new Point(513, 826);
+        public static Point GLOBAL_BATTLE_SKIP_CONFIRM = new Point(153, 566);
+        public static Point GLOBAL_BATTLE_FINISHED = new Point(314, 860);
+        public static Point GLOBAL_BATTLE_CHECK_WIN = new Point(252, 252);
+
 
 
         //Home Screen Buttons
@@ -157,7 +158,8 @@ namespace TapTapFarmer.Constants
         public static Point CASTLE_TAVERN_LOCATION = new Point(253, 581);
         public static Point CASTLE_EXPEDITION_LOCATION = new Point(217, 826);
         public static Point CASTLE_PLANET_TRIAL_LOCATION = new Point(323, 580);
+
         //Den Of Secrets
-        public static Point DOS_BATTLE_LOCATION = new Point(481, 615);
+        public static Point DOS_BATTLE_LOCATION = new Point(479, 585);
     }
 }
