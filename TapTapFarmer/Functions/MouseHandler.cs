@@ -107,10 +107,9 @@ namespace TapTapFarmer.Functions
         /// <summary>
         /// Resets Castle Screen by scrolling to the bottom
         /// </summary>
-        public static void ResetCity()
+        public static void ResetCastle()
         {
-
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 8; i++)
             {
                 Thread.Sleep(300);
                 MouseWheelDown();

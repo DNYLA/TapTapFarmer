@@ -4,194 +4,268 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace TapTapFarmer.Functions
 {
     class OpenObjects
     {
-        public static void OpenCity()
+        public static void OpenCastle()
         {
-            WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
-            for (int i = 0; i < 5; i++)
-            {
-                MouseHandler.MoveCursor(LocationConstants.HOME_BOTTOM_CITY, true);
-            }
+            //Get Attention of screen incase its not ontop
+            //Get Attention of screen incase its not ontop
+            WindowCapture.CaptureApplication("Nox");
 
-            MouseHandler.MoveCursor(LocationConstants.CITY_CURSOR_SCROLL);
-            MouseHandler.ResetCity();
+            //Opening up Castle And Resetting it
+            MouseHandler.MoveCursor(LocationConstants.HOME_BOTTOM_CASTLE_LOCATION, true);
+            Main.Sleep(1);
+            MouseHandler.MoveCursor(LocationConstants.CASTLE_SCROLL_LOCATION);
+            Main.Sleep(1);
+            MouseHandler.ResetCastle();
             Main.Sleep(2);
         }
 
-        public static void TopOfCity()
+        public static void OpenBlackSmith()
         {
-            for (int i = 0; i < 5; i++)
+            OpenCastle();
+
+            if (PixelChecker.SearchPixel(ColorConstants.CASTLE_BLACKSMITH_COLOR, out Point Location))
+            {
+                MouseHandler.MoveCursor(Location, true);
+            }
+            else
+            {
+                //TODO: Max 3 Retry for recalling function
+                OpenBlackSmith(); //Tries Again Until it is clicked
+            }
+        }
+
+        public static void OpenHeroChest()
+        {
+            OpenCastle();//
+
+            if (PixelChecker.SearchPixel(ColorConstants.CASTLE_HERO_CHEST_CHECK_COLOR, out Point Location))
+            {
+                MouseHandler.MoveCursor(LocationConstants.CASTLE_HERO_CHEST_LOCATION, true);
+            }
+            else
+            {
+                //TODO: Max 3 Retry for recalling function
+                OpenHeroChest(); //Tries Again Until it is clicked
+            }
+        }
+
+        public static void OpenAltar()
+        {
+            OpenCastle();
+
+            if (PixelChecker.SearchPixel(ColorConstants.CASTLE_ALTAR_COLOR, out Point Location))
+            {
+                MouseHandler.MoveCursor(Location, true);
+            }
+            else
+            {
+                //TODO: Max 3 Retry for recalling function
+                OpenAltar(); //Tries Again Until it is clicked
+            }
+        }
+
+        public static void OpenMarket()
+        {
+            OpenCastle();
+
+            if (PixelChecker.SearchPixel(ColorConstants.CASTLE_MARKET_CHECK_COLOR, out Point Location))
+            {
+                MouseHandler.MoveCursor(Location, true);
+            }
+            else
+            {
+                //TODO: Max 3 Retry for recalling function
+                OpenMarket(); //Tries Again Until it is clicked
+            }
+        }
+
+        public static void OpenCreationBag()
+        {
+            OpenCastle();
+
+            //Uses same Check as Above since its hard to check for creating bag since its an animation
+            if (PixelChecker.SearchPixel(ColorConstants.CASTLE_CREATION_BAG_COLOR, out Point Location))
+            {
+                MouseHandler.MoveCursor(Location, true);
+            }
+            else
+            {
+                //TODO: Max 3 Retry for recalling function
+                OpenMarket(); //Tries Again Until it is clicked
+            }
+        }
+
+        public static void OpenFortuneWheel()
+        {
+            OpenCastle();
+            MouseHandler.MouseWheelUp();
+            Main.Sleep(2);
+            MouseHandler.MouseWheelUp();
+
+            //Mouse Wheel Up doesnt always move the same amount upwards so searching for the pixel is used instead of a specific location
+            if (PixelChecker.SearchPixel(ColorConstants.CASTLE_FORTUNE_WHEEL_COLOR, out Point Location))
+            {
+                MouseHandler.MoveCursor(Location, true);
+            }
+            else
+            {
+                //TODO: Max 3 Retries before giving up
+                OpenFortuneWheel();
+            }
+        }
+        public static void OpenArena()
+        {
+            OpenCastle();
+            MouseHandler.MouseWheelUp();
+            Main.Sleep(1);
+            MouseHandler.MouseWheelUp();
+
+
+            //Mouse Wheel Up doesnt always move the same amount upwards so searching for the pixel is used instead of a specific location
+            if (PixelChecker.SearchPixel(ColorConstants.CASTLE_ARENA_COLOR, out Point Location))
+            {
+                MouseHandler.MoveCursor(Location, true);
+            }
+            else
+            {
+                //TODO: Max 3 Retries before giving up
+                OpenArena();
+            }
+        }
+
+        public static void OpenDoS()
+        {
+            OpenCastle();
+            MouseHandler.MouseWheelUp();
+            Main.Sleep(1);
+            MouseHandler.MouseWheelUp();
+            Main.Sleep(1);
+            MouseHandler.MouseWheelUp();
+
+
+            //Mouse Wheel Up doesnt always move the same amount upwards so searching for the pixel is used instead of a specific location
+            if (PixelChecker.SearchPixel(ColorConstants.CASTLE_DOS_COLOR, out Point Location))
+            {
+                MouseHandler.MoveCursor(Location, true);
+            }
+            else
+            {
+                //TODO: Max 3 Retries before giving up
+                OpenDoS();
+            }
+        }
+
+        public static void OpenMiracleEye()
+        {
+            OpenCastle();
+            MouseHandler.MouseWheelUp();
+            Main.Sleep(1);
+            MouseHandler.MouseWheelUp();
+            Main.Sleep(1);
+            MouseHandler.MouseWheelUp();
+
+
+            //Mouse Wheel Up doesnt always move the same amount upwards so searching for the pixel is used instead of a specific location
+            if (PixelChecker.SearchPixel(ColorConstants.CASTLE_MIRACLE_EYE_COLOR, out Point Location))
+            {
+                MouseHandler.MoveCursor(Location, true);
+            }
+            else
+            {
+                //TODO: Max 3 Retries before giving up
+                OpenMiracleEye();
+            }
+        }
+
+        public static void OpenTavern()
+        {
+            OpenCastle();
+            MouseHandler.MouseWheelUp();
+            Main.Sleep(1);
+            MouseHandler.MouseWheelUp();
+            Main.Sleep(1);
+            MouseHandler.MouseWheelUp();
+
+
+            //Mouse Wheel Up doesnt always move the same amount upwards so searching for the pixel is used instead of a specific location
+            if (PixelChecker.SearchPixel(ColorConstants.CASTLE_TAVERN_COLOR, out Point Location))
+            {
+                MouseHandler.MoveCursor(Location, true);
+            }
+            else
+            {
+                //TODO: Max 3 Retries before giving up
+                OpenTavern();
+            }
+        }
+
+        public static void OpenExpedition()
+        {
+            //No Need to call OpenCastle Since this is at top of castle
+
+            //Get Attention of screen incase its not ontop
+            WindowCapture.CaptureApplication("Nox");
+
+            //Opening up Castle
+            MouseHandler.MoveCursor(LocationConstants.HOME_BOTTOM_CASTLE_LOCATION, true);
+            MouseHandler.MoveCursor(LocationConstants.CASTLE_SCROLL_LOCATION);
+            Main.Sleep(2);
+
+            //Scrolling to top of castle
+            for (int i = 0; i < 8; i++)
             {
                 MouseHandler.MouseWheelUp();
                 Main.Sleep(1);
             }
-        }
 
-        public static void OpenItemCenter()
-        {
-            OpenCity();
 
-            if (PixelChecker.CheckPixelValue(LocationConstants.CITY_ITEMCENTER_BUTTON, ColorConstants.CITY_ITEMCENTER_COLOR))
+            //Search Pixel Method is better than Specific location Since Expedition is an animation
+            if (PixelChecker.SearchPixel(ColorConstants.CASTLE_EXPEDITION_COLOR, out Point Location))
             {
-                MouseHandler.MoveCursor(LocationConstants.CITY_ITEMCENTER_BUTTON, true);
+                MouseHandler.MoveCursor(Location, true);
             }
+            else
             {
-                //TODO: Max 3 retries before giving up || calling a different function
-                //OpenItemCenter();
+                //TODO: Max 3 Retries before giving up
+                OpenExpedition();
             }
         }
 
-        public static void OpenShop()
+        public static void OpenPlanetTrial()
         {
-            OpenCity();
+            //No Need to call OpenCastle Since this is at top of castle
 
-            if (PixelChecker.CheckPixelValue(LocationConstants.CITY_SHOP_BUTTON, ColorConstants.CITY_SHOP_COLOR))
+            //Get Attention of screen incase its not ontop
+            WindowCapture.CaptureApplication("Nox");
+
+            //Opening up Castle
+            MouseHandler.MoveCursor(LocationConstants.HOME_BOTTOM_CASTLE_LOCATION, true);
+            MouseHandler.MoveCursor(LocationConstants.CASTLE_SCROLL_LOCATION);
+            Main.Sleep(2);
+
+            //Scrolling to top of castle
+            for (int i = 0; i < 8; i++)
             {
-                MouseHandler.MoveCursor(LocationConstants.CITY_SHOP_BUTTON, true);
+                MouseHandler.MouseWheelUp();
+                Main.Sleep(1);
             }
+
+
+            //Search Pixel Method is better than Specific location Since Expedition is an animation
+            if (PixelChecker.SearchPixel(ColorConstants.CASTLE_PLANET_TRIAL_COLOR, out Point Location))
             {
-                //TODO: Max 3 retries before giving up || calling a different function
-                //OpenItemCenter();
+                MouseHandler.MoveCursor(Location, true);
             }
-        }
-
-        public static void OpenPM()
-        {
-            OpenCity();
-
-            if (PixelChecker.CheckPixelValue(LocationConstants.CITY_PMGARDEN_BUTTON, ColorConstants.CITY_PMGARDEN_COLOR))
+            else
             {
-                MouseHandler.MoveCursor(LocationConstants.CITY_PMGARDEN_BUTTON, true);
-            }
-            {
-                //TODO: Max 3 retries before giving up || calling a different function
-                //OpenItemCenter();
-            }
-        }
-
-        public static void OpenLinkTrade()
-        {
-            OpenCity();
-
-            if (PixelChecker.CheckPixelValue(LocationConstants.CITY_LINKTRADE_BUTTON, ColorConstants.CITY_LINKTRADE_COLOR))
-            {
-                MouseHandler.MoveCursor(LocationConstants.CITY_LINKTRADE_BUTTON, true);
-            }
-            {
-                //TODO: Max 3 retries before giving up || calling a different function
-                //OpenItemCenter();
-            }
-        }
-
-        public static void OpenGameCorner()
-        {
-            OpenCity();
-
-            TopOfCity();
-
-
-            if (PixelChecker.CheckPixelValue(LocationConstants.CITY_GAMECORNER_BUTTON, ColorConstants.CITY_GAMECORNER_COLOR))
-            {
-                MouseHandler.MoveCursor(LocationConstants.CITY_GAMECORNER_BUTTON, true);
-            }
-            {
-                //TODO: Max 3 retries before giving up || calling a different function
-                //OpenItemCenter();
-            }
-        }
-
-        public static void OpenDispatch()
-        {
-            OpenCity();
-
-            TopOfCity();
-
-            if (PixelChecker.CheckPixelValue(LocationConstants.CITY_DISPATCH_BUTTON, ColorConstants.CITY_DISPATCH_COLOR))
-            {
-                MouseHandler.MoveCursor(LocationConstants.CITY_DISPATCH_BUTTON, true);
-            }
-            {
-                //TODO: Max 3 retries before giving up || calling a different function
-                //OpenItemCenter();
-            }
-        }
-
-        public static void OpenSafariZone()
-        {
-            OpenCity();
-            TopOfCity();
-
-            if (PixelChecker.CheckPixelValue(LocationConstants.CITY_SAFARIZONE_BUTTON, ColorConstants.CITY_SAFARIZONE_COLOR))
-            {
-                MouseHandler.MoveCursor(LocationConstants.CITY_SAFARIZONE_BUTTON, true);
-            }
-            {
-                //TODO: Max 3 retries before giving up || calling a different function
-                //OpenItemCenter();
-            }
-        }
-
-        public static void OpenBattleLeague()
-        {
-            OpenCity();
-            TopOfCity();
-
-            if (PixelChecker.CheckPixelValue(LocationConstants.CITY_BATTLELEAGUE_BUTTON, ColorConstants.CITY_BATTLELEAGUE_COLOR))
-            {
-                MouseHandler.MoveCursor(LocationConstants.CITY_BATTLELEAGUE_BUTTON, true);
-            }
-            {
-                //TODO: Max 3 retries before giving up || calling a different function
-                //OpenItemCenter();
-            }
-        }
-
-        public static void OpenSkyPilar()
-        {
-            OpenCity();
-            TopOfCity();
-
-            if (PixelChecker.CheckPixelValue(LocationConstants.CITY_SKYPILAR_BUTTON, ColorConstants.CITY_SKYPILAR_COLOR))
-            {
-                MouseHandler.MoveCursor(LocationConstants.CITY_SKYPILAR_BUTTON, true);
-            }
-            {
-                //TODO: Max 3 retries before giving up || calling a different function
-                //OpenItemCenter();
-            }
-        }
-
-        public static void OpenBattleSubway()
-        {
-            OpenCity();
-            TopOfCity();
-
-            if (PixelChecker.CheckPixelValue(LocationConstants.CITY_BATTLESUBWAY_BUTTON, ColorConstants.CITY_BATTLESUBWAY_COLOR))
-            {
-                MouseHandler.MoveCursor(LocationConstants.CITY_BATTLESUBWAY_BUTTON, true);
-            }
-            {
-                //TODO: Max 3 retries before giving up || calling a different function
-                //OpenItemCenter();
-            }
-        }
-
-        public static void OpenGym()
-        {
-            OpenCity();
-            TopOfCity();
-
-            if (PixelChecker.CheckPixelValue(LocationConstants.CITY_GYM_BUTTON, ColorConstants.CITY_GYM_COLOR))
-            {
-                MouseHandler.MoveCursor(LocationConstants.CITY_GYM_BUTTON, true);
-            }
-            {
-                //TODO: Max 3 retries before giving up || calling a different function
-                //OpenItemCenter();
+                //TODO: Max 3 Retries before giving up
+                OpenPlanetTrial();
             }
         }
 

@@ -9,7 +9,7 @@ using TapTapFarmer.Constants;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.IO;
-using TapTapFarmer.Ocr;
+using TapTapFarmer.OCR;
 
 namespace TapTapFarmer.Functions
 {

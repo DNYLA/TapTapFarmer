@@ -8,6 +8,6 @@ namespace TapTapFarmer.Constants
 {
     class OtherConstants
     {
-        public static int ATACK_RETRY_AMOUNT = 3;
+        public static int ATTACK_RETRY_AMOUNT = 3;
     }
 }

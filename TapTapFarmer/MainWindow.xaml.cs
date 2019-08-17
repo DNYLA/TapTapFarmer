@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TapTapFarmer.Functions;
 
 namespace TapTapFarmer
 {
@@ -32,9 +36,9 @@ namespace TapTapFarmer
 
         private void TakeScreen_Click(object sender, RoutedEventArgs e)
         {
-            //GlobalVariables.GLOBAL_PROC_NAME = WindowCapture.GetProccessName();
-            //Bitmap BMP = WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
-            //BMP.Save("ScreenCap.bmp", ImageFormat.Bmp);
+            GlobalVariables.GLOBAL_PROC_NAME = WindowCapture.GetProccessName();
+            Bitmap BMP = WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+            BMP.Save("ScreenCap.bmp", ImageFormat.Bmp);
         }
 
         private void CheckSize_Click(object sender, RoutedEventArgs e)
@@ -65,8 +69,24 @@ namespace TapTapFarmer
 
         private void OpenObjectsTest_Click(object sender, RoutedEventArgs e)
         {
-            //OpenObjects.OpenDispatch();
-            //OpenObjects.OpenGym();
+            Thread OpenObjectsThread = new Thread(() =>
+            {
+                OpenObjects.OpenBlackSmith();
+                OpenObjects.OpenHeroChest();
+                OpenObjects.OpenAltar();
+                OpenObjects.OpenMarket();
+                OpenObjects.OpenCreationBag();
+                //OpenObjects.OpenFortuneWheel();
+                //OpenObjects.OpenArena();
+                //OpenObjects.OpenDoS();
+                //OpenObjects.OpenMiracleEye();
+                //OpenObjects.OpenTavern();
+                //OpenObjects.OpenExpedition();
+                //OpenObjects.OpenPlanetTrial();
+            });
+
+
+            OpenObjectsThread.Start();
         }
 
         private void ClaimDailyBonuses_Click(object sender, RoutedEventArgs e)

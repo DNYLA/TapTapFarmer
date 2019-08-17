@@ -16,29 +16,29 @@ namespace TapTapFarmer.Functions
          * the Attack Object when something goes wrong.
          */
 
-        public static void SkyPillarAttackHandler()
-        {
-            WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+        //public static void SkyPillarAttackHandler()
+        //{
+        //    WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
 
-            Main.ResetToHome();
+        //    Main.ResetToHome();
 
-            OpenObjects.OpenSkyPilar();
+        //    OpenObjects.OpenSkyPilar();
 
-            AttackSkyPillar();
+        //    AttackSkyPillar();
             
-        }
+        //}
 
-        public static void BattleLeagueAttackHandler()
-        {
-            WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+        //public static void BattleLeagueAttackHandler()
+        //{
+        //    WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
 
-            Main.ResetToHome();
+        //    Main.ResetToHome();
 
-            OpenObjects.OpenBattleLeague();
+        //    OpenObjects.OpenBattleLeague();
 
-            AttackBattleLeague();
+        //    AttackBattleLeague();
 
-        }
+        //}
 
         public static void AttackBattleLeague()
         {
@@ -48,16 +48,16 @@ namespace TapTapFarmer.Functions
 
         }
 
-        public static void GymAttackHandler()
-        {
-            WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+        //public static void GymAttackHandler()
+        //{
+        //    WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
 
-            Main.ResetToHome();
+        //    Main.ResetToHome();
 
-            OpenObjects.OpenGym();
+        //    OpenObjects.OpenGym();
 
-            GymAttack();
-        }
+        //    GymAttack();
+        //}
 
         public static void GymAttack()
         {
@@ -65,7 +65,7 @@ namespace TapTapFarmer.Functions
 
             while (AttackingPillar)
             {
-                for (int CurrentTry = 0; CurrentTry < OtherConstants.ATACK_RETRY_AMOUNT; CurrentTry++)
+                for (int CurrentTry = 0; CurrentTry < OtherConstants.ATTACK_RETRY_AMOUNT; CurrentTry++)
                 {
                     Main.Sleep(5);
 
@@ -76,7 +76,7 @@ namespace TapTapFarmer.Functions
                         string BattleTest = ImageToText.GymBattleCheck(out Location);
                         if (BattleTest != "battle")
                         {
-                            GymAttackHandler();
+                            //GymAttackHandler();
                         }
 
                         Main.Sleep(1);
@@ -229,7 +229,7 @@ namespace TapTapFarmer.Functions
 
             while (AttackingPillar)
             {
-                for (int CurrentTry = 0; CurrentTry < OtherConstants.ATACK_RETRY_AMOUNT; CurrentTry++)
+                for (int CurrentTry = 0; CurrentTry < OtherConstants.ATTACK_RETRY_AMOUNT; CurrentTry++)
                 {
                     Main.Sleep(2);
                     MouseHandler.MoveCursor(LocationConstants.SKYPILLAR_BATTLE_LOCATION, true);
