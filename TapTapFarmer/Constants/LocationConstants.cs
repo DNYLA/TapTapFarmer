@@ -83,9 +83,9 @@ namespace TapTapFarmer.Constants
         public static Point MAIL_CLAIM_BUTTON = new Point(275, 701);
 
         //Sky Pillar
-        public static Point SKYPILLAR_BATTLE_LOCATION = new Point(424, 676);
+        //public static Point SKYPILLAR_BATTLE_LOCATION = new Point(424, 676);
         //Gym
-        public static Point GYM_BATTLE_LOCATION = new Point(448, 578);
+        //public static Point GYM_BATTLE_LOCATION = new Point(448, 578);
 
         //Test
         public static Point GOLD_RED_CLAIM = new Point(525, 9);
@@ -100,7 +100,7 @@ namespace TapTapFarmer.Constants
         public static Point GLOBAL_BATTLE_TEAM_CONFIRM_LOCATION = new Point(266, 823);
         public static Point GLOBAL_BATTLE_SKIP = new Point(513, 826);
         public static Point GLOBAL_BATTLE_SKIP_CONFIRM = new Point(153, 566);
-        public static Point GLOBAL_BATTLE_FINISHED = new Point(314, 860);
+        public static Point GLOBAL_BATTLE_FINISHED = new Point(266, 806);
         public static Point GLOBAL_BATTLE_CHECK_WIN = new Point(252, 399);
 
 
@@ -161,5 +161,8 @@ namespace TapTapFarmer.Constants
 
         //Den Of Secrets
         public static Point DOS_BATTLE_LOCATION = new Point(479, 585);
+
+        //Sky Pillar
+        public static Point SKYPILLAR_BATTLE_LOCATION = new Point(414, 304);
     }
 }

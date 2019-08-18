@@ -112,7 +112,7 @@ namespace TapTapFarmer
         private void AttackHandler_Click(object sender, RoutedEventArgs e)
         {
 
-            Thread AttackThread = new Thread(Attack.DenOfSecretAttackHandler);
+            Thread AttackThread = new Thread(Attack.PlanetTrialAttackHandler);
             AttackThread.Start();
         }
 
@@ -135,7 +135,7 @@ namespace TapTapFarmer
         private void TextTest_Click(object sender, RoutedEventArgs e)
         {
 
-            //ImageToText.GetGoldAmount();
+            //ImageToText.GymBattleCheck();
         }
     }
 }

@@ -82,28 +82,9 @@ namespace TapTapFarmer.Functions
                 }
             }
         }
-#endregion
+        #endregion
 
-        //public static void BattleLeagueAttackHandler()
-        //{
-        //    WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
-
-        //    Main.ResetToHome();
-
-        //    OpenObjects.OpenBattleLeague();
-
-        //    AttackBattleLeague();
-
-        //}
-
-        public static void AttackBattleLeague()
-        {
-            //Similar to Main Menu Boss where it doesn't matter if you win or lose it just attacks the lowest number
-            string PlayerAttackCE = ImageToText.ImageText(TextConstants.LEAGUE_PLAYER_CE_START, TextConstants.LEAGUE_PLAYER_CE_SIZE, true, true, false, false);
-            int PlayerCE = Convert.ToInt32(PlayerAttackCE);
-
-        }
-
+        #region Planet Trial
         public static void PlanetTrialAttackHandler()
         {
             WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
@@ -127,12 +108,12 @@ namespace TapTapFarmer.Functions
 
                     var Location = new Point(0, 0);
 
-                    if (!PixelChecker.SearchPixel(ColorConstants.GYM_BATTLE, out Location))
+                    if (!PixelChecker.SearchPixel(ColorConstants.SKYPILLAR_BATTLE_COLOR, out Location))
                     {
                         string BattleTest = ImageToText.GymBattleCheck(out Location);
                         if (BattleTest != "battle")
                         {
-                            //GymAttackHandler();
+                            PlanetTrialAttackHandler();
                         }
 
                         Main.Sleep(1);
@@ -187,7 +168,9 @@ namespace TapTapFarmer.Functions
                 }
             }
         }
+        #endregion
 
+        #region Check Win
         /// <summary>
         /// This function is only called once battle is finished
         /// </summary>
@@ -215,6 +198,29 @@ namespace TapTapFarmer.Functions
                 return CheckWin(checkAmount + 1);
             }
         }
+        #endregion
+
+        #region Battle League
+        //public static void BattleLeagueAttackHandler()
+        //{
+        //    WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+
+        //    Main.ResetToHome();
+
+        //    OpenObjects.OpenBattleLeague();
+
+        //    AttackBattleLeague();
+
+        //}
+
+        public static void AttackBattleLeague()
+        {
+            //Similar to Main Menu Boss where it doesn't matter if you win or lose it just attacks the lowest number
+            string PlayerAttackCE = ImageToText.ImageText(TextConstants.LEAGUE_PLAYER_CE_START, TextConstants.LEAGUE_PLAYER_CE_SIZE, true, true, false, false);
+            int PlayerCE = Convert.ToInt32(PlayerAttackCE);
+
+        }
+        #endregion
 
         public static void AttackBoss()
         {

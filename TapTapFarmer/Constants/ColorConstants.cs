@@ -24,7 +24,7 @@ namespace TapTapFarmer.Constants
         public static Color HOME_BOSS_IDLE = Color.FromArgb(255, 186, 99);
 
         //Battles
-        public static Color GYM_BATTLE = Color.FromArgb(95, 232, 140);
+        //public static Color SKYPILLAR_BATTLE_LOCATION = Color.FromArgb(95, 232, 140);
 
         // Profile Colours
         public static Color PROFILE_CLAIM_REDINFO_COLOR = Color.FromArgb(253, 86, 60);
@@ -67,7 +67,7 @@ namespace TapTapFarmer.Constants
         //////
         ///
         //Close Button
-        public static Color GLOBAL_BATTLE_FINISHED = Color.FromArgb(242, 242, 255);
+        public static Color GLOBAL_BATTLE_FINISHED = Color.FromArgb(209, 240, 100);
         public static Color GLOBAL_ACCEPT_BUTTON = Color.FromArgb(255, 211, 23);
         public static Color GLOBAL_OK_COLOR = Color.FromArgb(159, 223, 46);
         public static Color GLOBAL_BATTLE_ACTIVE = Color.FromArgb(160, 227, 57);
@@ -125,5 +125,7 @@ namespace TapTapFarmer.Constants
         public static Color CASTLE_TAVERN_COLOR = Color.FromArgb(104, 64, 20);
         public static Color CASTLE_EXPEDITION_COLOR = Color.FromArgb(226, 170, 34);
         public static Color CASTLE_PLANET_TRIAL_COLOR = Color.FromArgb(196, 104, 40);
+
+        public static Color SKYPILLAR_BATTLE_COLOR = Color.FromArgb(210, 244, 124);
     }
 }

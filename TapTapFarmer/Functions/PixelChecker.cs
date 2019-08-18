@@ -38,6 +38,12 @@ namespace TapTapFarmer.Functions
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ColorToSearch"></param>
+        /// <param name="Location"></param>
+        /// <returns></returns>
         public static Boolean SearchPixel(Color ColorToSearch, out Point Location)
         {
             //Takes Screencap of NOX
