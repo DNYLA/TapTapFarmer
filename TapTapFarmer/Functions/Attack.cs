@@ -222,14 +222,23 @@ namespace TapTapFarmer.Functions
         }
         #endregion
 
-        public static void AttackBoss()
+        public static void HomeBossAttackHandler()
         {
-            //Reset To Home
             WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
 
             Main.ResetToHome();
 
+            HomeBossAttack();
+
+        }
+
+        public static void HomeBossAttack()
+        {
+            //Reset To Home
             WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+
+            Main.Sleep(3);
+
             string BossStatus = ImageToText.HomeBoss();
 
             if (BossStatus == "next")
@@ -238,50 +247,51 @@ namespace TapTapFarmer.Functions
                 Main.Sleep(2);
                 MouseHandler.MoveCursor(LocationConstants.HOME_BOSS_IDLE_NEXT, true);
                 Main.Sleep(1);
-                AttackBoss(); //Starts Idling On Next Stage Then Re-Calls Function to Check for updates status
+                HomeBossAttack(); //Starts Idling On Next Stage Then Re-Calls Function to Check for updates status
+            }
+            else if (BossStatus == "waves")
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    MouseHandler.MoveCursor(LocationConstants.GLOBAL_BOT_IDLE_CLICK, true);
+                }
+                HomeBossAttack(); //Clicks for 100 hundred times and then rechecks if waves have been defeated
             }
             else if (BossStatus == "battle")
             {
-                MouseHandler.MoveCursor(LocationConstants.HOME_BOSS_BATTLE_NEXT, true);
-                Main.Sleep(2);
-                MouseHandler.MoveCursor(LocationConstants.GLOBAL_ENEMYINFO_BATTLE_CONFIRM, true);
-                Main.Sleep(2);
-                MouseHandler.MoveCursor(LocationConstants.GLOBAL_TEAM_BATTLE_CONFIRM, true);
-                Main.Sleep(3);
-
-                MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_SKIP, true);
-                Main.Sleep(3);
-                MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_SKIP_CONFIRM, true);
-
-                bool BattleFinished = false;
-
-                while (!BattleFinished)
+                for (int CurrentTry = 0; CurrentTry < OtherConstants.ATTACK_RETRY_AMOUNT; CurrentTry++)
                 {
-                    //Sleep for 2 seconds and then Check
+                    MouseHandler.MoveCursor(LocationConstants.HOME_BOSS_BATTLE_NEXT, true);
                     Main.Sleep(2);
+                    MouseHandler.MoveCursor(LocationConstants.GLOBAL_ENEMYINFO_BATTLE_CONFIRM, true);
+                    Main.Sleep(2);
+                    MouseHandler.MoveCursor(LocationConstants.GLOBAL_TEAM_BATTLE_CONFIRM, true);
+                    Main.Sleep(3);
 
-                    if (PixelChecker.CheckPixelValue(LocationConstants.GLOBAL_BATTLE_FINISHED, ColorConstants.GLOBAL_BATTLE_FINISHED))
+                    Main.Sleep(15); //Sleeps for 15 seconds as player is unable to skip in Home Bosses
+
+                    bool BattleWon = CheckWin();
+
+                    if (BattleWon)
                     {
-                        BattleFinished = true;
+                        Main.Sleep(1);
+                        MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
+                        HomeBossAttack();
+                        break; //Not Sure if this is needed but ill just add it anyways
                     }
+                    else
+                    {
+                        Main.Sleep(1);
+                        MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
+                    }
+
+                    Console.WriteLine("The Outcome of the Battle Win: {0}", BattleWon);
                 }
-
-                bool BattleWon = CheckWin();
-
-                Console.WriteLine("The Outcome of the Battle Win: {0}", BattleWon);
-
-                MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
             }
-
-            ////Check if Button is Next Or Battle Boss
-            //if (PixelChecker.CheckPixelValue(LocationConstants.HOME_BOSS_BATTLE_NEXT, ColorConstants.HOME_BOSS_BATTLE_COLOR))
-            //{
-
-            //}
-
-            //Attack Boss
-            MouseHandler.MoveCursor(LocationConstants.HOME_BOSS_BATTLE_NEXT, true);
-
+            else //Sometimes there can be trouble if the Menu shows "waves" in this case we just try again
+            {
+                HomeBossAttackHandler();
+            }
         }
 
 

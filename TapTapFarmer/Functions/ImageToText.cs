@@ -85,7 +85,7 @@ namespace TapTapFarmer.Functions
         public static String RemoveWhiteSpace(string Text)
         {
             //Going To Add More Checks Later
-            Text = Text.Split()[0];
+            //Text = Text.Split()[0]; //No Need For Split as using .Contains to search a string is more useful which makes splitting obsolete
             return Text.Replace(" ", string.Empty);
         }
 
@@ -167,7 +167,7 @@ namespace TapTapFarmer.Functions
 
             BossStatus = GetOcrResponse(TextConstants.HOME_BOSS_START, TextConstants.HOME_BOSS_SIZE);
 
-            MessageBox.Show("The Finale: " + BossStatus);
+            Console.WriteLine("The Finale: " + BossStatus);
 
             //Main.Sleep(5);
 
@@ -175,22 +175,26 @@ namespace TapTapFarmer.Functions
             BossStatus = BossStatus.ToLower();
 
             BossStatus = RemoveWhiteSpace(BossStatus);
-            BossStatus = BossStatus.Split()[0];
+            //BossStatus = BossStatus.Split()[0]; //Using .Contains on a string now makes the use of removing exsess lines usless.
 
-
-            if (BossStatus.EndsWith("battle"))
+            if (BossStatus.Contains("boss"))
             {
-                BossStatus = "battle";
+                return "battle";
             }
 
-            if ((BossStatus != "battle") && (BossStatus != "next"))
+            if (BossStatus.Contains("waves"))
             {
-                Console.WriteLine(BossStatus);
-                Console.WriteLine("Problem Recalling Function");
-                HomeBoss(); //Sometimes The Animation on the Boss Button makes the text unreadable // Incorrect
+                return "waves";
             }
-            Console.WriteLine("Returning");
-            return BossStatus;
+
+            if (BossStatus.Contains("next"))
+            {
+                return "next";
+            }
+
+            Console.WriteLine(BossStatus);
+            Console.WriteLine("Problem With Conversion.");
+            return "Invalid";
         }
 
         /// <summary>

@@ -112,7 +112,7 @@ namespace TapTapFarmer
         private void AttackHandler_Click(object sender, RoutedEventArgs e)
         {
 
-            Thread AttackThread = new Thread(Attack.PlanetTrialAttackHandler);
+            Thread AttackThread = new Thread(Attack.HomeBossAttackHandler);
             AttackThread.Start();
         }
 
@@ -135,7 +135,7 @@ namespace TapTapFarmer
         private void TextTest_Click(object sender, RoutedEventArgs e)
         {
 
-            //ImageToText.GymBattleCheck();
+            ImageToText.HomeBoss();
         }
     }
 }
