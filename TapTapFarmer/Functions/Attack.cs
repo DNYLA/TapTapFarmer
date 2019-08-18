@@ -16,6 +16,7 @@ namespace TapTapFarmer.Functions
          * the Attack Object when something goes wrong.
          */
 
+        #region DenOfSecrets Attack
         public static void DenOfSecretAttackHandler()
         {
             WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
@@ -27,6 +28,61 @@ namespace TapTapFarmer.Functions
             AttackDenOfSecrets();
 
         }
+
+        public static void AttackDenOfSecrets()
+        {
+            bool AttackingDOS = true;
+
+            while (AttackingDOS)
+            {
+                for (int CurrentTry = 0; CurrentTry < OtherConstants.ATTACK_RETRY_AMOUNT; CurrentTry++)
+                {
+                    Main.Sleep(2);
+                    MouseHandler.MoveCursor(LocationConstants.DOS_BATTLE_LOCATION, true); //Maybe Add SearchPixel If Problems Occur
+                    Main.Sleep(1);
+                    MouseHandler.MoveCursor(LocationConstants.GLOBAL_ENEMYINFO_BATTLE_CONFIRM, true);
+                    Main.Sleep(1);
+                    MouseHandler.MoveCursor(LocationConstants.GLOBAL_TEAM_BATTLE_CONFIRM, true);
+                    Main.Sleep(3);
+
+                    MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_SKIP, true);
+                    Main.Sleep(3);
+                    MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_SKIP_CONFIRM, true);
+                    bool BattleFinished = false;
+
+                    while (!BattleFinished)
+                    {
+                        //Sleep for 2 seconds and then Check
+                        Main.Sleep(2);
+
+                        if (PixelChecker.CheckPixelValue(LocationConstants.GLOBAL_BATTLE_FINISHED, ColorConstants.GLOBAL_BATTLE_FINISHED))
+                        {
+                            BattleFinished = true;
+                        }
+                    }
+
+                    bool BattleWon = CheckWin();
+
+                    if (BattleWon)
+                    {
+                        Main.Sleep(1);
+                        MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
+                        break;
+                    }
+                    else
+                    {
+                        Main.Sleep(1);
+                        MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
+                        if (CurrentTry == 2)
+                        {
+                            AttackingDOS = false;
+                        }
+                    }
+
+                }
+            }
+        }
+#endregion
 
         //public static void BattleLeagueAttackHandler()
         //{
@@ -48,18 +104,18 @@ namespace TapTapFarmer.Functions
 
         }
 
-        //public static void GymAttackHandler()
-        //{
-        //    WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+        public static void PlanetTrialAttackHandler()
+        {
+            WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
 
-        //    Main.ResetToHome();
+            Main.ResetToHome();
 
-        //    OpenObjects.OpenGym();
+            OpenObjects.OpenPlanetTrial();
 
-        //    GymAttack();
-        //}
+            PlanetTrialAttack();
+        }
 
-        public static void GymAttack()
+        public static void PlanetTrialAttack()
         {
             bool AttackingPillar = true;
 
@@ -223,58 +279,6 @@ namespace TapTapFarmer.Functions
         }
 
 
-        public static void AttackDenOfSecrets()
-        {
-            bool AttackingDOS = true;
 
-            while (AttackingDOS)
-            {
-                for (int CurrentTry = 0; CurrentTry < OtherConstants.ATTACK_RETRY_AMOUNT; CurrentTry++)
-                {
-                    Main.Sleep(2);
-                    MouseHandler.MoveCursor(LocationConstants.DOS_BATTLE_LOCATION, true); //Maybe Add SearchPixel If Problems Occur
-                    Main.Sleep(1);
-                    MouseHandler.MoveCursor(LocationConstants.GLOBAL_ENEMYINFO_BATTLE_CONFIRM, true);
-                    Main.Sleep(1);
-                    MouseHandler.MoveCursor(LocationConstants.GLOBAL_TEAM_BATTLE_CONFIRM, true);
-                    Main.Sleep(3);
-
-                    MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_SKIP, true);
-                    Main.Sleep(3);
-                    MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_SKIP_CONFIRM, true);
-                    bool BattleFinished = false;
-
-                    while (!BattleFinished)
-                    {
-                        //Sleep for 2 seconds and then Check
-                        Main.Sleep(2);
-
-                        if (PixelChecker.CheckPixelValue(LocationConstants.GLOBAL_BATTLE_FINISHED, ColorConstants.GLOBAL_BATTLE_FINISHED))
-                        {
-                            BattleFinished = true;
-                        }
-                    }
-
-                    bool BattleWon = CheckWin();
-
-                    if (BattleWon)
-                    {
-                        Main.Sleep(1);
-                        MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
-                        break;
-                    }
-                    else
-                    {
-                        Main.Sleep(1);
-                        MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
-                        if (CurrentTry == 2)
-                        {
-                            AttackingDOS = false;
-                        }
-                    }
-
-                }
-            }
-        }
     }
 }

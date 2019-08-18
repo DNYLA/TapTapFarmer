@@ -101,7 +101,7 @@ namespace TapTapFarmer.Constants
         public static Point GLOBAL_BATTLE_SKIP = new Point(513, 826);
         public static Point GLOBAL_BATTLE_SKIP_CONFIRM = new Point(153, 566);
         public static Point GLOBAL_BATTLE_FINISHED = new Point(314, 860);
-        public static Point GLOBAL_BATTLE_CHECK_WIN = new Point(252, 252);
+        public static Point GLOBAL_BATTLE_CHECK_WIN = new Point(252, 399);
 
 
 
