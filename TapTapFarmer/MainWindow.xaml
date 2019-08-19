@@ -60,7 +60,7 @@
                                 <StackPanel Grid.Column="0">
                                     <Button x:Name="TakeScreen" Content="Take Screenshot" Click="TakeScreen_Click" Width="100" Height="25"/>
                                     <Button x:Name="CheckSize" Content="Check Size" Click="CheckSize_Click" Width="100" Height="25"/>
-                                    <Button x:Name="ResetToHome" Content="Reset To Home" Click="ResetToHome_Click" Width="100" Height="25"/>
+                                    <Button x:Name="GetPlayerDetails" Content="Get Player Details" Click="GetPlayerDetails_Click" Width="100" Height="25"/>
                                     <Button x:Name="ClaimDailyBonuses" Content="Claim Daily Bonuses" Click="ClaimDailyBonuses_Click" Width="100" Height="25"/>
                                     <Button x:Name="CheckAvievements" Content="Check Achievements" Click="CheckAvievements_Click" Width="100" Height="25"/>
                                     <Button x:Name="ScrollUp" Content="Scroll Up" Click="ScrollUp_Click" Width="100" Height="25"/>

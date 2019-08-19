@@ -15,11 +15,7 @@ namespace TapTapFarmer.Functions
 {
     class ImageToText
     {
-
-        public static string ImageText(Point Location, Size SizeOfRec, bool x, bool y, bool z, bool f)
-        {
-            return "z";
-        }
+        #region Main Method
         public static String GetOcrResponse(Point Location, Size SizeOfRec, string OCREngineMode = "1")
         {
             string APIResponse = string.Empty;
@@ -33,6 +29,9 @@ namespace TapTapFarmer.Functions
 
             return APIResponse;
         }
+        #endregion
+
+        #region Enemy CE
         public static int GetEnemyCE()
         {
 
@@ -81,14 +80,9 @@ namespace TapTapFarmer.Functions
 
             return 1;
         }
+        #endregion 
 
-        public static String RemoveWhiteSpace(string Text)
-        {
-            //Going To Add More Checks Later
-            //Text = Text.Split()[0]; //No Need For Split as using .Contains to search a string is more useful which makes splitting obsolete
-            return Text.Replace(" ", string.Empty);
-        }
-
+        #region Gym Battle
         public static String GymBattleCheck(out Point Section, int Multiplier = 0)
         {
             /*
@@ -142,9 +136,9 @@ namespace TapTapFarmer.Functions
 
             return boxText;
         }
+        #endregion
 
-       
-
+        #region Home Boss
         public static String HomeBoss()
         {
             WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
@@ -196,32 +190,28 @@ namespace TapTapFarmer.Functions
             Console.WriteLine("Problem With Conversion.");
             return "Invalid";
         }
+        #endregion
 
         /// <summary>
         /// Gets Level
         /// </summary>
         /// <returns></returns>
-        public static String GetPlayerLevel()
+        public static int GetLevel()
         {
-            //Requires Colour Space == Color
-            WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
-            Main.Sleep(1);
-            MouseHandler.MoveCursor(LocationConstants.GLOBAL_LEVEL_BAR, true);
-            Main.Sleep(1);
-            string playerLevel = GetOcrResponse(TextConstants.LEVEL_START, TextConstants.LEVEL_START_SIZE, "2");
-            MessageBox.Show(playerLevel);
+            string PlayerLevel = GetOcrResponse(TextConstants.LEVEL_START, TextConstants.HOME_LEVEL_SIZE);
+            Console.WriteLine(PlayerLevel);
+            PlayerLevel = RemoveWhiteSpace(PlayerLevel, false);
+            PlayerLevel = PlayerLevel.Split()[0];
+            Console.WriteLine(PlayerLevel);
 
-            return playerLevel;
-        }
+            if (PlayerLevel.Contains("Level "))
+            {
+                PlayerLevel = PlayerLevel.TrimStart("Level ".ToCharArray());
+            }
 
-        public static int GetGemAmount()
-        {
-            //Requires ColorSpace == GrayScale
-            string GemAmount = GetOcrResponse(TextConstants.GEM_START, TextConstants.GEM_START_SIZE, "2");
-            MessageBox.Show(GemAmount);
             try
             {
-                return Convert.ToInt32(GemAmount);
+                return Convert.ToInt32(PlayerLevel.Substring(0, PlayerLevel.Length));
             }
             catch
             {
@@ -229,14 +219,46 @@ namespace TapTapFarmer.Functions
             }
         }
 
-        public static int GetGoldAmount()
+        public static int GetLevelAdvanced()
         {
-            //Requires ColorSpace == GrayScale || Color (This Means a check needs to be added to see if the value is -1 retry with ColorSpace == Color.
-            string MoneyText = GetOcrResponse(TextConstants.GOLD_START, TextConstants.GOLD_START_SIZE, "2");
-            MoneyText = MoneyText.ToLower();
-            MessageBox.Show(MoneyText);
+            string PlayerLevel = GetOcrResponse(TextConstants.LEVEL_ADVANCED_START, TextConstants.HOME_LEVEL_ADVANCED_SIZE);
+            PlayerLevel = RemoveWhiteSpace(PlayerLevel, true);
+            Console.WriteLine(PlayerLevel);
 
+            try
+            {
+                return Convert.ToInt32(PlayerLevel.Substring(0, PlayerLevel.Length));
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        public static int GetGemAmount()
+        {
+            string GemAmount = GetOcrResponse(TextConstants.GEM_START, TextConstants.GLOBAL_CURRENCY_SIZE);
+            GemAmount = RemoveWhiteSpace(GemAmount, true);
+
+            try
+            {
+                return Convert.ToInt32(GemAmount.Substring(0, GemAmount.Length));
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        public static int GetMoneyAmount()
+        {
+            string MoneyText = GetOcrResponse(TextConstants.GOLD_START, TextConstants.GLOBAL_CURRENCY_SIZE);
+            MoneyText = MoneyText.ToLower();
+            MoneyText = RemoveWhiteSpace(MoneyText, true);
+
+            int MoneyLen = MoneyText.Length;
             int MoneyValue;
+
 
             if (MoneyText.EndsWith("k"))
             {
@@ -250,8 +272,60 @@ namespace TapTapFarmer.Functions
             {
                 MoneyValue = StringToInt(MoneyText);
             }
-            MessageBox.Show(MoneyValue.ToString());
+
             return MoneyValue;
+        }
+
+
+        public static int GetPurpleSoulAmount()
+        {
+            string PurpleSoulText = GetOcrResponse(TextConstants.ALTAR_PURPLE_SOUL_START, TextConstants.ALTAR_SOUL_SIZE);
+            PurpleSoulText = PurpleSoulText.ToLower();
+            PurpleSoulText = RemoveWhiteSpace(PurpleSoulText, true);
+
+            int PurpleSoulValue;
+
+            if (PurpleSoulText.EndsWith("k"))
+            {
+                PurpleSoulValue = MultiplyValue(PurpleSoulText, 1000);
+            }
+            else if (PurpleSoulText.EndsWith("m"))
+            {
+                PurpleSoulValue = MultiplyValue(PurpleSoulText, 1000000);
+            }
+            else
+            {
+
+                PurpleSoulValue = StringToInt(PurpleSoulText);
+            }
+
+            return PurpleSoulValue;
+        }
+
+        public static int GetGoldenSoulAmount()
+        {
+            string GoldenSoulText = GetOcrResponse(TextConstants.ALTAR_GOLDEN_SOUL_START, TextConstants.ALTAR_SOUL_SIZE);
+            GoldenSoulText = RemoveWhiteSpace(GoldenSoulText, true);
+
+            try
+            {
+                return Convert.ToInt32(GoldenSoulText.Substring(0, GoldenSoulText.Length));
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        #region Helper Methods
+        public static String RemoveWhiteSpace(string Text, bool RemoveExtraLines = false)
+        {
+            //Going To Add More Checks Later
+            if (RemoveExtraLines)
+            {
+                Text = Text.Split()[0];
+            }
+            return Text.Replace(" ", string.Empty);
         }
 
         public static int StringToInt(string value)
@@ -277,5 +351,6 @@ namespace TapTapFarmer.Functions
                 return -1;
             }
         }
+        #endregion
     }
 }

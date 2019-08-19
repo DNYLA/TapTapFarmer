@@ -62,11 +62,6 @@ namespace TapTapFarmer
             //UpdatePlayerInfo.MailCheck();
         }
 
-        private void ResetToHome_Click(object sender, RoutedEventArgs e)
-        {
-            //Main.ResetToHome();
-        }
-
         private void OpenObjectsTest_Click(object sender, RoutedEventArgs e)
         {
             Thread OpenObjectsThread = new Thread(() =>
@@ -136,6 +131,11 @@ namespace TapTapFarmer
         {
 
             ImageToText.HomeBoss();
+        }
+
+        private void GetPlayerDetails_Click(object sender, RoutedEventArgs e)
+        {
+            UpdatePlayerInfo.GetCurrecyDetails();
         }
     }
 }
