@@ -38,7 +38,7 @@ namespace TapTapFarmer.Constants
 
         //Home Bottom Colours
         public static Color HOME_BOTTOM_BATTLE_COLOR = Color.FromArgb(252, 45, 63);
-        public static Color HOME_BOTTOM_BATTLE_ACTIVE_COLOR = Color.FromArgb(82, 226, 235);
+        //public static Color HOME_BOTTOM_BATTLE_ACTIVE_COLOR = Color.FromArgb(82, 226, 235);
 
         //City Constants
         public static Color CITY_ITEMCENTER_COLOR = Color.FromArgb(254, 252, 247);
@@ -93,6 +93,7 @@ namespace TapTapFarmer.Constants
 
         //Home Bottom
         public static Color HOME_BOTTOM_ACTIVE_BATTLE_COLOR = Color.FromArgb(223, 232, 242);
+        public static Color HOME_BOTTOM_BATTLE_ACTIVE_COLOR = Color.FromArgb(241, 248, 254);
 
         //Hero Menu
         public static Color HEROES_HERO_BUTTON_COLOR = Color.FromArgb(254, 224, 50);

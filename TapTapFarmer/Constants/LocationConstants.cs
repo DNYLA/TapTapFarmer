@@ -56,7 +56,7 @@ namespace TapTapFarmer.Constants
 
         //Home Bottom Buttons
         public static Point HOME_BOTTOM_BATTLE = new Point(273, 954);
-        public static Point HOME_BOTTOM_BATTLE_ACTIVE = new Point(317, 235);
+        //public static Point HOME_BOTTOM_BATTLE_ACTIVE = new Point(317, 235);
         public static Point HOME_BOTTOM_CITY = new Point(399, 944);
 
         //Menu Strip Buttons
@@ -108,6 +108,7 @@ namespace TapTapFarmer.Constants
         //Home Screen Buttons
         public static Point HOME_MAINMENU_LOCATION = new Point(136, 95);
         public static Point HOME_BOSS_BATTLE_LOCATION = new Point(332, 167);
+        public static Point HOME_BOTTOM_BATTLE_ACTIVE = new Point(289, 869);
         public static Point HOME_NEXT_BATTLE_LOCATION = new Point(311, 186);
         public static Point HOME_NEXT_SELECT_BATTLE_LOCATION = new Point(313, 679);
 

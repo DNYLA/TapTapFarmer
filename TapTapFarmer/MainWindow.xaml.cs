@@ -59,7 +59,7 @@ namespace TapTapFarmer
 
         private void MailCheck_Click(object sender, RoutedEventArgs e)
         {
-            //UpdatePlayerInfo.MailCheck();
+            UpdatePlayerInfo.MailEmpty();
         }
 
         private void OpenObjectsTest_Click(object sender, RoutedEventArgs e)
