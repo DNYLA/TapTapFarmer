@@ -59,7 +59,8 @@ namespace TapTapFarmer
 
         private void MailCheck_Click(object sender, RoutedEventArgs e)
         {
-            UpdatePlayerInfo.MailEmpty();
+            UpdatePlayerInfo.CheckMenu();
+            UpdatePlayerInfo.UpdateMenu();
         }
 
         private void OpenObjectsTest_Click(object sender, RoutedEventArgs e)
@@ -107,7 +108,7 @@ namespace TapTapFarmer
         private void AttackHandler_Click(object sender, RoutedEventArgs e)
         {
 
-            Thread AttackThread = new Thread(Attack.HomeBossAttackHandler);
+            Thread AttackThread = new Thread(Attack.DenOfSecretAttackHandler);
             AttackThread.Start();
         }
 
@@ -135,7 +136,7 @@ namespace TapTapFarmer
 
         private void GetPlayerDetails_Click(object sender, RoutedEventArgs e)
         {
-            UpdatePlayerInfo.GetCurrecyDetails();
+            UpdatePlayerInfo.ClaimEvents();
         }
     }
 }

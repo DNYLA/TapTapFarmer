@@ -84,6 +84,49 @@ namespace TapTapFarmer.Functions
         }
         #endregion
 
+        #region Events Challenge
+        public static Boolean EventsAttack()
+        {
+            Main.Sleep(1);
+            MouseHandler.MoveCursor(LocationConstants.GLOBAL_ENEMYINFO_BATTLE_CONFIRM, true);
+            Main.Sleep(1);
+            MouseHandler.MoveCursor(LocationConstants.GLOBAL_TEAM_BATTLE_CONFIRM, true);
+            Main.Sleep(3);
+
+            MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_SKIP, true);
+            Main.Sleep(1);
+            MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_SKIP_CONFIRM, true);
+            bool BattleFinished = false;
+
+            while (!BattleFinished)
+            {
+                //Sleep for 2 seconds and then Check
+                Main.Sleep(2);
+
+                if (PixelChecker.CheckPixelValue(LocationConstants.GLOBAL_BATTLE_FINISHED, ColorConstants.GLOBAL_BATTLE_FINISHED))
+                {
+                    BattleFinished = true;
+                }
+            }
+
+            bool BattleWon = CheckWin();
+
+            if (BattleWon)
+            {
+                Main.Sleep(1);
+                MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
+                return true;
+            }
+            else
+            {
+                Main.Sleep(1);
+                MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
+                return false;
+            }
+      
+        }
+        #endregion
+
         #region Planet Trial
         public static void PlanetTrialAttackHandler()
         {

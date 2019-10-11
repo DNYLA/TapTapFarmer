@@ -36,6 +36,8 @@ namespace TapTapFarmer.Constants
         public static Size HOME_LEVEL_ADVANCED_SIZE = new Size(50, 37);
         public static Size ALTAR_SOUL_SIZE = new Size(68, 23);
 
+        public static Point EVENT_CHALLENGE_START = new Point(21, 761);
 
+        public static Point EVENT_CHALLENGE_SIZE = new Point(500, 70);
     }
 }

@@ -101,10 +101,25 @@ namespace TapTapFarmer.Constants
 
         //DOS
 
+        //Menu
+        public static Color MENU_QUEST_RED = Color.FromArgb(255, 73, 21);
+        public static Color MENU_EVENTS_GREEN = Color.FromArgb(25, 230, 80);
+        public static Color MENU_EVENTS_RED = Color.FromArgb(255, 72, 19);
+        public static Color MENU_FRIENDS_RED = Color.FromArgb(255, 70, 17);
+        public static Color MENU_FAMILIAR_GREEN = Color.FromArgb(28, 234, 82);
+        public static Color MENU_MAIL_RED = Color.FromArgb(255, 71, 19);
+
+        //Friends Menu
+        public static Color FRIENDS_LIST_RED = Color.FromArgb(255,70,18);
+        public static Color FRIENDS_CLAIM_SEND_RED = Color.FromArgb(255,70,17);
+        public static Color FRIENDS_REQUESTS_GREEN = Color.FromArgb(23,227,79);
+        public static Color FRIENDS_COOP_RED = Color.FromArgb(254,68,13);
+        public static Color FRIENDS_SCOUT_RED = Color.FromArgb(255,71,19);
+
 
         //Mail Menu
         public static Color MAIL_ACCEPT = Color.FromArgb(160, 227, 57); //Change to Global Battle Active
-        public static Color MAIL_DELETE = Color.FromArgb(255, 60, 38);
+        public static Color MAIL_DELETE = Color.FromArgb(255, 113, 79);
 
         //QUEST CONSTANTS
         public static Color QUEST_INACTIVE_COLOR = Color.FromArgb(203, 203, 203);
@@ -126,6 +141,18 @@ namespace TapTapFarmer.Constants
         public static Color CASTLE_TAVERN_COLOR = Color.FromArgb(104, 64, 20);
         public static Color CASTLE_EXPEDITION_COLOR = Color.FromArgb(226, 170, 34);
         public static Color CASTLE_PLANET_TRIAL_COLOR = Color.FromArgb(196, 104, 40);
+
+
+        //Events
+        public static Color EVENTS_CLAIM_1 = Color.FromArgb(37, 245, 91);
+        public static Color EVENTS_CLAIM_2 = Color.FromArgb(21, 224, 77);
+        public static Color EVENTS_CLAIM_3 = Color.FromArgb(17, 217, 72);
+
+        public static Color EVENTS_ATTACK_1 = Color.FromArgb(252, 67, 13);
+        public static Color EVENTS_ATTACK_2 = Color.FromArgb(252, 67, 13);
+        public static Color EVENTS_ATTACK_3 = Color.FromArgb(252, 67, 13);
+
+        public static Color EVENTS_CHALLENGE = Color.FromArgb(210, 244, 124);
 
         public static Color SKYPILLAR_BATTLE_COLOR = Color.FromArgb(210, 244, 124);
     }

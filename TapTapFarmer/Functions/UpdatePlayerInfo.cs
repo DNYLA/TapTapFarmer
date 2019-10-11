@@ -5,56 +5,56 @@ using System.Text;
 using System.Threading.Tasks;
 using TapTapFarmer.Constants;
 using System.Threading;
+using System.Drawing;
+
 namespace TapTapFarmer.Functions
 {
     class UpdatePlayerInfo
     {
-        //public static Boolean[] CheckMenu()
-        //{
-        //    WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
-        //    Reset To Main Menu
-        //    Main.ResetToHome();
+        public static void CheckMenu()
+        {
+            WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+            //Reset To Main Menu
+            Main.ResetToHome();
 
-        //    Open Menu First
-        //    MouseHandler.MoveCursor(LocationConstants.HOME_MENU_BUTTON, true);
+            //Open Menu First
+            MouseHandler.MoveCursor(LocationConstants.HOME_MENU_BUTTON, true);
 
-        //    Setting Up Boolean Var
-        //    Boolean[] NotifAvailable = new Boolean[7];
+            //Setting Up Boolean Var
+            Boolean[] NotifAvailable = new Boolean[7];
 
-        //    Take New Screenshot
-        //    WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+            //Take New Screenshot
+            WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+            
+            //Check If Anything on the menu needs to be completed (Keep In Mind Quests Needs a deeper Check)
+            GlobalVariables.QUESTS_FINISHED = !PixelChecker.CheckPixelValue(LocationConstants.MENU_QUEST, ColorConstants.MENU_QUEST_RED); //Requires more checks
+
+            //Events Require Two Checks
+            if (PixelChecker.CheckPixelValue(LocationConstants.MENU_EVENTS, ColorConstants.MENU_EVENTS_GREEN) || PixelChecker.CheckPixelValue(LocationConstants.MENU_EVENTS, ColorConstants.MENU_EVENTS_RED))
+            {
+                GlobalVariables.EVENTS_COMPLETED = false;
+            }
 
 
-        //    Training Center
-        //    NotifAvailable[0] = false;
+            GlobalVariables.HEARTS_SENT = !PixelChecker.CheckPixelValue(LocationConstants.MENU_FRIENDS, ColorConstants.MENU_FRIENDS_RED);
+            GlobalVariables.UPGRADED_FAMILIAR = !PixelChecker.CheckPixelValue(LocationConstants.MENU_FAMILIAR, ColorConstants.MENU_FAMILIAR_GREEN);
+            GlobalVariables.MAIL_EMPTY = !PixelChecker.CheckPixelValue(LocationConstants.MENU_MAILS, ColorConstants.MENU_MAIL_RED);
 
-        //    Friends
-        //   NotifAvailable[1] = false;
+            Console.WriteLine(GlobalVariables.QUESTS_FINISHED);
+            Console.WriteLine(GlobalVariables.EVENTS_COMPLETED);
+            Console.WriteLine(GlobalVariables.HEARTS_SENT);
+            Console.WriteLine(GlobalVariables.UPGRADED_FAMILIAR);
+            Console.WriteLine(GlobalVariables.MAIL_EMPTY);
+        }
 
-        //    Trainer
-        //   NotifAvailable[2] = false;
-
-        //    Mail
-        //   NotifAvailable[3] = MailCheck();
-
-        //    Claim Daily Bonus
-        //   NotifAvailable[4] = ClaimDailyBonuses();
-
-        //    Check For Shards
-        //   NotifAvailable[5] = CheckShards();
-
-        //    Check Contents of Crate
-        //    NotifAvailable[6] = CheckCrate();
-
-        //    Check Achievements
-        //    NotifAvailable[7] = CheckAchievements();
-
-        //    Boolean[] B = new Boolean[3];
-
-        //    B[0] = true;
-
-        //    return B;
-        //}
+        public static void UpdateMenu()
+        {
+            //Easiest Think on List is To Claim Mail so ill do it first
+            if (GlobalVariables.MAIL_EMPTY == false)
+            {
+                ClaimMail();
+            }
+        }
 
         public static int[] GetCurrecyDetails()
         {
@@ -86,17 +86,154 @@ namespace TapTapFarmer.Functions
             return CurrencyArray;
         }
 
-        public static Boolean EventsCompleted()
+        public static Boolean ClaimFriends()
         {
-            MouseHandler.MoveCursor(LocationConstants.HOME_MAINMENU_LOCATION, true);
-            //MouseHandler.MoveCursor(LocationConstants., true);
+            WindowCapture.CaptureApplication("Nox");
 
-            return PixelChecker.CheckPixelValue(LocationConstants.QUEST_CLAIMAIN_LOCATION, ColorConstants.QUEST_INACTIVE_COLOR);
+            if (!Main.ResetToHome())
+            {
+                Console.WriteLine("Not Home");
+                return false;
+            }
+
+            Thread.Sleep(500);
+            MouseHandler.MoveCursor(LocationConstants.HOME_MAINMENU_LOCATION, true);
+            Main.Sleep(1);
+            
+            if (!PixelChecker.CheckPixelValue(LocationConstants.MENU_FRIENDS, ColorConstants.MENU_FRIENDS_RED))
+            {
+                Console.WriteLine("Its Not Red");
+                return true;
+            }
+
+            Main.Sleep(1);
+
+            MouseHandler.MoveCursor(LocationConstants.MENU_FRIENDS, true);
+            Main.Sleep(1);
+
+            if (PixelChecker.CheckPixelValue(LocationConstants.FRIENDS_LIST, ColorConstants.FRIENDS_LIST_RED))
+            {
+                MouseHandler.MoveCursor(LocationConstants.FRIENDS_LIST, true);
+                Main.Sleep(1);
+                MouseHandler.MoveCursor(LocationConstants.FRIENDS_CLAIM_SEND, true);
+                Main.Sleep(1);
+            }
+
+            if (PixelChecker.CheckPixelValue(LocationConstants.FRIENDS_REQUESTS, ColorConstants.FRIENDS_REQUESTS_GREEN))
+            {
+                //Do Nothing for now
+
+            }
+
+            if (PixelChecker.CheckPixelValue(LocationConstants.FRIENDS_COOP, ColorConstants.FRIENDS_COOP_RED))
+            {
+                MouseHandler.MoveCursor(LocationConstants.FRIENDS_COOP, true);
+                Main.Sleep(1);
+                MouseHandler.MoveCursor(LocationConstants.FRIENDS_SCOUT, true);
+                Main.Sleep(1);
+            }
+
+            Main.ResetToHome();
+
+            return true;
         }
 
-        public static Boolean MailEmpty()
+        public static Boolean ClaimEvents()
         {
-            WindowCapture.CaptureApplication("Nox");//
+            WindowCapture.CaptureApplication("Nox");
+
+            if (!Main.ResetToHome())
+            {
+                Console.WriteLine("Not Home");
+                return false;
+            }
+
+            Thread.Sleep(500);
+            MouseHandler.MoveCursor(LocationConstants.HOME_MAINMENU_LOCATION, true);
+            Main.Sleep(1);
+
+            if (!PixelChecker.CheckPixelValue(LocationConstants.MENU_EVENTS, ColorConstants.MENU_EVENTS_GREEN) && !PixelChecker.CheckPixelValue(LocationConstants.MENU_EVENTS, ColorConstants.MENU_EVENTS_RED))
+            {
+                Console.WriteLine("Its Not Green/Red");
+                return true;
+            }
+
+            MouseHandler.MoveCursor(LocationConstants.MENU_EVENTS, true);
+
+            #region Attack Event
+            //Check if an attack is available
+            if (PixelChecker.CheckPixelValue(LocationConstants.EVENTS_ATTACK_1, ColorConstants.EVENTS_ATTACK_1))
+            {
+
+            }
+
+            if (PixelChecker.CheckPixelValue(LocationConstants.EVENTS_ATTACK_2, ColorConstants.EVENTS_ATTACK_2))
+            {
+                MouseHandler.MoveCursor(LocationConstants.EVENTS_ATTACK_2, true);
+
+                int TempX = LocationConstants.EVENTS_CHALLENGE_BOTTOM.X;
+                int TempY = LocationConstants.EVENTS_CHALLENGE_BOTTOM.Y;
+                var TempLoc = new Point(TempX, TempY);
+                int CheckAmount = 0;
+                bool LocFound = false;
+                //90 Difference
+                while (!LocFound) //PixelChecker.CheckPixelValue(TempLoc, ColorConstants.EVENTS_CHALLENGE))
+                {
+                    Console.WriteLine(TempLoc.ToString());
+                    if (PixelChecker.CheckPixelValue(TempLoc, ColorConstants.EVENTS_CHALLENGE))
+                    {
+                        LocFound = true;
+                    }
+                    TempY = TempY - 93;
+                    TempLoc = new Point(TempX, TempY);
+                    CheckAmount++;
+                    if (CheckAmount == 7)
+                    {
+                        break;
+                    }
+                }
+
+                if (PixelChecker.CheckPixelValue(TempLoc, ColorConstants.EVENTS_CHALLENGE))
+                {
+                    Console.WriteLine("You Are Throug");
+                    MouseHandler.MoveCursor(TempLoc, true);
+                    bool BattleWon = Attack.EventsAttack();
+                    Console.WriteLine("Result of Battle: " + BattleWon.ToString());
+                }
+            }
+
+            if (PixelChecker.CheckPixelValue(LocationConstants.EVENTS_ATTACK_3, ColorConstants.EVENTS_ATTACK_3))
+            {
+
+            }
+            #endregion
+
+            #region Claim Events
+            while (PixelChecker.CheckPixelValue(LocationConstants.EVENTS_CLAIM_1, ColorConstants.EVENTS_CLAIM_1))
+            {
+                MouseHandler.MoveCursor(LocationConstants.EVENTS_CLAIM_1, true);
+            }
+
+            while (PixelChecker.CheckPixelValue(LocationConstants.EVENTS_CLAIM_2, ColorConstants.EVENTS_CLAIM_2))
+            {
+                MouseHandler.MoveCursor(LocationConstants.EVENTS_CLAIM_2, true);
+            }
+
+            while (PixelChecker.CheckPixelValue(LocationConstants.EVENTS_CLAIM_3, ColorConstants.EVENTS_CLAIM_3))
+            {
+                MouseHandler.MoveCursor(LocationConstants.EVENTS_CLAIM_3, true);
+            }
+
+            #endregion
+
+            Main.ResetToHome();
+
+            return true;
+        }
+
+        public static Boolean ClaimMail()
+        {
+            WindowCapture.CaptureApplication("Nox");
 
             if (!Main.ResetToHome())
             {
@@ -105,10 +242,12 @@ namespace TapTapFarmer.Functions
 
             Thread.Sleep(500);
             MouseHandler.MoveCursor(LocationConstants.HOME_MAINMENU_LOCATION, true);
-            if (PixelChecker.CheckPixelValue(LocationConstants.MENU_MAIL_LOCATION, ColorConstants.MENU_REDINFO_MAIL_COLOR))
+            Main.Sleep(3);
+            if (PixelChecker.CheckPixelValue(LocationConstants.MENU_MAILS, ColorConstants.MENU_MAIL_RED))
             {
-                MouseHandler.MoveCursor(LocationConstants.MENU_MAIL_LOCATION, true);
-                Thread.Sleep(700);
+                Console.WriteLine("Its Red");
+                MouseHandler.MoveCursor(LocationConstants.MENU_MAILS, true);
+                Main.Sleep(1);
                 MouseHandler.MoveCursor(LocationConstants.MAIL_RECEIVEALL, true);
 
                 while (PixelChecker.CheckPixelValue(LocationConstants.MAIL_RECEIVE, ColorConstants.MAIL_DELETE))

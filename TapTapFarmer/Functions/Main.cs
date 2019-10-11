@@ -27,7 +27,6 @@ namespace TapTapFarmer.Functions
         /// Function that resets the game back to the main Menu
         /// </summary>
         /// <returns></returns>
-
         public static Boolean ResetToHome()
         {
             WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);

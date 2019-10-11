@@ -31,6 +31,7 @@ namespace TapTapFarmer.Functions
         }
         #endregion
 
+        #region Battle Methods
         #region Enemy CE
         public static int GetEnemyCE()
         {
@@ -191,7 +192,10 @@ namespace TapTapFarmer.Functions
             return "Invalid";
         }
         #endregion
+        #endregion
 
+        #region Player Info Methods
+        #region Level Method (Normal)
         /// <summary>
         /// Gets Level
         /// </summary>
@@ -218,7 +222,9 @@ namespace TapTapFarmer.Functions
                 return -1;
             }
         }
+        #endregion
 
+        #region Level Method (Advanced)
         public static int GetLevelAdvanced()
         {
             string PlayerLevel = GetOcrResponse(TextConstants.LEVEL_ADVANCED_START, TextConstants.HOME_LEVEL_ADVANCED_SIZE);
@@ -234,7 +240,9 @@ namespace TapTapFarmer.Functions
                 return -1;
             }
         }
+        #endregion
 
+        #region Gem Method
         public static int GetGemAmount()
         {
             string GemAmount = GetOcrResponse(TextConstants.GEM_START, TextConstants.GLOBAL_CURRENCY_SIZE);
@@ -249,7 +257,9 @@ namespace TapTapFarmer.Functions
                 return -1;
             }
         }
+        #endregion
 
+        #region Money Method
         public static int GetMoneyAmount()
         {
             string MoneyText = GetOcrResponse(TextConstants.GOLD_START, TextConstants.GLOBAL_CURRENCY_SIZE);
@@ -275,8 +285,9 @@ namespace TapTapFarmer.Functions
 
             return MoneyValue;
         }
+        #endregion
 
-
+        #region Purple Soul Method
         public static int GetPurpleSoulAmount()
         {
             string PurpleSoulText = GetOcrResponse(TextConstants.ALTAR_PURPLE_SOUL_START, TextConstants.ALTAR_SOUL_SIZE);
@@ -301,7 +312,9 @@ namespace TapTapFarmer.Functions
 
             return PurpleSoulValue;
         }
+        #endregion
 
+        #region Golden Soul Method
         public static int GetGoldenSoulAmount()
         {
             string GoldenSoulText = GetOcrResponse(TextConstants.ALTAR_GOLDEN_SOUL_START, TextConstants.ALTAR_SOUL_SIZE);
@@ -316,6 +329,9 @@ namespace TapTapFarmer.Functions
                 return -1;
             }
         }
+        #endregion
+
+        #endregion
 
         #region Helper Methods
         public static String RemoveWhiteSpace(string Text, bool RemoveExtraLines = false)

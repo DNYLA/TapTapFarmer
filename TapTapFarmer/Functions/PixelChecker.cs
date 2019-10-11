@@ -73,6 +73,21 @@ namespace TapTapFarmer.Functions
             return false;
         }
 
+        public static Bitmap ReSizeImage(Point Location, Size SizeOfRec)
+        {
+            Rectangle section = new Rectangle(Location, SizeOfRec);
+
+            Bitmap ScreenCap = WindowCapture.CaptureApplication("Nox");
+            Bitmap ExtractedPart = new Bitmap(section.Width, section.Height);
+
+            Graphics G = Graphics.FromImage(ExtractedPart);
+
+            G.DrawImage(ScreenCap, 0, 0, section, GraphicsUnit.Pixel);
+            ExtractedPart.Save("Resized.png");
+
+            return ExtractedPart;
+        }
+
         /// <summary>
         /// Takes a screencap of process and gets the pixel value of location
         /// </summary>

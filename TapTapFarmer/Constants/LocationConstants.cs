@@ -103,7 +103,19 @@ namespace TapTapFarmer.Constants
         public static Point GLOBAL_BATTLE_FINISHED = new Point(266, 806);
         public static Point GLOBAL_BATTLE_CHECK_WIN = new Point(252, 399);
 
+        //SHARDS
+        public static Point MENU_QUEST = new Point(58, 391);
+        public static Point MENU_EVENTS = new Point(58, 476);
+        public static Point MENU_FRIENDS = new Point(58, 561);
+        public static Point MENU_FAMILIAR = new Point(58, 645);
+        public static Point MENU_MAILS = new Point(58, 730);
 
+        //Friends Menu
+        public static Point FRIENDS_LIST = new Point(145,103);
+        public static Point FRIENDS_CLAIM_SEND = new Point(499,682);
+        public static Point FRIENDS_REQUESTS = new Point(384, 103);
+        public static Point FRIENDS_COOP = new Point(503,104);
+        public static Point FRIENDS_SCOUT = new Point(335,675);
 
         //Home Screen Buttons
         public static Point HOME_MAINMENU_LOCATION = new Point(136, 95);
@@ -128,8 +140,8 @@ namespace TapTapFarmer.Constants
         public static Point QUEST_BUTTON2_LOCATION = new Point(447, 481);
 
         //Mail Menu
-        public static Point MAIL_RECEIVE = new Point(392, 735);
-        public static Point MAIL_RECEIVEALL = new Point(140, 734);
+        public static Point MAIL_RECEIVE = new Point(347, 686);
+        public static Point MAIL_RECEIVEALL = new Point(97, 686);
 
         //HERO BUTTON LOCATIONS
         public static Point HEROES_SIXTH_HERO_LOCATION = new Point(121, 361);
@@ -162,6 +174,17 @@ namespace TapTapFarmer.Constants
 
         //Den Of Secrets
         public static Point DOS_BATTLE_LOCATION = new Point(479, 585);
+
+        //Events
+        public static Point EVENTS_CLAIM_1 = new Point(462, 323);
+        public static Point EVENTS_CLAIM_2 = new Point(461, 533);
+        public static Point EVENTS_CLAIM_3 = new Point(461, 742);
+
+        public static Point EVENTS_ATTACK_1 = new Point(0, 0);
+        public static Point EVENTS_ATTACK_2 = new Point(281, 427);
+        public static Point EVENTS_ATTACK_3 = new Point(0, 0);
+
+        public static Point EVENTS_CHALLENGE_BOTTOM = new Point(452, 732);
 
         //Sky Pillar
         public static Point SKYPILLAR_BATTLE_LOCATION = new Point(414, 304);
