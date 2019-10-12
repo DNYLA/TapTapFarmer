@@ -48,7 +48,7 @@ namespace TapTapFarmer.Functions
             if (e.KeyCode == Keys.F5 && GlobalVariables.BOT_STARTED == true)
             {
                 BotMain.StopBot();
-                //Unsubscribe();
+                Unsubscribe();
             }
         }
 

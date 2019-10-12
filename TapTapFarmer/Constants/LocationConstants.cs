@@ -106,16 +106,16 @@ namespace TapTapFarmer.Constants
         //SHARDS
         public static Point MENU_QUEST = new Point(58, 391);
         public static Point MENU_EVENTS = new Point(58, 476);
-        public static Point MENU_FRIENDS = new Point(58, 561);
+        public static Point MENU_FRIENDS = new Point(58, 519);
         public static Point MENU_FAMILIAR = new Point(58, 645);
-        public static Point MENU_MAILS = new Point(58, 730);
+        public static Point MENU_MAILS = new Point(58, 709);
 
         //Friends Menu
-        public static Point FRIENDS_LIST = new Point(145,103);
-        public static Point FRIENDS_CLAIM_SEND = new Point(499,682);
+        public static Point FRIENDS_LIST = new Point(144, 103);
+        public static Point FRIENDS_CLAIM_SEND = new Point(436,692);
         public static Point FRIENDS_REQUESTS = new Point(384, 103);
-        public static Point FRIENDS_COOP = new Point(503,104);
-        public static Point FRIENDS_SCOUT = new Point(335,675);
+        public static Point FRIENDS_COOP = new Point(503,103);
+        public static Point FRIENDS_SCOUT = new Point(374, 676);
 
         //Home Screen Buttons
         public static Point HOME_MAINMENU_LOCATION = new Point(136, 95);
@@ -140,7 +140,7 @@ namespace TapTapFarmer.Constants
         public static Point QUEST_BUTTON2_LOCATION = new Point(447, 481);
 
         //Mail Menu
-        public static Point MAIL_RECEIVE = new Point(347, 686);
+        public static Point MAIL_RECEIVE = new Point(308, 709);
         public static Point MAIL_RECEIVEALL = new Point(97, 686);
 
         //HERO BUTTON LOCATIONS
@@ -158,7 +158,7 @@ namespace TapTapFarmer.Constants
         public static Point CASTLE_BLACKSMITH_LOCATION = new Point(359, 703);
         public static Point CASTLE_HERO_CHEST_CHECK_LOCATION = new Point(80, 514);
         public static Point CASTLE_HERO_CHEST_LOCATION = new Point(320, 545);
-        public static Point CASTLE_ALTAR_LOCATION = new Point(403, 452);
+        public static Point CASTLE_ALTAR_LOCATION = new Point(148, 420);
         public static Point CASTLE_MARKET_CHECK_LOCATION = new Point(296, 234);
         public static Point CASTLE_MARKET_LOCATION = new Point(387, 266);
         public static Point CASTLE_CREATION_BAG_LOCATION = new Point(230, 140);

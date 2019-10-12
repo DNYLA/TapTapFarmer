@@ -90,11 +90,13 @@ namespace TapTapFarmer.Functions
         {
             WindowCapture.CaptureApplication("Nox");
 
-            if (!Main.ResetToHome())
-            {
-                Console.WriteLine("Not Home");
-                return false;
-            }
+            //if (!Main.ResetToHome())
+            //{
+            //    Console.WriteLine("Not Home");
+            //    return false;
+            //}
+
+            Main.ResetToHome();
 
             Thread.Sleep(500);
             MouseHandler.MoveCursor(LocationConstants.HOME_MAINMENU_LOCATION, true);
@@ -132,6 +134,8 @@ namespace TapTapFarmer.Functions
                 MouseHandler.MoveCursor(LocationConstants.FRIENDS_SCOUT, true);
                 Main.Sleep(1);
             }
+
+            
 
             Main.ResetToHome();
 
@@ -235,10 +239,11 @@ namespace TapTapFarmer.Functions
         {
             WindowCapture.CaptureApplication("Nox");
 
-            if (!Main.ResetToHome())
-            {
-                return false;
-            }
+            //if (!Main.ResetToHome())
+            //{
+            //    Console.WriteLine("Returning False");
+            //    return false;
+            //}
 
             Thread.Sleep(500);
             MouseHandler.MoveCursor(LocationConstants.HOME_MAINMENU_LOCATION, true);
@@ -250,6 +255,12 @@ namespace TapTapFarmer.Functions
                 Main.Sleep(1);
                 MouseHandler.MoveCursor(LocationConstants.MAIL_RECEIVEALL, true);
 
+                if (GlobalVariables.dailySettings.DeleteMail == false)
+                {
+                    Main.ResetToHome();
+                    return true;
+                }
+
                 while (PixelChecker.CheckPixelValue(LocationConstants.MAIL_RECEIVE, ColorConstants.MAIL_DELETE))
                 {
                     MouseHandler.MoveCursor(LocationConstants.MAIL_RECEIVE, true);
@@ -257,6 +268,7 @@ namespace TapTapFarmer.Functions
             }
             else
             {
+                Console.WriteLine("Its Not Red");
                 MouseHandler.MoveCursor(LocationConstants.GLOBAL_BOT_IDLE_CLICK, true);
             }
             Main.ResetToHome();

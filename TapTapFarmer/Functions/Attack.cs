@@ -319,7 +319,7 @@ namespace TapTapFarmer.Functions
                     {
                         Main.Sleep(1);
                         MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
-                        HomeBossAttack();
+                        HomeBossAtt//ack();
                         break; //Not Sure if this is needed but ill just add it anyways
                     }
                     else

@@ -16,8 +16,13 @@ namespace TapTapFarmer.Functions
     {
         public static void BotStart()
         {
+            if (GlobalVariables.BOT_STARTED == true)
+            {
+                Main.LogConsole("Bot Already Started");
+                return;
+            }
             //Add Functions to Check if a Supported Emulator Is Open
-            //WindowCapture.GetProccessName(); //Updates Process Name
+            WindowCapture.GetProccessName(); //Updates Process Name
             //if (GlobalVariables.GLOBAL_PROC_NAME == "InvalidProc")
             //{
             //    System.Windows.Application.Current.Shutdown();
@@ -25,6 +30,7 @@ namespace TapTapFarmer.Functions
             WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
             //Add Functions to Check For Specific Options
             Console.WriteLine("Bot Started: " + GlobalVariables.BOT_STARTED.ToString());
+            GlobalVariables.BOT_STARTED = true;
 
             //Adding this to Another Thread won't work.
             KeyHandler.StartKeyHandler();
@@ -32,20 +38,42 @@ namespace TapTapFarmer.Functions
             //Create a new Thread to Handle All Bot Related Things
             var MainThread = new Thread(() =>
             {
-                DrawOverlay();
+                DrawOverlay("Click F5 to stop the Bot");
                 Thread.Sleep(2000);
-
-
 
                 //KeyHandler.StartKeyHandler();
 
                 //Everything must be contained into a while loop to make sure bot stops when it is told to stop
                 while (GlobalVariables.BOT_STARTED == true)
                 {
+                    Main.LogConsole("Bot Started");
 
-                    Console.WriteLine("Bot Started: " + GlobalVariables.BOT_STARTED.ToString());
-                    Console.WriteLine("Bot Started");
-                    //Add Functions to Clain Daily Items, Open Crates, etc
+                    //Reset Bot To Main Menu
+                    Main.ResetToHome();
+
+                    //Check For Users Level, Gold, Purple ETC
+                    GlobalVariables.CURRENCY_INFO = UpdatePlayerInfo.GetCurrecyDetails();
+                    Main.LogConsole($"Gold: {GlobalVariables.CURRENCY_INFO[0].ToString()} - Gems: {GlobalVariables.CURRENCY_INFO[1].ToString()} -  Level: {GlobalVariables.CURRENCY_INFO[2].ToString()}");
+                    Main.LogConsole($"Purple Souls: {GlobalVariables.CURRENCY_INFO[3].ToString()} - Golden Souls: {GlobalVariables.CURRENCY_INFO[4].ToString()}");
+
+                    Main.CheckLimits();
+
+                    ClaimDailies();
+
+
+
+                    if (!GlobalVariables.EVENTS_COMPLETED)
+                    {
+                        Main.ResetToHome();
+                        GlobalVariables.EVENTS_COMPLETED = UpdatePlayerInfo.ClaimEvents();
+                    }
+
+                    //Add BlackSmith
+
+
+                    //Add Functions to Claim Daily Items, Open Crates, etc
+
+
 
                     //Make Bot Idle Click for 10 Minutes Then Move on
                     GlobalVariables.BOT_STATE = "Idling";
@@ -78,8 +106,8 @@ namespace TapTapFarmer.Functions
                     //Check If Bot Logged In
                     if (PixelChecker.CheckPixelValue(LocationConstants.HOME_ACCOUNT_ALREADY_LOGGED, ColorConstants.GLOBAL_OK_BUTTON))
                     {
-                        Console.WriteLine("Account Logged In From Another Account Waiting 5 More Seconds To Re-Log");
-                        Thread.Sleep(5);
+                        Console.WriteLine("Account Logged In From Another Account Waiting 5 Minutes To Re-Log");
+                        Thread.Sleep(5 * 60000);
                         MouseHandler.MoveCursor(LocationConstants.HOME_ACCOUNT_ALREADY_LOGGED, true);
                     }
 
@@ -89,7 +117,30 @@ namespace TapTapFarmer.Functions
             });
             MainThread.Start();
 
+            if (GlobalVariables.BOT_STARTED == false)
+            {
+                MainThread.Abort();
+            }
 
+        }
+
+        private static void ClaimDailies()
+        {
+            if (!Main.CheckSameDay(GlobalVariables.LAST_RAN))
+            {
+                Main.LogConsole($"Bot Hasn't Been Ran Since {GlobalVariables.LAST_RAN} Completing Daily Tasks");
+            }
+            else
+            {
+                Main.LogConsole($"Bot Already Ran Today. No Need To Re-Do Everything");
+            }
+
+            //Claim Mail & Daily Bonus
+            Main.ResetToHome();
+            UpdatePlayerInfo.ClaimMail();
+            Main.ResetToHome();
+            UpdatePlayerInfo.ClaimFriends();
+            GlobalVariables.generalSettings.FriendsClaimed = true;
         }
 
         public static void StopBot()
@@ -106,7 +157,7 @@ namespace TapTapFarmer.Functions
 
         [DllImport("User32.dll")]
         static extern int ReleaseDC(IntPtr hwnd, IntPtr dc);
-        public static bool DrawOverlay()
+        public static bool DrawOverlay(string overlayMessage)
         {
             bool OverlayOn = true;
             Thread Thr = new Thread(() =>
@@ -125,7 +176,7 @@ namespace TapTapFarmer.Functions
 
                         Rectangle Rect = new Rectangle(750, 100, 500, 100);
                         //g.FillRectangle(Brushes.Black, 800, 100, 500, 100);
-                        g.DrawString("Click F5 to Stop Bot", font, Brushes.HotPink, Rect, sf);
+                        g.DrawString(overlayMessage, font, Brushes.HotPink, Rect, sf);
                     }
                     //Graphics.FromHwnd(IntPtr.Zero);
                     ReleaseDC(IntPtr.Zero, desktop);

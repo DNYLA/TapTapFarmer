@@ -105,21 +105,21 @@ namespace TapTapFarmer.Constants
         public static Color MENU_QUEST_RED = Color.FromArgb(255, 73, 21);
         public static Color MENU_EVENTS_GREEN = Color.FromArgb(25, 230, 80);
         public static Color MENU_EVENTS_RED = Color.FromArgb(255, 72, 19);
-        public static Color MENU_FRIENDS_RED = Color.FromArgb(255, 70, 17);
+        public static Color MENU_FRIENDS_RED = Color.FromArgb(255, 63, 18);
         public static Color MENU_FAMILIAR_GREEN = Color.FromArgb(28, 234, 82);
-        public static Color MENU_MAIL_RED = Color.FromArgb(255, 71, 19);
+        public static Color MENU_MAIL_RED = Color.FromArgb(255, 65, 20);
 
         //Friends Menu
-        public static Color FRIENDS_LIST_RED = Color.FromArgb(255,70,18);
+        public static Color FRIENDS_LIST_RED = Color.FromArgb(255,65,20);
         public static Color FRIENDS_CLAIM_SEND_RED = Color.FromArgb(255,70,17);
         public static Color FRIENDS_REQUESTS_GREEN = Color.FromArgb(23,227,79);
-        public static Color FRIENDS_COOP_RED = Color.FromArgb(254,68,13);
+        public static Color FRIENDS_COOP_RED = Color.FromArgb(255,66,21);
         public static Color FRIENDS_SCOUT_RED = Color.FromArgb(255,71,19);
 
 
         //Mail Menu
         public static Color MAIL_ACCEPT = Color.FromArgb(160, 227, 57); //Change to Global Battle Active
-        public static Color MAIL_DELETE = Color.FromArgb(255, 113, 79);
+        public static Color MAIL_DELETE = Color.FromArgb(255, 61, 38);
 
         //QUEST CONSTANTS
         public static Color QUEST_INACTIVE_COLOR = Color.FromArgb(203, 203, 203);
@@ -131,7 +131,7 @@ namespace TapTapFarmer.Constants
         //CASTLE 
         public static Color CASTLE_BLACKSMITH_COLOR = Color.FromArgb(187, 91, 70);
         public static Color CASTLE_HERO_CHEST_CHECK_COLOR = Color.FromArgb(160, 100, 39);
-        public static Color CASTLE_ALTAR_COLOR = Color.FromArgb(58, 47, 41);
+        public static Color CASTLE_ALTAR_COLOR = Color.FromArgb(52, 31, 29);
         public static Color CASTLE_MARKET_CHECK_COLOR = Color.FromArgb(165, 63, 76);
         public static Color CASTLE_CREATION_BAG_COLOR = Color.FromArgb(97, 115, 93);
         public static Color CASTLE_FORTUNE_WHEEL_COLOR = Color.FromArgb(193, 133, 65);
