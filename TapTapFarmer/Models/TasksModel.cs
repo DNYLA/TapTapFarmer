@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TapTapFarmer.Models
 {
-    class GeneralModel
+    class TasksModel
     {
         public string BotVersion = string.Empty;
         public DateTime LastRan = new DateTime();

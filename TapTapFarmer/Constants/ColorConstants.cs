@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace TapTapFarmer.Constants
 {
-    class ColorConstants
+    public class ColorConstants
     {
         //Global
         //public static Color GLOBAL_BATTLE_FINISHED = Color.FromArgb(95, 228, 112);
@@ -67,12 +67,12 @@ namespace TapTapFarmer.Constants
         //////
         ///
         //Close Button
-        public static Color GLOBAL_BATTLE_FINISHED = Color.FromArgb(209, 240, 100);
+        public static Color GLOBAL_BATTLE_FINISHED = Color.FromArgb(209, 240, 99);
         public static Color GLOBAL_ACCEPT_BUTTON = Color.FromArgb(255, 211, 23);
         public static Color GLOBAL_OK_COLOR = Color.FromArgb(159, 223, 46);
         public static Color GLOBAL_BATTLE_ACTIVE = Color.FromArgb(160, 227, 57);
         public static Color GLOBAL_BATTLE_CONFIRM_YELLOW = Color.FromArgb(255, 211, 23);
-        public static Color GLOBAL_BATTLE_WON = Color.FromArgb(178, 34, 62);
+        public static Color GLOBAL_BATTLE_WON = Color.FromArgb(179, 33, 62);
         public static Color GLOBAL_BATTLE_LOST = Color.FromArgb(85, 87, 114);
 
 
@@ -81,6 +81,21 @@ namespace TapTapFarmer.Constants
         //Home Constants
         public static Color REDINFO_CIRCLE_MAINMENU_COLOR = Color.FromArgb(255, 68, 15);
         public static Color REDINFO_CIRCLE_BOSS_BATTLE_COLOR = Color.FromArgb(253, 66, 14);
+        public static Color PIRVALLEGE_INFO_COLOR = Color.FromArgb(255, 63, 19);
+        public static Color PRIVALLEGE_CHECKIN_YELLOW = Color.FromArgb(254, 211, 23);
+
+        public static Color ALCHEMY_FREE = Color.FromArgb(254, 230, 97);
+        public static Color ALCHEMY_20GEMS = Color.FromArgb(159, 228, 56);
+        public static Color ALCHEMY_50GEMS = Color.FromArgb(159, 228, 56);
+
+        //Fortune WHeel
+        public static Color FORTUNE_SPIN1_COLOR = Color.FromArgb(159, 228, 56);
+        public static Color FORTUNE_PURCHASE = Color.FromArgb(7, 139, 2);
+        public static Color FORTUNE_BUY = Color.FromArgb(255, 211, 23);
+
+        //HeroChest
+        public static Color HEROCHEST_GRAND_FREE = Color.FromArgb(255, 66, 21);
+        public static Color HEROCHEST_COMMON_FREE = Color.FromArgb(255, 69, 23);
 
         //Menu Constants
         public static Color REDINFO_CIRCLE_MENU_QUESTS_COLOR = Color.FromArgb(255, 69, 16);
@@ -103,8 +118,8 @@ namespace TapTapFarmer.Constants
 
         //Menu
         public static Color MENU_QUEST_RED = Color.FromArgb(255, 73, 21);
-        public static Color MENU_EVENTS_GREEN = Color.FromArgb(25, 230, 80);
-        public static Color MENU_EVENTS_RED = Color.FromArgb(255, 72, 19);
+        public static Color MENU_EVENTS_GREEN = Color.FromArgb(20, 213, 78);
+        public static Color MENU_EVENTS_RED = Color.FromArgb(255, 62, 18);
         public static Color MENU_FRIENDS_RED = Color.FromArgb(255, 63, 18);
         public static Color MENU_FAMILIAR_GREEN = Color.FromArgb(28, 234, 82);
         public static Color MENU_MAIL_RED = Color.FromArgb(255, 65, 20);
@@ -129,7 +144,7 @@ namespace TapTapFarmer.Constants
         public static Color BATTLE_VICTORY_COLOR = Color.FromArgb(178, 34, 63);
 
         //CASTLE 
-        public static Color CASTLE_BLACKSMITH_COLOR = Color.FromArgb(187, 91, 70);
+        public static Color CASTLE_BLACKSMITH_COLOR = Color.FromArgb(236, 214, 169);
         public static Color CASTLE_HERO_CHEST_CHECK_COLOR = Color.FromArgb(160, 100, 39);
         public static Color CASTLE_ALTAR_COLOR = Color.FromArgb(52, 31, 29);
         public static Color CASTLE_MARKET_CHECK_COLOR = Color.FromArgb(165, 63, 76);
@@ -144,16 +159,54 @@ namespace TapTapFarmer.Constants
 
 
         //Events
-        public static Color EVENTS_CLAIM_1 = Color.FromArgb(37, 245, 91);
-        public static Color EVENTS_CLAIM_2 = Color.FromArgb(21, 224, 77);
-        public static Color EVENTS_CLAIM_3 = Color.FromArgb(17, 217, 72);
+        public static Color EVENTS_CLAIM_1 = Color.FromArgb(31, 228, 88);
+        public static Color EVENTS_CLAIM_2 = Color.FromArgb(18, 207, 72);
+        public static Color EVENTS_CLAIM_3 = Color.FromArgb(11, 185, 49);
 
-        public static Color EVENTS_ATTACK_1 = Color.FromArgb(252, 67, 13);
-        public static Color EVENTS_ATTACK_2 = Color.FromArgb(252, 67, 13);
-        public static Color EVENTS_ATTACK_3 = Color.FromArgb(252, 67, 13);
+        public static Color EVENTS_ATTACK_1 = Color.FromArgb(244, 66, 16);
+        public static Color EVENTS_ATTACK_2 = Color.FromArgb(255, 63, 18);
+        public static Color EVENTS_ATTACK_3 = Color.FromArgb(255, 63, 18);
 
-        public static Color EVENTS_CHALLENGE = Color.FromArgb(210, 244, 124);
+
+        public static Color EVENTS_UNCLAIMABLE = Color.FromArgb(220, 220, 220);
+        public static Color EVENTS_CHALLENGE = Color.FromArgb(210, 244, 123);
+
+
+        //Blacksmith Locations
+        public static Color BLACKSMITH_WEAPON = Color.FromArgb(30, 227, 87);
+        public static Color BLACKSMITH_ARMOR = Color.FromArgb(46, 239, 95);
+        public static Color BLACKSMITH_ACCESSORY = Color.FromArgb(19, 211, 77);
+        public static Color BLACKSMITH_HELMET = Color.FromArgb(31, 227, 88);
+
+        public static Color[,] Equipments = new Color[3, 5];
+
+
+        public static void SetColours()
+        {
+            Equipments[0, 0] = Color.FromArgb(22, 212, 78);
+            Equipments[0, 1] = Color.FromArgb(16, 207, 72);
+            Equipments[0, 2] = Color.FromArgb(13, 199, 65);
+            Equipments[0, 3] = Color.FromArgb(15, 187, 55);
+            Equipments[0, 4] = Color.FromArgb(48, 176, 21);
+
+            Equipments[1, 0] = Color.FromArgb(20, 205, 72);
+            Equipments[1, 1] = Color.FromArgb(14, 199, 66);
+            Equipments[1, 2] = Color.FromArgb(11, 192, 60);
+            Equipments[1, 3] = Color.FromArgb(13, 181, 53);
+            Equipments[1, 4] = Color.FromArgb(46, 170, 16);
+
+            Equipments[2, 0] = Color.FromArgb(19, 199, 67);
+            Equipments[2, 1] = Color.FromArgb(13, 193, 62);
+            Equipments[2, 2] = Color.FromArgb(9, 185, 55);
+            Equipments[2, 3] = Color.FromArgb(13, 174, 50);
+            Equipments[2, 4] = Color.FromArgb(13, 174, 50);
+        }
+
+        
+        
 
         public static Color SKYPILLAR_BATTLE_COLOR = Color.FromArgb(210, 244, 124);
+
+        
     }
 }

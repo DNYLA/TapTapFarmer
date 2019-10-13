@@ -32,6 +32,8 @@ namespace TapTapFarmer.Constants
         public static Point HOME_ACCOUNT_ALREADY_LOGGED = new Point(267, 590);
         public static Point HOME_BOSS_BATTLE_NEXT = new Point(290, 196);
         public static Point HOME_BOSS_IDLE_NEXT = new Point(288, 634);
+        public static Point HOME_PIRVALLEGE_BUTTON = new Point(525, 63);
+        public static Point PRIVALLEGE_CHECKIN_BUTTON = new Point(443, 849);
 
         // Profile Buttons
         public static Point PROFILE_CLAIM_BUTTON = new Point(488, 590);
@@ -46,9 +48,6 @@ namespace TapTapFarmer.Constants
         public static Point BAG_SHARDS_REWARDS_CLAIM_BUTTON = new Point(272, 700);
         public static Point BAG_EXIT_BUTTON = new Point(503, 123);
 
-        // Daily Bonus Buttons
-        public static Point DAILYBONUS_CHECKIN_BUTTON = new Point(348, 860);
-        public static Point DAILYBONUS_EXIT_BUTTON = new Point(502, 70);
 
         // 8hr Money Bonus Buttons (Meowth Coin)
         public static Point MONEYBONUS_FREE_BUTTON = new Point(419, 326);
@@ -100,12 +99,13 @@ namespace TapTapFarmer.Constants
         public static Point GLOBAL_BATTLE_TEAM_CONFIRM_LOCATION = new Point(266, 823);
         public static Point GLOBAL_BATTLE_SKIP = new Point(513, 826);
         public static Point GLOBAL_BATTLE_SKIP_CONFIRM = new Point(153, 566);
-        public static Point GLOBAL_BATTLE_FINISHED = new Point(266, 806);
-        public static Point GLOBAL_BATTLE_CHECK_WIN = new Point(252, 399);
+        public static Point GLOBAL_BATTLE_FINISHED = new Point(316, 809);
+        public static Point GLOBAL_BATTLE_CHECK_WIN = new Point(219, 419);
+        public static Point GLOBAL_BATTLE_CHECK_LOSS = new Point(265, 403);
 
         //SHARDS
         public static Point MENU_QUEST = new Point(58, 391);
-        public static Point MENU_EVENTS = new Point(58, 476);
+        public static Point MENU_EVENTS = new Point(58, 424);
         public static Point MENU_FRIENDS = new Point(58, 519);
         public static Point MENU_FAMILIAR = new Point(58, 645);
         public static Point MENU_MAILS = new Point(58, 709);
@@ -129,6 +129,24 @@ namespace TapTapFarmer.Constants
         public static Point HOME_BOTTOM_CASTLE_LOCATION = new Point(404, 941);
         public static Point HOME_BOTTOM_BATTLE_LOCATION = new Point(270, 980);
         public static Point HOME_BOTTOM_ACTIVE_BATTLE_LOCATION = new Point(296, 902);
+        public static Point HOME_ALCHEMY_BUTTON = new Point(515, 28);
+
+        //Alchemy
+        public static Point ALCHEMY_FREE_BUTTON = new Point(417, 298);
+        public static Point ALCHEMY_20GEMS_BUTTON = new Point(462, 496);
+        public static Point ALCHEMY_50GEMS_BUTTON = new Point(465, 667);
+
+        //Fortune Wheel
+        public static Point FORTUNE_SPIN1_BUTTON = new Point(203, 788);
+        public static Point FORTUNE_SPINAGAIN1_BUTTON = new Point(206, 707);
+        public static Point FORTUNE_PURCHASE = new Point(448, 173);
+        public static Point FORTUNE_BUY = new Point(321, 645);
+
+        //Hero Chest
+        public static Point HEROCHEST_GRAND_FREE_CIRCLE = new Point(496, 302);
+        public static Point HEROCHEST_COMMON_FREE_CIRCLE = new Point(496, 590);
+        public static Point HEROCHEST_GRAND_CLAIM = new Point(461, 339);
+        public static Point HEROCHEST_COMMON_CLAIM = new Point(451, 629);
 
         //Menu Buttons
         public static Point MENU_QUESTS_BUTTON_LOCATION = new Point(60, 424);
@@ -176,15 +194,24 @@ namespace TapTapFarmer.Constants
         public static Point DOS_BATTLE_LOCATION = new Point(479, 585);
 
         //Events
-        public static Point EVENTS_CLAIM_1 = new Point(462, 323);
-        public static Point EVENTS_CLAIM_2 = new Point(461, 533);
-        public static Point EVENTS_CLAIM_3 = new Point(461, 742);
+        public static Point EVENTS_CLAIM_1 = new Point(462, 324);
+        public static Point EVENTS_CLAIM_2 = new Point(462, 534);
+        public static Point EVENTS_CLAIM_3 = new Point(462, 744);
 
-        public static Point EVENTS_ATTACK_1 = new Point(0, 0);
-        public static Point EVENTS_ATTACK_2 = new Point(281, 427);
-        public static Point EVENTS_ATTACK_3 = new Point(0, 0);
+        public static Point EVENTS_ATTACK_1 = new Point(280, 220);
+        public static Point EVENTS_ATTACK_2 = new Point(280, 427);
+        public static Point EVENTS_ATTACK_3 = new Point(280, 635);
 
         public static Point EVENTS_CHALLENGE_BOTTOM = new Point(452, 732);
+
+
+        //Blacksmith
+        public static Point BLACKSMITH_WEAPON = new Point(138, 468);
+        public static Point BLACKSMITH_ARMOR = new Point(260, 467);
+        public static Point BLACKSMITH_ACCESSORY = new Point(381, 469);
+        public static Point BLACKSMITH_HELMET = new Point(504, 468);
+
+        public static Point BLACKSMITH_DEFAULT = new Point(115, 535);
 
         //Sky Pillar
         public static Point SKYPILLAR_BATTLE_LOCATION = new Point(414, 304);

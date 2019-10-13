@@ -32,9 +32,11 @@ namespace TapTapFarmer.Functions
         public static void AttackDenOfSecrets()
         {
             bool AttackingDOS = true;
+            int winAmount = 0;
 
             while (AttackingDOS)
             {
+                Main.LogConsole($"Attacking Den Of Secrets. Total Levels Won: {winAmount.ToString()}");
                 for (int CurrentTry = 0; CurrentTry < OtherConstants.ATTACK_RETRY_AMOUNT; CurrentTry++)
                 {
                     Main.Sleep(2);
@@ -57,8 +59,10 @@ namespace TapTapFarmer.Functions
 
                         if (PixelChecker.CheckPixelValue(LocationConstants.GLOBAL_BATTLE_FINISHED, ColorConstants.GLOBAL_BATTLE_FINISHED))
                         {
+                            
                             BattleFinished = true;
                         }
+                        
                     }
 
                     bool BattleWon = CheckWin();
@@ -67,6 +71,7 @@ namespace TapTapFarmer.Functions
                     {
                         Main.Sleep(1);
                         MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
+                        winAmount += 1;
                         break;
                     }
                     else
@@ -81,6 +86,8 @@ namespace TapTapFarmer.Functions
 
                 }
             }
+
+            Main.LogConsole($"Finished Attacking Den Of Secrets After 3 Losses On Same Level. Total Levels Won: {winAmount.ToString()}");
         }
         #endregion
 
@@ -219,7 +226,7 @@ namespace TapTapFarmer.Functions
         /// </summary>
         /// <param name="checkAmount"></param>
         /// <returns></returns>
-        public static Boolean CheckWin(int checkAmount = 1)
+        public static Boolean CheckWin(int checkAmount = 0)
         {
             if (checkAmount == 5)
             {
@@ -232,7 +239,7 @@ namespace TapTapFarmer.Functions
             {
                 return true;
             }
-            else if (PixelChecker.CheckPixelValue(LocationConstants.GLOBAL_BATTLE_CHECK_WIN, ColorConstants.GLOBAL_BATTLE_LOST))
+            else if (PixelChecker.CheckPixelValue(LocationConstants.GLOBAL_BATTLE_CHECK_LOSS, ColorConstants.GLOBAL_BATTLE_LOST))
             {
                 return false;
             }
@@ -319,7 +326,7 @@ namespace TapTapFarmer.Functions
                     {
                         Main.Sleep(1);
                         MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
-                        HomeBossAtt//ack();
+                        //HomeBossAttack();
                         break; //Not Sure if this is needed but ill just add it anyways
                     }
                     else

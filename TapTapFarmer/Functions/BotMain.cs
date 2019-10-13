@@ -9,6 +9,7 @@ using System.Threading;
 using TapTapFarmer.Constants;
 using System.Runtime.InteropServices;
 using Gma.System.MouseKeyHook;
+using TapTapFarmer.Models;
 
 namespace TapTapFarmer.Functions
 {
@@ -129,18 +130,86 @@ namespace TapTapFarmer.Functions
             if (!Main.CheckSameDay(GlobalVariables.LAST_RAN))
             {
                 Main.LogConsole($"Bot Hasn't Been Ran Since {GlobalVariables.LAST_RAN} Completing Daily Tasks");
+                GlobalVariables.tasksSettings = new TasksModel(); //Resets Everything back to default
             }
             else
             {
                 Main.LogConsole($"Bot Already Ran Today. No Need To Re-Do Everything");
             }
 
-            //Claim Mail & Daily Bonus
-            Main.ResetToHome();
+            TasksModel tasks = GlobalVariables.tasksSettings;
+
+            if (!tasks.FriendsClaimed)
+            {
+                
+                if (UpdatePlayerInfo.ClaimFriends())
+                {
+                    tasks.FriendsClaimed = true;
+                    tasks.SentHears = true;
+                }
+                
+            }
+
+            if(!tasks.DailyClaimed)
+            {
+                tasks.DailyClaimed = UpdatePlayerInfo.ClaimPrivellage(); ;
+            }
+
+            if (!tasks.Defeat3Claimed)
+            {
+                tasks.Defeat3Claimed = UpdatePlayerInfo.Defeat3Main();
+            }
+
+
+            if (!tasks.AlchemyClaimed)
+            {
+                tasks.AlchemyClaimed = UpdatePlayerInfo.ClaimAlchemy();
+            }
+
+
+            if (!tasks.SpunWheel)
+            {
+                tasks.SpunWheel = UpdatePlayerInfo.SpinWheel();
+            }
+
+            if (!tasks.CompletedTavern)
+            {
+                //Add Tavern Handling below
+            }
+
+            if (!tasks.CombinedEquip)
+            {
+                //Add CombinedEquip Handling below
+            }
+
+            if (!tasks.PerformedCommon)
+            {
+                tasks.PerformedCommon = UpdatePlayerInfo.SummonCommonKey();
+            }
+
+            if (!tasks.PerformedGrand)
+            {
+                tasks.PerformedGrand = UpdatePlayerInfo.SummonGrandKey();
+            }
+
+            if (!tasks.CompletedBrave)
+            {
+                //Add CompletedBrave Handling below
+            }
+
+            if (!tasks.CompletedEvents)
+            {
+                tasks.CompletedEvents = UpdatePlayerInfo.ClaimEvents();
+            }
+
+            
+
+            //Claim Mail
             UpdatePlayerInfo.ClaimMail();
-            Main.ResetToHome();
-            UpdatePlayerInfo.ClaimFriends();
-            GlobalVariables.generalSettings.FriendsClaimed = true;
+
+            //Update Global Variables Settings
+            GlobalVariables.tasksSettings = tasks;
+
         }
 
         public static void StopBot()

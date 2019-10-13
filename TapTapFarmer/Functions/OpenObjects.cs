@@ -29,6 +29,14 @@ namespace TapTapFarmer.Functions
             Main.Sleep(2);
         }
 
+        public static void OpenEvents()
+        {
+            Main.ResetToHome();
+            MouseHandler.MoveCursor(LocationConstants.HOME_MAINMENU_LOCATION, true);
+            Main.Sleep(1);
+            MouseHandler.MoveCursor(LocationConstants.MENU_EVENTS, true);
+        }
+
         public static void OpenBlackSmith()
         {
             OpenCastle();

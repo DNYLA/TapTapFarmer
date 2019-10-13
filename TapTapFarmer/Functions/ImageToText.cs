@@ -31,6 +31,72 @@ namespace TapTapFarmer.Functions
         }
         #endregion
 
+        #region Player Info Methods
+        public static int GetWheelCoinAmount()
+        {
+            string TokenAmount = GetOcrResponse(TextConstants.FORTUNEWHEEL_TOKEN_START, TextConstants.FORTUNEHWEEL_TOKEN_SIZE);
+
+            return Convert.ToInt32(TokenAmount);
+        }
+
+        public static int GetGrandKeyAmount()
+        {
+            string KeyAmount = GetOcrResponse(TextConstants.HEROCHEST_GRAND_START, TextConstants.HEROCHEST_KEY_SIZE);
+
+            return Convert.ToInt32(KeyAmount);
+        }
+
+        public static int GetCommonKeyAmount()
+        {
+            string KeyAmount = GetOcrResponse(TextConstants.HEROCHEST_COMMON_START, TextConstants.HEROCHEST_KEY_SIZE);
+
+            return Convert.ToInt32(KeyAmount);
+        }
+
+        public static int GetCombineAmount()
+        {
+            string KeyAmount = GetOcrResponse(TextConstants.BLACKSMITH_COMBINEAMOUNT, TextConstants.BLACKSMITH_COMBINEAMOUNT_SIZE);
+            Console.WriteLine(KeyAmount + "BEfore Changed back");
+            KeyAmount = RemoveWhiteSpace(KeyAmount, true);
+            Console.WriteLine(KeyAmount + "BEfore Sent back");
+            try
+            {
+                return Convert.ToInt32(KeyAmount);
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        public static int GetBlacksmithPurchaseAmount()
+        {
+            string MoneyText = GetOcrResponse(TextConstants.BLACKSMITH_PURCHASEAMOUNT, TextConstants.BLACKSMITH_PURCHASEAMOUNT_SIZE);
+            MoneyText = MoneyText.ToLower();
+            MoneyText = RemoveWhiteSpace(MoneyText, true);
+
+            int MoneyLen = MoneyText.Length;
+            int MoneyValue;
+
+
+            if (MoneyText.EndsWith("k"))
+            {
+                MoneyValue = MultiplyValue(MoneyText, 1000);
+            }
+            else if (MoneyText.EndsWith("m"))
+            {
+                MoneyValue = MultiplyValue(MoneyText, 1000000);
+            }
+            else
+            {
+                MoneyValue = StringToInt(MoneyText);
+            }
+
+            return MoneyValue;
+        }
+
+        #endregion
+
         #region Battle Methods
         #region Enemy CE
         public static int GetEnemyCE()

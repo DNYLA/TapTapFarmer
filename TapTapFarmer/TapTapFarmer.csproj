@@ -85,7 +85,7 @@
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="Models\AttackModel.cs" />
     <Compile Include="Models\DailyModel.cs" />
-    <Compile Include="Models\GeneralModel.cs" />
+    <Compile Include="Models\TasksModel.cs" />
     <Compile Include="Models\PlayerLimitsModel.cs" />
     <Compile Include="OCR\DoOcr.cs" />
     <Compile Include="OCR\OCRResults.cs" />

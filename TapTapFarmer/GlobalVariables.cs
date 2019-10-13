@@ -26,7 +26,7 @@ namespace TapTapFarmer
 
         public static AttackModel attackSettings = new AttackModel();
         public static DailyModel dailySettings = new DailyModel();
-        public static GeneralModel generalSettings = new GeneralModel();
+        public static TasksModel tasksSettings = new TasksModel();
         public static PlayerLimitsModel PlayerLimits = new PlayerLimitsModel();
 
     }

@@ -122,7 +122,10 @@ namespace TapTapFarmer
         {
             //MouseHandler.MouseMoveUp();
             //ReadIni.ReadFile();
-            Main.CheckSameDay(GlobalVariables.LAST_RAN);
+            //UpdatePlayerInfo.SpinWheel();
+            UpdatePlayerInfo.CombineEquipment();
+
+
         }
 
         private void ScrollDown_Click(object sender, RoutedEventArgs e)
