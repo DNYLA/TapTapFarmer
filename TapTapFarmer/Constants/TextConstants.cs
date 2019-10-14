@@ -31,7 +31,8 @@ namespace TapTapFarmer.Constants
         public static Point FORTUNEWHEEL_TOKEN_START = new Point(393, 158);
         public static Point HEROCHEST_GRAND_START = new Point(415, 190);
         public static Point HEROCHEST_COMMON_START = new Point(450, 462);
-        public static Point BLACKSMITH_COMBINEAMOUNT = new Point(229, 296);
+        public static Point BLACKSMITH_COMBINEAMOUNT = new Point(210, 274);
+        //public static Point BLACKSMITH_COMBINEAMOUNT = new Point(229, 296);
         public static Point BLACKSMITH_PURCHASEAMOUNT = new Point(360, 371);
 
         public static Size HOME_BOSS_SIZE = new Size(137, 47);
@@ -42,7 +43,8 @@ namespace TapTapFarmer.Constants
         public static Size ALTAR_SOUL_SIZE = new Size(68, 23);
         public static Size FORTUNEHWEEL_TOKEN_SIZE = new Size(80, 36);
         public static Size HEROCHEST_KEY_SIZE = new Size(63, 33);
-        public static Size BLACKSMITH_COMBINEAMOUNT_SIZE = new Size(83, 35);
+        public static Size BLACKSMITH_COMBINEAMOUNT_SIZE = new Size(118, 77);
+        //public static Size BLACKSMITH_COMBINEAMOUNT_SIZE = new Size(83, 35);
         public static Size BLACKSMITH_PURCHASEAMOUNT_SIZE = new Size(93, 32);
 
         public static Point EVENT_CHALLENGE_START = new Point(21, 761);

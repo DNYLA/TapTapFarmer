@@ -179,7 +179,7 @@ namespace TapTapFarmer.Functions
 
             if (!tasks.CombinedEquip)
             {
-                //Add CombinedEquip Handling below
+                tasks.CombinedEquip = UpdatePlayerInfo.CombineEquipment();
             }
 
             if (!tasks.PerformedCommon)
@@ -200,6 +200,12 @@ namespace TapTapFarmer.Functions
             if (!tasks.CompletedEvents)
             {
                 tasks.CompletedEvents = UpdatePlayerInfo.ClaimEvents();
+            }
+
+            if (tasks.CombinedEquip && tasks.AlchemyClaimed && tasks.SentHears && tasks.SentHears && tasks.SpunWheel && tasks.CompletedTavern && tasks.PerformedCommon && tasks.PerformedGrand && tasks.Defeat3Claimed && tasks.CompletedEvents)
+            {
+                tasks.CompletedQuests = true;
+                UpdatePlayerInfo.ClaimQuestReward();
             }
 
             

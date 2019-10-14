@@ -23,5 +23,6 @@ namespace TapTapFarmer.Models
         public bool PerformedGrand = false;
         public bool CompletedBrave = false;
         public bool CompletedEvents = false;
+        public bool CompletedQuests = false;
     }
 }

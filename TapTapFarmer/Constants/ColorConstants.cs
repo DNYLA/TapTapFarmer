@@ -138,7 +138,10 @@ namespace TapTapFarmer.Constants
 
         //QUEST CONSTANTS
         public static Color QUEST_INACTIVE_COLOR = Color.FromArgb(203, 203, 203);
-        public static Color QUEST_CLAIM_COLOR = Color.FromArgb(219, 90, 0);
+        public static Color QUEST_CLAIM_COLOR = Color.FromArgb(255, 215, 52);
+        public static Color QUEST_UNCLAIMABLE_COLOR = Color.FromArgb(160, 227, 54);
+        public static Color QUEST_CLAIM_MASTER = Color.FromArgb(255, 211, 28);
+        public static Color QUEST_UNCLAIMABLE_MASTER = Color.FromArgb(202, 202, 202);
 
         //Win
         public static Color BATTLE_VICTORY_COLOR = Color.FromArgb(178, 34, 63);
@@ -177,7 +180,10 @@ namespace TapTapFarmer.Constants
         public static Color BLACKSMITH_ARMOR = Color.FromArgb(46, 239, 95);
         public static Color BLACKSMITH_ACCESSORY = Color.FromArgb(19, 211, 77);
         public static Color BLACKSMITH_HELMET = Color.FromArgb(31, 227, 88);
+        public static Color BLACKSMITH_CLAIM_COLOR = Color.FromArgb(159, 228, 56);
+        public static Color BLACKSMITH_PURCHASE_COLOR = Color.FromArgb(254, 211, 23);
 
+        
         public static Color[,] Equipments = new Color[3, 5];
 
 

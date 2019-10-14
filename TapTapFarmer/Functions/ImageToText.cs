@@ -49,16 +49,22 @@ namespace TapTapFarmer.Functions
         public static int GetCommonKeyAmount()
         {
             string KeyAmount = GetOcrResponse(TextConstants.HEROCHEST_COMMON_START, TextConstants.HEROCHEST_KEY_SIZE);
-
-            return Convert.ToInt32(KeyAmount);
+            try
+            {
+                return Convert.ToInt32(KeyAmount);
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+            
         }
 
         public static int GetCombineAmount()
         {
             string KeyAmount = GetOcrResponse(TextConstants.BLACKSMITH_COMBINEAMOUNT, TextConstants.BLACKSMITH_COMBINEAMOUNT_SIZE);
-            Console.WriteLine(KeyAmount + "BEfore Changed back");
             KeyAmount = RemoveWhiteSpace(KeyAmount, true);
-            Console.WriteLine(KeyAmount + "BEfore Sent back");
+            Console.WriteLine(KeyAmount);
             try
             {
                 return Convert.ToInt32(KeyAmount);

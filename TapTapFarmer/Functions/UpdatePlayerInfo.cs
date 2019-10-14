@@ -311,55 +311,108 @@ namespace TapTapFarmer.Functions
 
             ColorConstants.SetColours();
 
-            //Main.ResetToHome();
-            //OpenObjects.OpenBlackSmith();
+            Main.ResetToHome();
+            OpenObjects.OpenBlackSmith();
 
             
 
             Point startPos = LocationConstants.BLACKSMITH_DEFAULT;
             Point setPos = startPos;
-            //Console.WriteLine(ColorConstants.Equipments[0, 0].ToString());
 
             int combined = 0;
 
-            //Thread.Sleep(1000);
+            Thread.Sleep(1000);
             
-            for (int y = 0; y < 3; y++)
+            for (int type = 0; type < 3; type++)
             {
-
-                for (int x = 0; x < 5; x++)
+                if (type == 1)
                 {
-                    if (combined == 3)
-                    {
-                        return true;
-                    }
+                    MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_ARMOR, true);
+                }
+                else if (type == 2)
+                {
+                    MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_ACCESSORY, true);
+                }
+                else if (type == 3)
+                {
+                    MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_HELMET, true);
+                }
 
-                    setPos = new Point(115 + (x * 95), 535 + (y * 85));
-                    if (PixelChecker.CheckPixelValue(setPos, ColorConstants.Equipments[y, x]))
+
+                for (int y = 0; y < 4; y++)
+                {
+                    for (int x = 0; x < 5; x++)
                     {
-                        if (setPos.X == 495)
+                        if (combined >= 3)
                         {
-                            setPos = new Point(setPos.X - 5, setPos.Y);
+                            return true;
                         }
-                        Console.WriteLine($"Found Equipment that needs to be combined. Location - {x}:{y}");
-                        int CombineAmount = ImageToText.GetCombineAmount();
-                        if (CombineAmount == -1)
+                        setPos = new Point(115 + (x * 95), 535 + (y * 85));
+                        if (PixelChecker.CheckPixelValue(setPos, ColorConstants.Equipments[y, x]))
                         {
-                            Console.WriteLine($"Unable To Read Combine Amount. Skipping Equipment Peice");
+                            if (setPos.X == 495)
+                            {
+                                setPos = new Point(setPos.X - 5, setPos.Y);
+                            }
+
+                            Console.WriteLine($"Found Equipment that needs to be combined. Location - {x}:{y}");
+
+                            MouseHandler.MoveCursor(setPos, true);
+
+
+
+                            int CombineAmount = ImageToText.GetCombineAmount();
+                            
+                            if (CombineAmount == -1)
+                            {
+                                Console.WriteLine($"Unable To Read Combine Amount. Combining it Once");
+
+                                LowerCombineAmont(100);
+                                int price = ImageToText.GetBlacksmithPurchaseAmount();
+
+                                MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_PURCHASE, true);
+
+                                Thread.Sleep(3000);
+
+                                if (PixelChecker.CheckPixelValue(LocationConstants.BLACKSMITH_CLAIM, ColorConstants.BLACKSMITH_CLAIM_COLOR))
+                                {
+                                    MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_CLAIM, true);
+                                    combined++;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Insufficient Gold!");
+                                }
+
+                                
+                            }
+                            else
+                            {
+                                int loweramount = CombineAmount - 3;
+                                LowerCombineAmont(loweramount);
+                                int price = ImageToText.GetBlacksmithPurchaseAmount();
+
+                                MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_PURCHASE, true);
+
+                                Thread.Sleep(3000);
+
+                                if (PixelChecker.CheckPixelValue(LocationConstants.BLACKSMITH_CLAIM, ColorConstants.BLACKSMITH_CLAIM_COLOR))
+                                {
+                                    MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_CLAIM, true);
+                                    combined += 3;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Insufficient Gold!");
+                                }
+
+                                
+                            }
+
                         }
-                        else if (CombineAmount <= 3 && CombineAmount != -1)
-                        {
-                            int price = ImageToText.GetBlacksmithPurchaseAmount();
-                            Console.WriteLine(price);
-                            combined = CombineAmount;
-                        }
-                        else
-                        {
-                            Console.WriteLine(CombineAmount);
-                        }
-                        MouseHandler.MoveCursor(setPos, true);
                     }
                 }
+               
             }
                
             
@@ -368,6 +421,46 @@ namespace TapTapFarmer.Functions
             return true;
         }
 
+
+
+        public static bool ClaimQuestReward()
+        {
+            Main.ResetToHome();
+            Main.ResetToHome();
+            MouseHandler.MoveCursor(LocationConstants.HOME_MAINMENU_LOCATION, true);
+            Main.Sleep(1);
+            MouseHandler.MoveCursor(LocationConstants.MENU_QUESTS_BUTTON_LOCATION, true);
+
+            while (!PixelChecker.CheckPixelValue(LocationConstants.QUEST_CLAIM, ColorConstants.QUEST_UNCLAIMABLE_COLOR))
+            {
+                MouseHandler.MoveCursor(LocationConstants.QUEST_CLAIMAIN_LOCATION, true);
+            }
+
+            bool isClaimable = false;
+
+            //Checks is it is Unclaimable if since the claimable button is animated.
+            if (!PixelChecker.CheckPixelValue(LocationConstants.QUEST_CLAIM_MASTER, ColorConstants.EVENTS_UNCLAIMABLE))
+            {
+                isClaimable = true;
+            }
+            
+            if (isClaimable)
+            {
+                MouseHandler.MoveCursor(LocationConstants.QUEST_CLAIM_MASTER, true);
+                return true;
+            }
+
+            return false;
+        }
+
+        private static void LowerCombineAmont(int LowerAmount)
+        {
+            for (int i = 0; i < LowerAmount; i++)
+            {
+                MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_LOWER, true);
+                //Thread.Sleep(30);
+            }
+        }
         public static Boolean ClaimAlchemy()
         {
             bool ClaimFree = false;
@@ -494,13 +587,14 @@ namespace TapTapFarmer.Functions
                     PurchaseTokens();
                     Thread.Sleep(1000);
                 }
+                return true;
             }
 
             Main.LogConsole("Got Enough Tokens Spinning Wheel");
             MouseHandler.MoveCursor(LocationConstants.FORTUNE_SPIN1_BUTTON, true);
-            Thread.Sleep(3000);
+            Thread.Sleep(7000);
             MouseHandler.MoveCursor(LocationConstants.FORTUNE_SPINAGAIN1_BUTTON, true);
-            Thread.Sleep(3000);
+            Thread.Sleep(7000);
             Main.LogConsole("Spun Daily Wheel");
             
 
@@ -568,6 +662,7 @@ namespace TapTapFarmer.Functions
         public static Boolean SummonCommonKey()
         {
             Main.ResetToHome();
+            Main.Sleep(3);
             OpenObjects.OpenHeroChest();
 
             bool claimedCommon = false;

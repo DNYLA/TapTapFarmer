@@ -212,6 +212,12 @@ namespace TapTapFarmer.Constants
         public static Point BLACKSMITH_HELMET = new Point(504, 468);
 
         public static Point BLACKSMITH_DEFAULT = new Point(115, 535);
+        public static Point BLACKSMITH_LOWER = new Point(176, 309);
+        public static Point BLACKSMITH_CLAIM = new Point(323, 714);
+        public static Point BLACKSMITH_PURCHASE = new Point(409, 407);
+
+        public static Point QUEST_CLAIM = new Point(485, 328);
+        public static Point QUEST_CLAIM_MASTER = new Point(485, 210);
 
         //Sky Pillar
         public static Point SKYPILLAR_BATTLE_LOCATION = new Point(414, 304);

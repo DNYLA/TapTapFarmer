@@ -251,17 +251,17 @@ namespace TapTapFarmer.Functions
         #endregion
 
         #region Battle League
-        //public static void BattleLeagueAttackHandler()
-        //{
-        //    WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+        public static void BattleLeagueAttackHandler()
+        {
+            WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
 
-        //    Main.ResetToHome();
+            Main.ResetToHome();
 
-        //    OpenObjects.OpenBattleLeague();
+            OpenObjects.OpenBattleLeague();
 
-        //    AttackBattleLeague();
+            AttackBattleLeague();
 
-        //}
+        }
 
         public static void AttackBattleLeague()
         {
