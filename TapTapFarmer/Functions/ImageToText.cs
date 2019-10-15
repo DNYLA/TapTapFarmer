@@ -108,8 +108,8 @@ namespace TapTapFarmer.Functions
         public static int GetEnemyCE()
         {
 
-            int x = TextConstants.LEAGUE_ENEMY_CE_START.X;
-            int y = TextConstants.LEAGUE_ENEMY_CE_START.Y;
+            //int x = TextConstants.LEAGUE_ENEMY_CE_START.X;
+            //int y = TextConstants.LEAGUE_ENEMY_CE_START.Y;
 
             string[] CEArrayString = new string[3];
             int[] CEArray = new int[3];
@@ -131,24 +131,24 @@ namespace TapTapFarmer.Functions
             //    CEArray[i] = StringToInt(CEArrayString[i]);
             //}
 
-            for (int i = 0; i < 3; i++)
-            {
-                Main.Sleep(1);
-                x = TextConstants.LEAGUE_ENEMY_CE_START.X;
-                y = TextConstants.LEAGUE_ENEMY_CE_START.Y + (i * 100);
-                var PlayerLocation = new Point(x, y);
-                MouseHandler.MoveCursor(PlayerLocation, true);
-                Main.Sleep(2);
-                CEArrayString[i] = GetOcrResponse(TextConstants.ENEMY_PROFILE_CE_START, TextConstants.ENEMY_PROFILE_CE_SIZE);
-                CEArray[i] = StringToInt(CEArrayString[i]);
-                Main.Sleep(1);
-                MouseHandler.MoveCursor(LocationConstants.HOME_BOTTOM_BATTLE, true); //Closes Profile Menu
-            }
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    Main.Sleep(1);
+            //    x = TextConstants.LEAGUE_ENEMY_CE_START.X;
+            //    y = TextConstants.LEAGUE_ENEMY_CE_START.Y + (i * 100);
+            //    var PlayerLocation = new Point(x, y);
+            //    MouseHandler.MoveCursor(PlayerLocation, true);
+            //    Main.Sleep(2);
+            //    CEArrayString[i] = GetOcrResponse(TextConstants.ENEMY_PROFILE_CE_START, TextConstants.ENEMY_PROFILE_CE_SIZE);
+            //    CEArray[i] = StringToInt(CEArrayString[i]);
+            //    Main.Sleep(1);
+            //    MouseHandler.MoveCursor(LocationConstants.HOME_BOTTOM_BATTLE, true); //Closes Profile Menu
+            //}
 
-            for (int i = 0; i < 3; i++)
-            {
-                Console.WriteLine(CEArray[i]);
-            }
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    Console.WriteLine(CEArray[i]);
+            //}
 
 
             return 1;

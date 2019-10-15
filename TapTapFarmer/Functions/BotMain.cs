@@ -194,7 +194,7 @@ namespace TapTapFarmer.Functions
 
             if (!tasks.CompletedBrave)
             {
-                //Add CompletedBrave Handling below
+                Attack.AttackBattleLeague();
             }
 
             if (!tasks.CompletedEvents)

@@ -137,6 +137,8 @@ namespace TapTapFarmer.Functions
             MouseHandler.MouseWheelUp();
             Main.Sleep(1);
             MouseHandler.MouseWheelUp();
+            Main.Sleep(1);
+            MouseHandler.MouseWheelUp();
 
 
             //Mouse Wheel Up doesnt always move the same amount upwards so searching for the pixel is used instead of a specific location

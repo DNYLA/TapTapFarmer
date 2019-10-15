@@ -19,7 +19,7 @@ namespace TapTapFarmer.Models
         public int PlanetTrialRetryAmount { get; set; } = 3;
         public bool PlanetTrialAutoRetry { get; set; } = false;
         public int BraveMaxTickets { get; set; } = 0;
-        public int BraveMaxCE { get; set; } = 0;
+        public int BraveMaxCE { get; set; } = 500000;
         public bool BraveAutoRetry { get; set; } = false;
         public int GuildRetryAmount { get; set; } = 3;
         public int FriendRetryAmount { get; set; } = 3;

@@ -153,7 +153,7 @@ namespace TapTapFarmer.Constants
         public static Color CASTLE_MARKET_CHECK_COLOR = Color.FromArgb(165, 63, 76);
         public static Color CASTLE_CREATION_BAG_COLOR = Color.FromArgb(97, 115, 93);
         public static Color CASTLE_FORTUNE_WHEEL_COLOR = Color.FromArgb(193, 133, 65);
-        public static Color CASTLE_ARENA_COLOR = Color.FromArgb(102, 48, 50);
+        public static Color CASTLE_ARENA_COLOR = Color.FromArgb(199, 49, 30);
         public static Color CASTLE_DOS_COLOR = Color.FromArgb(237, 211, 141);
         public static Color CASTLE_MIRACLE_EYE_COLOR = Color.FromArgb(249, 195, 25);
         public static Color CASTLE_TAVERN_COLOR = Color.FromArgb(104, 64, 20);
@@ -183,6 +183,7 @@ namespace TapTapFarmer.Constants
         public static Color BLACKSMITH_CLAIM_COLOR = Color.FromArgb(159, 228, 56);
         public static Color BLACKSMITH_PURCHASE_COLOR = Color.FromArgb(254, 211, 23);
 
+        public static Color BRAVE_REWARD_COLOR = Color.FromArgb(255, 228, 58);
         
         public static Color[,] Equipments = new Color[3, 5];
 

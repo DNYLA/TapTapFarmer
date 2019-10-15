@@ -123,8 +123,11 @@ namespace TapTapFarmer
             //MouseHandler.MouseMoveUp();
             //ReadIni.ReadFile();
             //UpdatePlayerInfo.SpinWheel();
-            UpdatePlayerInfo.CombineEquipment();
+            //UpdatePlayerInfo.CombineEquipment();
+            
 
+            Thread AttackThread = new Thread(Attack.BattleLeagueAttackHandler);
+            AttackThread.Start();
 
         }
 

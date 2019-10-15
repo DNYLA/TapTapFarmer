@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TapTapFarmer.Constants;
 using System.Drawing;
+using System.Threading;
 
 namespace TapTapFarmer.Functions
 {
@@ -257,18 +258,163 @@ namespace TapTapFarmer.Functions
 
             Main.ResetToHome();
 
-            OpenObjects.OpenBattleLeague();
+            OpenObjects.OpenArena();
 
             AttackBattleLeague();
 
         }
 
-        public static void AttackBattleLeague()
+        public static void AttackBattleLeague(int RefreshAmount = 0)
         {
-            //Similar to Main Menu Boss where it doesn't matter if you win or lose it just attacks the lowest number
-            string PlayerAttackCE = ImageToText.GetOcrResponse(TextConstants.LEAGUE_PLAYER_CE_START, TextConstants.LEAGUE_PLAYER_CE_SIZE);
-            int PlayerCE = Convert.ToInt32(PlayerAttackCE);
+            Thread.Sleep(1000);
+            int pos = GetLowestCE();
 
+            if (RefreshAmount > 10)
+            {
+                Main.LogConsole("Tried Refreshing 10 Times to find CE which matches your settings but couldn't find an opponent to match the criteria.");
+                return;
+            }
+
+            switch (pos)
+            {
+                case -1:
+                    Main.LogConsole("All EnemyCE larger than Max BraveCE");
+                    MouseHandler.MoveCursor(LocationConstants.BRAVE_REFRESH, true);
+                    AttackBattleLeague(RefreshAmount++);
+                    break;
+                case 0:
+                    MouseHandler.MoveCursor(LocationConstants.BRAVE_BATTLE1, true);
+                    break;
+                case 1:
+                    MouseHandler.MoveCursor(LocationConstants.BRAVE_BATTLE2, true);
+                    break;
+                case 2:
+                    MouseHandler.MoveCursor(LocationConstants.BRAVE_BATTLE3, true);
+                    break;
+            }
+
+
+            //Attack
+            Main.Sleep(1);
+            MouseHandler.MoveCursor(LocationConstants.GLOBAL_ENEMYINFO_BATTLE_CONFIRM, true);
+            Main.Sleep(1);
+            MouseHandler.MoveCursor(LocationConstants.GLOBAL_TEAM_BATTLE_CONFIRM, true);
+            Main.Sleep(3);
+
+            MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_SKIP, true);
+            Main.Sleep(1);
+            MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_SKIP_CONFIRM, true);
+            bool BattleFinished = false;
+
+            while (!BattleFinished)
+            {
+                //Sleep for 2 seconds and then Check
+                Main.Sleep(2);
+
+                if (PixelChecker.CheckPixelValue(LocationConstants.BRAVE_CHOSEREWARD, ColorConstants.BRAVE_REWARD_COLOR))
+                {
+                    MouseHandler.MoveCursor(LocationConstants.BRAVE_CHOSEREWARD, true);
+                    MouseHandler.MoveCursor(LocationConstants.BRAVE_RANDOM, true);
+                    MouseHandler.MoveCursor(LocationConstants.BRAVE_RANDOM, true);
+                    MouseHandler.MoveCursor(LocationConstants.BRAVE_RANDOM, true);
+                    Thread.Sleep(500);
+                    if (PixelChecker.CheckPixelValue(LocationConstants.GLOBAL_BATTLE_FINISHED, ColorConstants.GLOBAL_BATTLE_FINISHED))
+                    {
+                        BattleFinished = true;
+                    }
+                }
+
+                
+            }
+
+            bool BattleWon = CheckWin();
+
+            if (BattleWon)
+            {
+                Main.Sleep(1);
+                MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
+                Console.WriteLine("True");
+            }
+            else
+            {
+                Main.Sleep(1);
+                MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
+                Console.WriteLine("False");
+            }
+
+        }
+
+        private static int GetLowestCE()
+        {
+            string[] EnemyCEString = new string[3];
+            int[] EnemyCE = new int[3];
+            Console.WriteLine("Reading Values");
+
+            //Similar to Main Menu Boss where it doesn't matter if you win or lose it just attacks the lowest number
+            EnemyCEString[0] = ImageToText.GetOcrResponse(TextConstants.BRAVE_ENEMY_CE_1, TextConstants.BRAVE_ENEMY_CE_SIZE);
+            Thread.Sleep(1000);
+            EnemyCEString[1] = ImageToText.GetOcrResponse(TextConstants.BRAVE_ENEMY_CE_2, TextConstants.BRAVE_ENEMY_CE_SIZE);
+            Thread.Sleep(1000);
+            EnemyCEString[2] = ImageToText.GetOcrResponse(TextConstants.BRAVE_ENEMY_CE_3, TextConstants.BRAVE_ENEMY_CE_SIZE);
+
+            Console.WriteLine("Yeea");
+
+            EnemyCE[0] = Convert.ToInt32(ImageToText.RemoveWhiteSpace(EnemyCEString[0], true));
+            EnemyCE[1] = Convert.ToInt32(ImageToText.RemoveWhiteSpace(EnemyCEString[1], true));
+            EnemyCE[2] = Convert.ToInt32(ImageToText.RemoveWhiteSpace(EnemyCEString[2], true));
+
+            Console.WriteLine(EnemyCE[0]);
+
+            int position = -1;
+
+            int[] CEbuffer = new int[3];
+            Array.Copy(EnemyCE, CEbuffer, 3);
+            Array.Sort(CEbuffer);
+
+
+            Console.WriteLine($"{EnemyCE[0]} - {EnemyCE[1]} - {EnemyCE[2]}");
+            Console.WriteLine(CEbuffer[0]);
+
+            Console.WriteLine(GlobalVariables.attackSettings.BraveMaxCE.ToString());
+
+            if (GlobalVariables.attackSettings.BraveMaxCE > CEbuffer[0])
+            {
+                if (EnemyCE[0] > EnemyCE[1])
+                {
+                    if (EnemyCE[0] > EnemyCE[2])
+                    {
+                        position = 0;
+                    }
+                    else
+                    {
+                        position = 2;
+                    }
+                }
+                else if (EnemyCE[1] > EnemyCE[2])
+                {
+                    if (EnemyCE[1] > EnemyCE[0])
+                    {
+                        position = 1;
+                    }
+                    else
+                    {
+                        position = 0;
+                    }
+                }
+                else if (EnemyCE[2] > EnemyCE[0])
+                {
+                    if (EnemyCE[2] > EnemyCE[1])
+                    {
+                        position = 2;
+                    }
+                    else
+                    {
+                        position = 1;
+                    }
+                }
+            }
+
+            return position;
         }
         #endregion
 

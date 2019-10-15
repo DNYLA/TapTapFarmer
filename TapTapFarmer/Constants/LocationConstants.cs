@@ -219,6 +219,13 @@ namespace TapTapFarmer.Constants
         public static Point QUEST_CLAIM = new Point(485, 328);
         public static Point QUEST_CLAIM_MASTER = new Point(485, 210);
 
+        public static Point BRAVE_REFRESH = new Point(457, 421);
+        public static Point BRAVE_BATTLE1 = new Point(462, 487);
+        public static Point BRAVE_BATTLE2 = new Point(462, 582);
+        public static Point BRAVE_BATTLE3 = new Point(462, 679);
+
+        public static Point BRAVE_CHOSEREWARD = new Point(270, 476);
+        public static Point BRAVE_RANDOM = new Point(270, 647);
         //Sky Pillar
         public static Point SKYPILLAR_BATTLE_LOCATION = new Point(414, 304);
     }
