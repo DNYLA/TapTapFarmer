@@ -124,10 +124,11 @@ namespace TapTapFarmer
             //ReadIni.ReadFile();
             //UpdatePlayerInfo.SpinWheel();
             //UpdatePlayerInfo.CombineEquipment();
-            
 
-            Thread AttackThread = new Thread(Attack.BattleLeagueAttackHandler);
-            AttackThread.Start();
+
+            //Thread AttackThread = new Thread(Attack.BattleLeagueAttackHandler);
+            //AttackThread.Start();
+            Functions.Authentication.LoginHandler.AuthenticateAccount("sbondo1234", "pass1");
 
         }
 

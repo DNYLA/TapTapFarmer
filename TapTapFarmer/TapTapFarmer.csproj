@@ -47,6 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,6 +72,7 @@
     <Compile Include="Constants\OtherConstants.cs" />
     <Compile Include="Constants\TextConstants.cs" />
     <Compile Include="Functions\Attack.cs" />
+    <Compile Include="Functions\Authentication\LoginHandler.cs" />
     <Compile Include="Functions\BotMain.cs" />
     <Compile Include="Functions\ImageToText.cs" />
     <Compile Include="Functions\Ini\ReadIni.cs" />
@@ -83,13 +85,24 @@
     <Compile Include="Functions\PixelChecker.cs" />
     <Compile Include="Functions\UpdatePlayerInfo.cs" />
     <Compile Include="GlobalVariables.cs" />
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\AttackModel.cs" />
     <Compile Include="Models\DailyModel.cs" />
     <Compile Include="Models\TasksModel.cs" />
     <Compile Include="Models\PlayerLimitsModel.cs" />
     <Compile Include="OCR\DoOcr.cs" />
     <Compile Include="OCR\OCRResults.cs" />
+    <Compile Include="SystemInformationWindow.xaml.cs">
+      <DependentUpon>SystemInformationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ValueConverter.cs" />
     <Compile Include="WindowCapture.cs" />
+    <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -102,6 +115,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Styles\blue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\CoreResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\DataWindowResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\UserControlResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SystemInformationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -129,6 +162,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Icons\cloud-user.png" />
+    <Resource Include="Icons\employees-server.png" />
+    <Resource Include="Icons\gears.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
