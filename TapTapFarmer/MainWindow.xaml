@@ -6,15 +6,48 @@
         xmlns:local="clr-namespace:TapTapFarmer"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="MainWindow" Height="450" Width="800">
-    <Border Padding="10">
+        Title="MainWindow" Height="490" Width="800"
+        Background="{DynamicResource WindowBackgroundBrush}" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <!--<Storyboard x:Key="FadeIn">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="window">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.4"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>-->
+        <local:ValueConverter x:Key="ValueConverter" />
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+    </Window.Resources>
+    <Border Padding="10 0 10 5">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="48" />
                 <RowDefinition Height="75" />
-                <RowDefinition Height="396*" />
+                <RowDefinition Height="284*" />
+                <RowDefinition Height="63*"/>
             </Grid.RowDefinitions>
 
-            <Grid Background="#808080" Margin="9,0,9,0" Grid.Row="0" >
+
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0" Height="40">
+                    <Path Width="19.5" Height="28.5" Margin="20,0,12,0" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{StaticResource ThemeColorBrush}" Data="F1 M 25,27L 46,19L 46,22.25L 28.5,29L 31.75,31.25L 51,23.75L 51,48.5L 31.75,57L 25,52L 25,27 Z "/>
+                    <!--<Image Source="/Ruby;component/Backend/Icons/32x32/Normal/asset-banknote.png" Style="{StaticResource UserControlImageStyle}" ></Image>-->
+                    <TextBlock Foreground="{StaticResource ThemeColorBrush}" Text="TapTapFarmer Bot" FontSize="20" Margin="8,2,0,0" FontWeight="Normal" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe WP" />
+                </StackPanel>
+                <Thumb Opacity="0" Background="Transparent" Foreground="{x:Null}" DragDelta="Thumb_OnDragDelta"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,8,0">
+                    <Button ToolTip="Minimize" Width="32" Height="28" Style="{StaticResource WindowActionButton}" Click="BtnActionMinimize_OnClick">
+                        <Rectangle Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" Margin="0,16,1,2" Width="9" Height="2" VerticalAlignment="Bottom" d:LayoutOverrides="Height"/>
+                    </Button>
+                    <Button ToolTip="Close" Width="32" Height="28" Style="{StaticResource WindowActionButtonClose}" Click="btnActionClose_Click">
+                        <Path Width="10" Height="10" Stretch="Fill" Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" Data="F1 M 26.9166,22.1667L 37.9999,33.25L 49.0832,22.1668L 53.8332,26.9168L 42.7499,38L 53.8332,49.0834L 49.0833,53.8334L 37.9999,42.75L 26.9166,53.8334L 22.1666,49.0833L 33.25,38L 22.1667,26.9167L 26.9166,22.1667 Z "/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Grid Background="#808080" Margin="9,0,9,0" Grid.Row="1" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="3*" />
@@ -37,7 +70,7 @@
                 </StackPanel>
             </Grid>
 
-            <TabControl Margin="0,5,0,0" Height="310" Grid.Row="1">
+            <TabControl Margin="0,13,0,14" Height="320" Grid.Row="2" Grid.RowSpan="2">
                 <TabItem Style="{StaticResource TabTest}" Header="General">
                     <Grid Background="#f4f4f4">
                         <Grid.ColumnDefinitions>
@@ -46,7 +79,7 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Console Logs" Padding="5 5 0 2"/>
-                            <TextBox x:Name="ConsoleLogBox" x:FieldModifier="public" TextWrapping="Wrap" AcceptsReturn="True" Width="500" Height="250" Margin="0,0,0,0" IsReadOnly="True" VerticalAlignment="Top" VerticalScrollBarVisibility="Visible" />
+                            <TextBox x:Name="ConsoleLogBox" x:FieldModifier="public" TextWrapping="Wrap" AcceptsReturn="True" Width="500" Height="265" Margin="0,0,0,0" IsReadOnly="True" VerticalAlignment="Top" VerticalScrollBarVisibility="Visible" TextChanged="ConsoleLogBox_TextChanged" />
                         </StackPanel>
 
                         <StackPanel>
@@ -58,7 +91,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Once Buttons Are Removed Add Section To Set Minmum Resource Values -->
-                                <StackPanel Grid.Column="0">
+                                <StackPanel Grid.Column="0" Margin="0 0 0 0">
                                     <Button x:Name="TakeScreen" Content="Take Screenshot" Click="TakeScreen_Click" Width="100" Height="25"/>
                                     <Button x:Name="CheckSize" Content="Check Size" Click="CheckSize_Click" Width="100" Height="25"/>
                                     <Button x:Name="GetPlayerDetails" Content="Get Player Details" Click="GetPlayerDetails_Click" Width="100" Height="25"/>
@@ -83,7 +116,7 @@
 
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
 
-                            <GroupBox Header="Controls" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 7" Height="75" Width="210">
+                            <GroupBox Header="Controls" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0" Height="75" Width="210">
                                 <Grid>
                                     <Button x:Name="StartBot" Click="StartBot_Click" Height="33" Width="75" HorizontalAlignment="Left" Margin="10,0,0,0">
                                         <Grid>
@@ -129,13 +162,13 @@
 
                             <GroupBox Header="Battles" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 7" Height="200" Width="210">
                                 <StackPanel Margin="5 0 5 0">
-                                    <CheckBox x:Name="BossBattle" FontSize="15" Content="Boss Battle (Main Menu)" Padding="5 -3 0 4" />
-                                    <CheckBox x:Name="FriendBattle" Content="Friend Boss" Padding="5 -5 0 4" />
-                                    <CheckBox x:Name="GuildBattle" Content="Guild Boss" Padding="5 -5 0 4" />
-                                    <CheckBox x:Name="BraveBattle" Content="Arena - Brave" Padding="5 -5 0 4" />
-                                    <CheckBox x:Name="DoSBattle" Content="Den Of Secrets" Padding="5 -5 0 4" />
-                                    <CheckBox x:Name="ExpeditionBattle" Content="Expedition" Padding="5 -5 0 4" />
-                                    <CheckBox x:Name="PlanetTrialBattle" Content="Planet Trial&#xD;&#xA;" Padding="5 -5 0 4" />
+                                    <CheckBox x:Name="BossBattle" FontSize="15" Content="Boss Battle (Main Menu)" Padding="5 -3 0 4" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="FriendBattle" Content="Friend Boss" Padding="5 -5 0 4" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="GuildBattle" Content="Guild Boss" Padding="5 -5 0 4" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="BraveBattle" Content="Arena - Brave" Padding="5 -5 0 4" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="DoSBattle" Content="Den Of Secrets" Padding="5 -5 0 4" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="ExpeditionBattle" Content="Expedition" Padding="5 -5 0 4" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="PlanetTrialBattle" Content="Planet Trial&#xD;&#xA;" Padding="5 -5 0 4" HorizontalAlignment="Left"/>
                                 </StackPanel>
                             </GroupBox>
                         </StackPanel>
@@ -190,37 +223,37 @@
 
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
 
-                            <GroupBox Header="Daily Pass Quests" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 7" Height="210" Width="210">
-                                <StackPanel Margin="5 0 5 0">
-                                    <CheckBox x:Name="Alchemy" FontSize="15" Content="Perform Alchemy" Padding="5 -3 0 4" Checked="CheckBox_Checked" />
-                                    <CheckBox x:Name="SendHearts" Content="Send 5 hearts" Padding="5 -5 0 4" />
-                                    <CheckBox x:Name="SpinWheel" Content="Spin the Fortune Wheel" Padding="5 -5 0 4" />
-                                    <CheckBox x:Name="CompleteTavern" Content="Complete 2 Quests" Padding="5 -5 0 4" />
-                                    <CheckBox x:Name="CombineEquip" Content="Combine 3 Equipments" Padding="5 -5 0 4" />
-                                    <CheckBox x:Name="PerformCommon" Content="Perform 1 Common Summon" Padding="5 -5 0 4" />
-                                    <CheckBox x:Name="PerformGrand" Content="Perform 1 Grand Summon" Padding="5 -5 0 4" />
-                                    <CheckBox x:Name="CompleteBrave" Content="Complete 2 Brave Leagues" Padding="5 -5 0 4" Checked="CheckBox_Checked_1" />
+                            <GroupBox Header="Daily Pass Quests" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 7" Height="220" Width="210">
+                                <StackPanel Margin="5 0 5 0" >
+                                    <CheckBox x:Name="Alchemy" Content="Perform Alchemy" Padding="0 0 0 0" Checked="CheckBox_Checked" Margin="0 0 0 0" HorizontalAlignment="Left" />
+                                    <CheckBox x:Name="SendHearts" Content="Send 5 hearts" Padding="0 0 0 0" Margin="0 0 30 0" HorizontalAlignment="Left" />
+                                    <CheckBox x:Name="SpinWheel" Content="Spin the Fortune Wheel" Padding="0 0 0 0" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="CompleteTavern" Content="Complete 2 Quests" Padding="0 0 0 0" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="CombineEquip" Content="Combine 3 Equipments" Padding="0 0 0 0" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="PerformCommon" Content="Perform 1 Common Summon" Padding="0 0 0 0" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="PerformGrand" Content="Perform 1 Grand Summon" Padding="0 0 0 0" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="CompleteBrave" Content="Complete 2 Brave Leagues" Padding="0 0 0 0" Checked="CheckBox_Checked_1" HorizontalAlignment="Left"/>
                                 </StackPanel>
                             </GroupBox>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
-                            <GroupBox FontSize="18" Header="Friend Settings" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 7" Height="90" Width="210">
+                            <GroupBox FontSize="18" Header="Friend Settings" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 7" Height="120" Width="210">
                                 <StackPanel Margin="5 0 5 0">
-                                    <CheckBox x:Name="SendFriend" FontSize="12" Content="Send Friend Requests" Margin="15,3,0,0" />
-                                    <CheckBox x:Name="AcceptFriends" Click="AcceptFriends_Click" FontSize="12" Content="Accept Friend Requests" Margin="15 3 0 0" />
-                                    <CheckBox x:Name="DeclineFriends" Click="AcceptFriends_Click" FontSize="12" Content="Decline Friend Requests" Margin="15 3 0 0" />
+                                    <CheckBox x:Name="SendFriend" FontSize="12" Content="Send Friend Requests" Margin="15,3,0,0" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="AcceptFriends" Click="AcceptFriends_Click" FontSize="12" Content="Accept Friend Requests" Margin="15 3 0 0" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="DeclineFriends" Click="AcceptFriends_Click" FontSize="12" Content="Decline Friend Requests" Margin="15 3 0 0" HorizontalAlignment="Left" />
                                 </StackPanel>
                             </GroupBox>
 
                         </StackPanel>
 
                         <StackPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <GroupBox FontSize="18" Header="Miscellaneous Settings" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 7" Height="90" Width="210">
+                            <GroupBox FontSize="18" Header="Miscellaneous Settings" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 7" Height="120" Width="210">
                                 <StackPanel Margin="5 0 5 0">
-                                    <CheckBox x:Name="DailyBag" FontSize="12" Content="Claim Free Gift Bag" Margin="15,3,0,0" IsEnabled="False" MouseEnter="TabItem_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
-                                    <CheckBox x:Name="PurchaseDoS" FontSize="12" Content="Purchase DoS Tickets" Margin="15 3 0 0" />
-                                    <CheckBox x:Name="DeleteMail" FontSize="12" Content="Delete Mail" Margin="15 3 0 0" />
+                                    <CheckBox x:Name="DailyBag" FontSize="12" Content="Claim Free Gift Bag" Margin="15,3,0,0" IsEnabled="False" MouseEnter="TabItem_MouseEnter" MouseLeave="TextBlock_MouseLeave" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="PurchaseDoS" FontSize="12" Content="Purchase DoS Tickets" Margin="15 3 0 0" HorizontalAlignment="Left"/>
+                                    <CheckBox x:Name="DeleteMail" FontSize="12" Content="Delete Mail" Margin="15 3 0 0" HorizontalAlignment="Left"/>
                                 </StackPanel>
                             </GroupBox>
                         </StackPanel>
@@ -239,10 +272,10 @@
 
                             <GroupBox Header="Upgrade Settings" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 7" Height="210" Width="210">
                                 <StackPanel Margin="5 0 5 0">
-                                    <CheckBox Content="Auto Upgrade Hero" Padding="5 -3 0 4" />
-                                    <CheckBox Content="Auto Fuse (1-4*)" Padding="5 -5 0 4" />
-                                    <CheckBox Content="Auto Fuse (5*)" Padding="5 -5 0 4" />
-                                    <CheckBox Content="Auto Fuse (6*+)" Padding="5 -5 0 4" />
+                                    <CheckBox Content="Auto Upgrade Hero" Padding="5 -3 0 4" HorizontalAlignment="Left"/>
+                                    <CheckBox Content="Auto Fuse (1-4*)" Padding="5 -5 0 4" HorizontalAlignment="Left"/>
+                                    <CheckBox Content="Auto Fuse (5*)" Padding="5 -5 0 4" HorizontalAlignment="Left"/>
+                                    <CheckBox Content="Auto Fuse (6*+)" Padding="5 -5 0 4" HorizontalAlignment="Left"/>
                                 </StackPanel>
                             </GroupBox>
                         </StackPanel>
@@ -255,7 +288,7 @@
                                     <Label  FontSize="12" Content="Hero 3:" Height="25" HorizontalAlignment="Left"  Margin="10,70,0,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
                                     <Label  FontSize="12" Content="Hero 4:" Height="25" HorizontalAlignment="Left"  Margin="10 100,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
                                     <Label  FontSize="12" Content="Hero 5:" Height="25" HorizontalAlignment="Left"  Margin="10,130,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
-                                    <Label  FontSize="12" Content="Pokemon 6:" Height="25" HorizontalAlignment="Left"  Margin="10,160,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
+                                    <Label  FontSize="12" Content="Hero 6:" Height="25" HorizontalAlignment="Left"  Margin="10,160,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="113" />
                                     <ComboBox FontSize="14" SelectedIndex="0"  HorizontalAlignment="Right" Height="25" Margin="0,10,10,0"  VerticalAlignment="Top" Width="100" >
                                         <ComboBoxItem>Wolnir</ComboBoxItem>
                                     </ComboBox>

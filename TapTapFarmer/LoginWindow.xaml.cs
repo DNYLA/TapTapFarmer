@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -46,15 +47,13 @@ namespace TapTapFarmer
 
         private void CheckBoxChanged(object sender, RoutedEventArgs e)
         {
-            if (WindowsCredentialsCheckBox.IsChecked == true)
+            if (RememberMeCheckBox.IsChecked == true)
             {
-                LocalUserNameTextBox.Text = Environment.UserName;
-                LocalPasswordBox.Password = "SHOW_SOME_PASSWORD";
+                Properties.Settings.Default.autologin = true;
             }
             else
             {
-                LocalUserNameTextBox.Text = string.Empty;
-                LocalPasswordBox.Password = string.Empty;
+                Properties.Settings.Default.autologin = false;
             }
         }
 
@@ -78,6 +77,31 @@ namespace TapTapFarmer
         {
             Left = Left + e.HorizontalChange;
             Top = Top + e.VerticalChange;
+        }
+
+        private void AzureLoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void LocalLoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.username = UNameBox.Text;
+            Properties.Settings.Default.password = LocalPasswordBox.Password;
+
+            bool resp = Functions.Authentication.LoginHandler.CheckLogin(UNameBox.Text, LocalPasswordBox.Password);
+
+            if (resp)
+            {
+                MainWindow win2 = new MainWindow();
+                win2.Show();
+                this.Close();
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
+            
         }
     }
 }

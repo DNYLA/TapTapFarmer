@@ -72,6 +72,7 @@
     <Compile Include="Constants\OtherConstants.cs" />
     <Compile Include="Constants\TextConstants.cs" />
     <Compile Include="Functions\Attack.cs" />
+    <Compile Include="Functions\Authentication\FingerPrint.cs" />
     <Compile Include="Functions\Authentication\LoginHandler.cs" />
     <Compile Include="Functions\BotMain.cs" />
     <Compile Include="Functions\ImageToText.cs" />

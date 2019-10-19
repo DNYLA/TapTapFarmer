@@ -49,7 +49,7 @@ namespace TapTapFarmer.Functions
             //Takes Screencap of NOX
             Bitmap ScreenCap = WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
 
-            ScreenCap.Save("ScreenTest.bmp");
+            //ScreenCap.Save("ScreenTest.bmp");
 
             Point ProcessLocation = WindowCapture.GetProcessPosition(GlobalVariables.GLOBAL_PROC_NAME);
 

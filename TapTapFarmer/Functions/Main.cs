@@ -30,10 +30,18 @@ namespace TapTapFarmer.Functions
         {
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).LogConsole(message, type);
+
+                if (MainWindow.Instance != null)
+                {
+                    MainWindow.Instance.LogConsole(message, type);
+                }
+                else
+                {
+                    //Do something if MainWindow isn't loaded yet
+                }
             }));
-            
         }
+
 
         /// <summary>
         /// Function that resets the game back to the main Menu

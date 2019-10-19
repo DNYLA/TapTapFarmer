@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -28,9 +29,12 @@ namespace TapTapFarmer
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow Instance;
+
         public MainWindow()
         {
             InitializeComponent();
+            Instance = this;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -128,10 +132,31 @@ namespace TapTapFarmer
 
             //Thread AttackThread = new Thread(Attack.BattleLeagueAttackHandler);
             //AttackThread.Start();
-            Functions.Authentication.LoginHandler.AuthenticateAccount("sbondo1234", "pass1");
-
+            
+            
         }
 
+        private void BtnActionMinimize_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void BtnActionSystemInformation_OnClick(object sender, RoutedEventArgs e)
+        {
+            var systemInformationWindow = new SystemInformationWindow();
+            systemInformationWindow.Show();
+        }
+
+        private void btnActionClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Thumb_OnDragDelta(object sender, DragDeltaEventArgs e)
+        {
+            Left = Left + e.HorizontalChange;
+            Top = Top + e.VerticalChange;
+        }
         private void ScrollDown_Click(object sender, RoutedEventArgs e)
         {
             Main.LogConsole("Hello");
@@ -144,7 +169,37 @@ namespace TapTapFarmer
 
         private void StartBot_Click(object sender, RoutedEventArgs e)
         {
-            BotMain.BotStart();
+            bool yes = false;
+            bool resp = false;
+            Task OpenObjectsThread = new Task(() =>
+            {
+                yes = Functions.Authentication.LoginHandler.CheckHWID(Properties.Settings.Default.username);
+                Main.LogConsole("Trying To Connect to server...");
+                resp = Functions.Authentication.LoginHandler.CheckLogin(Properties.Settings.Default.username,
+                        Properties.Settings.Default.password);
+                Main.LogConsole("Sucessfully connected loging in...");
+                
+                return;
+            });
+
+            OpenObjectsThread.Start();
+            OpenObjectsThread.Wait();
+
+            if (resp && yes)
+            {
+                Main.LogConsole("Connected Successfully");
+                BotMain.BotStart();
+
+            }
+            else
+            {
+                Main.LogConsole("Unable to Connect to Server...");
+                Main.LogConsole("Shutting Down...");
+                Thread.Sleep(5);
+                Application.Current.Shutdown();
+            }
+            
+            
         }
 
         private void TextTest_Click(object sender, RoutedEventArgs e)
@@ -217,7 +272,7 @@ namespace TapTapFarmer
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            UpdateConfig();
+            //UpdateConfig();
         }
 
         #region Uneeded Event Handlers
@@ -257,41 +312,49 @@ namespace TapTapFarmer
         }
         #endregion
 
+        #region Old Console Log Method
+        //public void LogConsole(string message, string type = "Default")
+        //{
+        //System.Windows.Media.Color TextColour = System.Windows.Media.Color.FromRgb(41, 43, 44);
+        //if (type == "Default")
+        //{
+        //    TextColour = System.Windows.Media.Color.FromRgb(41,43,44);
+        //}
+        //else if (type == "Success")
+        //{
+        //    TextColour = System.Windows.Media.Color.FromRgb(92,184,92);
+        //}
+        //else if (type == "Info")
+        //{
+        //    TextColour = System.Windows.Media.Color.FromRgb(2, 117, 216);
+        //}
+        //else if (type == "Error")
+        //{
+        //    TextColour = System.Windows.Media.Color.FromRgb(237, 67, 55);
+        //}
+
+        //SolidColorBrush brush = new SolidColorBrush(TextColour);
+            
+        ////Temp Disabled as this method changes the whole textblock colour
+        ////ConsoleLogBox.Foreground = brush; 
+
+        //Thread LogConsoleThread = new Thread(() =>
+        //{
+        //    Application.Current.Dispatcher.Invoke(new Action(() =>
+        //    {
+        //        ConsoleLogBox.Text += $"{Environment.NewLine}[{DateTime.Now.ToString("h:mm:ss tt")}] {message}";
+        //    }));
+
+        //});
+        //LogConsoleThread.Start();
+
+        //ConsoleLogBox.ScrollToEnd();
+        //}
+        #endregion
+
         public void LogConsole(string message, string type = "Default")
         {
-            System.Windows.Media.Color TextColour = System.Windows.Media.Color.FromRgb(41, 43, 44);
-            if (type == "Default")
-            {
-                TextColour = System.Windows.Media.Color.FromRgb(41,43,44);
-            }
-            else if (type == "Success")
-            {
-                TextColour = System.Windows.Media.Color.FromRgb(92,184,92);
-            }
-            else if (type == "Info")
-            {
-                TextColour = System.Windows.Media.Color.FromRgb(2, 117, 216);
-            }
-            else if (type == "Error")
-            {
-                TextColour = System.Windows.Media.Color.FromRgb(237, 67, 55);
-            }
-
-            SolidColorBrush brush = new SolidColorBrush(TextColour);
-            
-            //Temp Disabled as this method changes the whole textblock colour
-            //ConsoleLogBox.Foreground = brush; 
-
-            Thread LogConsoleThread = new Thread(() =>
-            {
-                Application.Current.Dispatcher.Invoke(new Action(() =>
-                {
-                    ConsoleLogBox.Text += $"{Environment.NewLine}[{DateTime.Now.ToString("h:mm:ss tt")}] {message}";
-                }));
-
-            });
-            LogConsoleThread.Start();
-
+            ConsoleLogBox.Text += $"{Environment.NewLine}[{DateTime.Now.ToString("h:mm:ss tt")}] {message}";
             ConsoleLogBox.ScrollToEnd();
         }
 
@@ -374,6 +437,11 @@ namespace TapTapFarmer
         private void ShareConfig_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://sbond.ml/p/trainerbotsite/forum/newthread.php?fid=8");
+        }
+
+        private void ConsoleLogBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

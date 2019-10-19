@@ -32,9 +32,39 @@ namespace TapTapFarmer.Functions
             //Add Functions to Check For Specific Options
             Console.WriteLine("Bot Started: " + GlobalVariables.BOT_STARTED.ToString());
             GlobalVariables.BOT_STARTED = true;
+            GlobalVariables.ISON = true;
 
             //Adding this to Another Thread won't work.
             KeyHandler.StartKeyHandler();
+
+            //Re-Checks if Credentials are correct
+            var LoginThread = new Thread(() =>
+            {
+                while (true)
+                {
+                    bool check = Authentication.LoginHandler.CheckLogin(Properties.Settings.Default.username,
+                    Properties.Settings.Default.password);
+                    bool valid = false;
+                    string sHW = Authentication.LoginHandler.GetHWID(Properties.Settings.Default.username);
+                    string cHW = Authentication.FingerPrint.Value();
+                    if (sHW == cHW)
+                    {
+                        valid = true;
+                    }
+                    else
+                    {
+                        valid = false;
+                    }
+
+                    if (!check && !valid)
+                    {
+                        GlobalVariables.ISON = false;
+                        Main.LogConsole("Attemp to connect to server failed... Retrying!");
+                    }
+                    Main.Sleep(60);
+                }
+            });
+
 
             //Create a new Thread to Handle All Bot Related Things
             var MainThread = new Thread(() =>
@@ -45,7 +75,7 @@ namespace TapTapFarmer.Functions
                 //KeyHandler.StartKeyHandler();
 
                 //Everything must be contained into a while loop to make sure bot stops when it is told to stop
-                while (GlobalVariables.BOT_STARTED == true)
+                while (GlobalVariables.BOT_STARTED == true && GlobalVariables.ISON == true)
                 {
                     Main.LogConsole("Bot Started");
 
@@ -69,9 +99,6 @@ namespace TapTapFarmer.Functions
                         GlobalVariables.EVENTS_COMPLETED = UpdatePlayerInfo.ClaimEvents();
                     }
 
-                    //Add BlackSmith
-
-
                     //Add Functions to Claim Daily Items, Open Crates, etc
 
 
@@ -83,10 +110,6 @@ namespace TapTapFarmer.Functions
 
                     //Create a new Task To Handle Clicking so it doesnt take up Main Thread.
                     bool output = false;
-                    //Task task = Task.Factory.StartNew(() =>
-                    //{
-                    //    output = Main.IdleClick();
-                    //});
 
                     var task = new Thread(() =>
                     {
@@ -95,31 +118,26 @@ namespace TapTapFarmer.Functions
 
                     task.Start();
 
-                    Thread.Sleep(15 * 60000); //Sleep For 15 Minutes Before Continuing
+                    Main.Sleep(15); //Sleep For 15 Minutes Before Continuing
                     GlobalVariables.BOT_STATE = "Checking"; //Setting State
-
-                    //Waiting for the Task To Return A Value & Then Double Checking If Task Returned true. TRUE = Idling Stopped, FALSE = Still Idling.
-                    Console.WriteLine(output);
-
-                    Console.WriteLine("Bot State: Checking");
 
                     Console.WriteLine("Checking If Account Alreay Logged In");
                     //Check If Bot Logged In
                     if (PixelChecker.CheckPixelValue(LocationConstants.HOME_ACCOUNT_ALREADY_LOGGED, ColorConstants.GLOBAL_OK_BUTTON))
                     {
-                        Console.WriteLine("Account Logged In From Another Account Waiting 5 Minutes To Re-Log");
+                        Main.LogConsole("Account Logged In From Another Account Waiting 5 Minutes To Re-Log");
                         Thread.Sleep(5 * 60000);
                         MouseHandler.MoveCursor(LocationConstants.HOME_ACCOUNT_ALREADY_LOGGED, true);
                     }
-
-                    Console.WriteLine("Bot Re-Idling");
-                    Console.WriteLine("Bot Started: " + GlobalVariables.BOT_STARTED.ToString());
                 }
             });
+
+            LoginThread.Start();
             MainThread.Start();
 
             if (GlobalVariables.BOT_STARTED == false)
             {
+                LoginThread.Abort();
                 MainThread.Abort();
             }
 
@@ -215,7 +233,7 @@ namespace TapTapFarmer.Functions
 
             //Update Global Variables Settings
             GlobalVariables.tasksSettings = tasks;
-
+            GlobalVariables.LAST_RAN = DateTime.Now;
         }
 
         public static void StopBot()
