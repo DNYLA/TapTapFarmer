@@ -14,6 +14,7 @@ namespace TapTapFarmer.Constants
         //public static Color GLOBAL_BATTLE_WON = Color.FromArgb(212, 69, 71);
         //public static Color GLOBAL_BATTLE_LOST = Color.FromArgb(92, 95, 121);
         public static Color GLOBAL_OK_BUTTON = Color.FromArgb(95, 232, 138);
+        public static Color RELOG_OK = Color.FromArgb(160, 227, 54);
 
         //Battle Colours
 
@@ -39,6 +40,14 @@ namespace TapTapFarmer.Constants
         //Home Bottom Colours
         public static Color HOME_BOTTOM_BATTLE_COLOR = Color.FromArgb(252, 45, 63);
         //public static Color HOME_BOTTOM_BATTLE_ACTIVE_COLOR = Color.FromArgb(82, 226, 235);
+
+        public static Color TAVER_FINISH = Color.FromArgb(254, 230, 98);
+        public static Color TAVERN_SPEEDUP = Color.FromArgb(210, 245, 118);
+        public static Color TAVERN_DISPATCH = Color.FromArgb(172, 186, 225);
+        public static Color TAVERN_START = Color.FromArgb(255, 231, 102);
+        public static Color TAVERN_SPEED = Color.FromArgb(254, 230, 99);
+        
+
 
         //City Constants
         public static Color CITY_ITEMCENTER_COLOR = Color.FromArgb(254, 252, 247);
@@ -82,7 +91,7 @@ namespace TapTapFarmer.Constants
         public static Color REDINFO_CIRCLE_MAINMENU_COLOR = Color.FromArgb(255, 68, 15);
         public static Color REDINFO_CIRCLE_BOSS_BATTLE_COLOR = Color.FromArgb(253, 66, 14);
         public static Color PIRVALLEGE_INFO_COLOR = Color.FromArgb(255, 63, 19);
-        public static Color PRIVALLEGE_CHECKIN_YELLOW = Color.FromArgb(254, 211, 23);
+        public static Color PRIVALLEGE_CHECKIN_YELLOW = Color.FromArgb(255, 211, 23);
 
         public static Color ALCHEMY_FREE = Color.FromArgb(254, 230, 97);
         public static Color ALCHEMY_20GEMS = Color.FromArgb(159, 228, 56);
@@ -130,6 +139,7 @@ namespace TapTapFarmer.Constants
         public static Color FRIENDS_REQUESTS_GREEN = Color.FromArgb(23,227,79);
         public static Color FRIENDS_COOP_RED = Color.FromArgb(255,66,21);
         public static Color FRIENDS_SCOUT_RED = Color.FromArgb(255,71,19);
+        public static Color FRIENDS_ACCEPT = Color.FromArgb(210, 244, 123);
 
 
         //Mail Menu

@@ -32,8 +32,8 @@ namespace TapTapFarmer.Constants
         public static Point HOME_ACCOUNT_ALREADY_LOGGED = new Point(267, 590);
         public static Point HOME_BOSS_BATTLE_NEXT = new Point(290, 196);
         public static Point HOME_BOSS_IDLE_NEXT = new Point(288, 634);
-        public static Point HOME_PIRVALLEGE_BUTTON = new Point(525, 63);
-        public static Point PRIVALLEGE_CHECKIN_BUTTON = new Point(443, 849);
+        public static Point HOME_PIRVALLEGE_BUTTON = new Point(492, 155);
+        public static Point PRIVALLEGE_CHECKIN_BUTTON = new Point(434, 852);
 
         // Profile Buttons
         public static Point PROFILE_CLAIM_BUTTON = new Point(488, 590);
@@ -48,6 +48,10 @@ namespace TapTapFarmer.Constants
         public static Point BAG_SHARDS_REWARDS_CLAIM_BUTTON = new Point(272, 700);
         public static Point BAG_EXIT_BUTTON = new Point(503, 123);
 
+        public static Point TAVERN_COMPLETE = new Point(424, 704);
+        public static Point TAVERN_QUICK = new Point(168, 765);
+        public static Point TAVERN_START = new Point(424, 759);
+        public static Point TAVERN_SPEED = new Point(206, 519);
 
         // 8hr Money Bonus Buttons (Meowth Coin)
         public static Point MONEYBONUS_FREE_BUTTON = new Point(419, 326);
@@ -115,7 +119,9 @@ namespace TapTapFarmer.Constants
         public static Point FRIENDS_CLAIM_SEND = new Point(436,692);
         public static Point FRIENDS_REQUESTS = new Point(384, 103);
         public static Point FRIENDS_COOP = new Point(503,103);
-        public static Point FRIENDS_SCOUT = new Point(374, 676);
+        public static Point FRIENDS_SCOUT = new Point(336, 676);
+        public static Point FRIENDS_ACCEPT = new Point(439, 277);
+        public static Point FRIENDS_DELETE = new Point(459, 210);
 
         //Home Screen Buttons
         public static Point HOME_MAINMENU_LOCATION = new Point(136, 95);
@@ -139,8 +145,8 @@ namespace TapTapFarmer.Constants
         //Fortune Wheel
         public static Point FORTUNE_SPIN1_BUTTON = new Point(203, 788);
         public static Point FORTUNE_SPINAGAIN1_BUTTON = new Point(206, 707);
-        public static Point FORTUNE_PURCHASE = new Point(448, 173);
-        public static Point FORTUNE_BUY = new Point(321, 645);
+        public static Point FORTUNE_PURCHASE = new Point(489, 175);
+        public static Point FORTUNE_BUY = new Point(321, 646);
 
         //Hero Chest
         public static Point HEROCHEST_GRAND_FREE_CIRCLE = new Point(496, 302);
@@ -220,9 +226,9 @@ namespace TapTapFarmer.Constants
         public static Point QUEST_CLAIM_MASTER = new Point(485, 210);
 
         public static Point BRAVE_REFRESH = new Point(457, 421);
-        public static Point BRAVE_BATTLE1 = new Point(462, 487);
-        public static Point BRAVE_BATTLE2 = new Point(462, 582);
-        public static Point BRAVE_BATTLE3 = new Point(462, 679);
+        public static Point BRAVE_BATTLE1 = new Point(454, 505);
+        public static Point BRAVE_BATTLE2 = new Point(454, 599);
+        public static Point BRAVE_BATTLE3 = new Point(462, 698);
 
         public static Point BRAVE_CHOSEREWARD = new Point(270, 476);
         public static Point BRAVE_RANDOM = new Point(270, 647);

@@ -43,6 +43,21 @@ namespace TapTapFarmer.Functions
         }
 
 
+        public static Boolean CheckSize()
+        {
+            System.Drawing.Size ProcSize = WindowCapture.GetProcessSize(GlobalVariables.GLOBAL_PROC_NAME);
+
+            if (ProcSize != new System.Drawing.Size(544, 994))
+            {
+                MessageBox.Show("Wrong Resoloution Selected, Bot Stopped. \nGo To NOX >> SETTINGS >> ADVANCED SETTINGS >> 540x960 >> Restore Window Settings \n Start Bot Once Window Size Restored");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         /// <summary>
         /// Function that resets the game back to the main Menu
         /// </summary>

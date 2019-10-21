@@ -34,6 +34,13 @@ namespace TapTapFarmer.Functions
             GlobalVariables.BOT_STARTED = true;
             GlobalVariables.ISON = true;
 
+            if (!Main.CheckSize())
+            {
+                GlobalVariables.BOT_STARTED = false;
+                GlobalVariables.ISON = false;
+                return;
+            }
+
             //Adding this to Another Thread won't work.
             KeyHandler.StartKeyHandler();
 
@@ -89,10 +96,32 @@ namespace TapTapFarmer.Functions
 
                     Main.CheckLimits();
 
-                    ClaimDailies();
+                    Task DoDailes = new Task(() =>
+                    {
+                        ClaimDailies();
+                    });
+                    DoDailes.Start();
+                    DoDailes.Wait();
 
+                    Main.LogConsole("Finished Attempting Daily Tasks..");
 
+                    Main.ResetToHome();
 
+                    Task DoAttack = new Task(() =>
+                    {
+                        AttackBattles();
+                    });
+
+                    DoAttack.Start();
+                    DoAttack.Wait();
+
+                    Main.LogConsole("Finished Attacking Battles.");
+
+                    Console.WriteLine("Going back home...");
+
+                    Main.ResetToHome();
+
+                    Console.WriteLine("Idling...");
                     if (!GlobalVariables.EVENTS_COMPLETED)
                     {
                         Main.ResetToHome();
@@ -123,10 +152,11 @@ namespace TapTapFarmer.Functions
 
                     Console.WriteLine("Checking If Account Alreay Logged In");
                     //Check If Bot Logged In
-                    if (PixelChecker.CheckPixelValue(LocationConstants.HOME_ACCOUNT_ALREADY_LOGGED, ColorConstants.GLOBAL_OK_BUTTON))
+                    if (PixelChecker.CheckPixelValue(LocationConstants.HOME_ACCOUNT_ALREADY_LOGGED, ColorConstants.RELOG_OK))
                     {
                         Main.LogConsole("Account Logged In From Another Account Waiting 5 Minutes To Re-Log");
-                        Thread.Sleep(5 * 60000);
+                        //Thread.Sleep(5 * 60000);
+                        Main.Sleep(30);
                         MouseHandler.MoveCursor(LocationConstants.HOME_ACCOUNT_ALREADY_LOGGED, true);
                     }
                 }
@@ -135,15 +165,67 @@ namespace TapTapFarmer.Functions
             LoginThread.Start();
             MainThread.Start();
 
-            if (GlobalVariables.BOT_STARTED == false)
+            var CheckState = new Thread(() =>
             {
-                LoginThread.Abort();
-                MainThread.Abort();
-            }
+                while (true)
+                {
+                    if (GlobalVariables.BOT_STARTED == false)
+                    {
+                        LoginThread.Abort();
+                        MainThread.Abort();
+                    }
+                }
+            });
+
+            CheckState.Start();
 
         }
 
-        private static void ClaimDailies()
+        private static bool AttackBattles()
+        {
+            AttackModel AS = GlobalVariables.attackSettings;
+            Attack.DenOfSecretAttackHandler();
+            if (AS.Boss)
+            {
+                Attack.HomeBossAttackHandler();
+            }
+
+            if (AS.Friend)
+            {
+                Main.LogConsole("Skipping Friend Attack...");
+            }
+
+            if (AS.Guild)
+            {
+                Main.LogConsole("Skipping Friend Attack...");
+            }
+
+            if (AS.DoS)
+            {
+                Attack.DenOfSecretAttackHandler();
+            }
+
+            if (AS.Expedition)
+            {
+                Main.LogConsole("Skipping Expedition..");
+            }
+
+            if (AS.PlanetTrial && (AS.PlanetTrialAutoRetry || !Main.CheckSameDay(GlobalVariables.LAST_RAN)))
+            {
+                Attack.PlanetTrialAttackHandler();
+            }
+
+            if (AS.Brave && (AS.BraveAutoRetry || !Main.CheckSameDay(GlobalVariables.LAST_RAN)))
+            {
+                Attack.BraveAttackHandler();
+            }
+
+
+            return true;
+
+        }
+
+        private static bool ClaimDailies()
         {
             if (!Main.CheckSameDay(GlobalVariables.LAST_RAN))
             {
@@ -155,78 +237,98 @@ namespace TapTapFarmer.Functions
                 Main.LogConsole($"Bot Already Ran Today. No Need To Re-Do Everything");
             }
 
-            TasksModel tasks = GlobalVariables.tasksSettings;
-
-            if (!tasks.FriendsClaimed)
+            if (GlobalVariables.EVENTS_COMPLETED)
             {
-                
+                return true;
+            }
+
+            TasksModel tasks = GlobalVariables.tasksSettings;
+            DailyModel daily = GlobalVariables.dailySettings;
+
+            if (!tasks.FriendsClaimed && daily.SendHearts)
+            {
+                Main.LogConsole("Claiming Friend Requests");
                 if (UpdatePlayerInfo.ClaimFriends())
                 {
                     tasks.FriendsClaimed = true;
                     tasks.SentHears = true;
                 }
-                
+
             }
 
-            if(!tasks.DailyClaimed)
+            if (!tasks.DailyClaimed)
             {
+                Main.LogConsole("Claiming Daily Privalege");
                 tasks.DailyClaimed = UpdatePlayerInfo.ClaimPrivellage(); ;
             }
 
             if (!tasks.Defeat3Claimed)
             {
+                Main.LogConsole("Defeating Daily 3 waves");
                 tasks.Defeat3Claimed = UpdatePlayerInfo.Defeat3Main();
             }
 
 
-            if (!tasks.AlchemyClaimed)
+            if (!tasks.AlchemyClaimed && daily.Alchemy)
             {
+                Main.LogConsole("Claiming Alchemy");
                 tasks.AlchemyClaimed = UpdatePlayerInfo.ClaimAlchemy();
             }
 
 
-            if (!tasks.SpunWheel)
+            if (!tasks.SpunWheel && daily.SpinWheel)
             {
+                Main.LogConsole("Spinning Daily Wheel");
                 tasks.SpunWheel = UpdatePlayerInfo.SpinWheel();
             }
 
-            if (!tasks.CompletedTavern)
+            if (!tasks.CompletedTavern && daily.DailyTavern)
             {
-                //Add Tavern Handling below
+                Main.LogConsole("Completing Daily Tavern Quests");
+                tasks.CompletedTavern = UpdatePlayerInfo.ClaimTavernQuest();
             }
 
-            if (!tasks.CombinedEquip)
+            if (!tasks.CombinedEquip && daily.CombineEquip)
             {
+                Main.LogConsole("Combining 3 Equipment");
                 tasks.CombinedEquip = UpdatePlayerInfo.CombineEquipment();
             }
 
-            if (!tasks.PerformedCommon)
+            if (!tasks.PerformedCommon && daily.CommonSummon)
             {
+                Main.LogConsole("Performing Common Summon");
                 tasks.PerformedCommon = UpdatePlayerInfo.SummonCommonKey();
             }
 
-            if (!tasks.PerformedGrand)
+            if (!tasks.PerformedGrand && daily.GrandSummon)
             {
+                Main.LogConsole("Performing Grand Summon");
                 tasks.PerformedGrand = UpdatePlayerInfo.SummonGrandKey();
             }
 
-            if (!tasks.CompletedBrave)
+            if (!tasks.CompletedBrave && daily.DailyBrave)
             {
-                Attack.AttackBattleLeague();
+                Main.LogConsole("Attacking Brave");
+                Attack.BraveAttackHandler();
+                Attack.BraveAttackHandler();
+                tasks.CompletedBrave = true;
             }
 
             if (!tasks.CompletedEvents)
             {
+                Main.LogConsole("Attacking Daily Events");
                 tasks.CompletedEvents = UpdatePlayerInfo.ClaimEvents();
             }
 
             if (tasks.CombinedEquip && tasks.AlchemyClaimed && tasks.SentHears && tasks.SentHears && tasks.SpunWheel && tasks.CompletedTavern && tasks.PerformedCommon && tasks.PerformedGrand && tasks.Defeat3Claimed && tasks.CompletedEvents)
             {
+                Main.LogConsole("All Daily Quests Finishes. Claiming Rewards.");
                 tasks.CompletedQuests = true;
                 UpdatePlayerInfo.ClaimQuestReward();
             }
 
-            
+            GlobalVariables.LAST_RAN = DateTime.Now;
+
 
             //Claim Mail
             UpdatePlayerInfo.ClaimMail();
@@ -234,6 +336,8 @@ namespace TapTapFarmer.Functions
             //Update Global Variables Settings
             GlobalVariables.tasksSettings = tasks;
             GlobalVariables.LAST_RAN = DateTime.Now;
+
+            return true;
         }
 
         public static void StopBot()

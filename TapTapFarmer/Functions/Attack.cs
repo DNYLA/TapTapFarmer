@@ -153,7 +153,7 @@ namespace TapTapFarmer.Functions
 
             while (AttackingPillar)
             {
-                for (int CurrentTry = 0; CurrentTry < OtherConstants.ATTACK_RETRY_AMOUNT; CurrentTry++)
+                for (int CurrentTry = 0; CurrentTry < GlobalVariables.attackSettings.PlanetTrialRetryAmount; CurrentTry++)
                 {
                     Main.Sleep(5);
 
@@ -252,7 +252,7 @@ namespace TapTapFarmer.Functions
         #endregion
 
         #region Battle League
-        public static void BattleLeagueAttackHandler()
+        public static bool BraveAttackHandler()
         {
             WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
 
@@ -260,11 +260,11 @@ namespace TapTapFarmer.Functions
 
             OpenObjects.OpenArena();
 
-            AttackBattleLeague();
+            return AttackBraveLeague();
 
         }
 
-        public static void AttackBattleLeague(int RefreshAmount = 0)
+        public static bool AttackBraveLeague(int RefreshAmount = 0)
         {
             Thread.Sleep(1000);
             int pos = GetLowestCE();
@@ -272,7 +272,7 @@ namespace TapTapFarmer.Functions
             if (RefreshAmount > 10)
             {
                 Main.LogConsole("Tried Refreshing 10 Times to find CE which matches your settings but couldn't find an opponent to match the criteria.");
-                return;
+                return false;
             }
 
             switch (pos)
@@ -280,7 +280,7 @@ namespace TapTapFarmer.Functions
                 case -1:
                     Main.LogConsole("All EnemyCE larger than Max BraveCE");
                     MouseHandler.MoveCursor(LocationConstants.BRAVE_REFRESH, true);
-                    AttackBattleLeague(RefreshAmount++);
+                    AttackBraveLeague(RefreshAmount++);
                     break;
                 case 0:
                     MouseHandler.MoveCursor(LocationConstants.BRAVE_BATTLE1, true);
@@ -333,15 +333,14 @@ namespace TapTapFarmer.Functions
             {
                 Main.Sleep(1);
                 MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
-                Console.WriteLine("True");
+                return true;
             }
             else
             {
                 Main.Sleep(1);
                 MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
-                Console.WriteLine("False");
+                return false;
             }
-
         }
 
         private static int GetLowestCE()
@@ -359,9 +358,38 @@ namespace TapTapFarmer.Functions
 
             Console.WriteLine("Yeea");
 
-            EnemyCE[0] = Convert.ToInt32(ImageToText.RemoveWhiteSpace(EnemyCEString[0], true));
-            EnemyCE[1] = Convert.ToInt32(ImageToText.RemoveWhiteSpace(EnemyCEString[1], true));
-            EnemyCE[2] = Convert.ToInt32(ImageToText.RemoveWhiteSpace(EnemyCEString[2], true));
+            try
+            {
+                EnemyCE[0] = Convert.ToInt32(ImageToText.RemoveWhiteSpace(EnemyCEString[0], true));
+            }
+            catch (Exception)
+            {
+
+                EnemyCE[0] = 999999999;
+            }
+
+            try
+            {
+                EnemyCE[1] = Convert.ToInt32(ImageToText.RemoveWhiteSpace(EnemyCEString[1], true));
+            }
+            catch (Exception)
+            {
+
+                EnemyCE[1] = 999999999;
+            }
+
+            try
+            {
+                EnemyCE[2] = Convert.ToInt32(ImageToText.RemoveWhiteSpace(EnemyCEString[2], true));
+            }
+            catch (Exception)
+            {
+
+                EnemyCE[2] = 999999999;
+            }
+
+            
+            
 
             Console.WriteLine(EnemyCE[0]);
 
@@ -432,7 +460,7 @@ namespace TapTapFarmer.Functions
         {
             //Reset To Home
             WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
-
+            bool lost = false;
             Main.Sleep(3);
 
             string BossStatus = ImageToText.HomeBoss();
@@ -470,13 +498,15 @@ namespace TapTapFarmer.Functions
 
                     if (BattleWon)
                     {
+                        Main.LogConsole("Won Home Boss Attack!");
                         Main.Sleep(1);
                         MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
-                        //HomeBossAttack();
+                        HomeBossAttack();
                         break; //Not Sure if this is needed but ill just add it anyways
                     }
                     else
                     {
+                        Main.LogConsole("Lost Home Boss Attack!");
                         Main.Sleep(1);
                         MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
                     }

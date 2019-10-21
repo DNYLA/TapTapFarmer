@@ -34,16 +34,34 @@ namespace TapTapFarmer.Functions
         #region Player Info Methods
         public static int GetWheelCoinAmount()
         {
-            string TokenAmount = GetOcrResponse(TextConstants.FORTUNEWHEEL_TOKEN_START, TextConstants.FORTUNEHWEEL_TOKEN_SIZE);
-
-            return Convert.ToInt32(TokenAmount);
+            string TokenAmount;
+            try
+            {
+                TokenAmount = GetOcrResponse(TextConstants.FORTUNEWHEEL_TOKEN_START, TextConstants.FORTUNEHWEEL_TOKEN_SIZE);
+                return Convert.ToInt32(TokenAmount);
+            }
+            catch
+            {
+                return -1;
+            }
+            
         }
 
         public static int GetGrandKeyAmount()
         {
-            string KeyAmount = GetOcrResponse(TextConstants.HEROCHEST_GRAND_START, TextConstants.HEROCHEST_KEY_SIZE);
+            string KeyAmount;
+            try
+            {
+                KeyAmount = GetOcrResponse(TextConstants.HEROCHEST_GRAND_START, TextConstants.HEROCHEST_KEY_SIZE);
+                return Convert.ToInt32(KeyAmount);
+            }
+            catch
+            {
+                return -1;
+            }
+            
 
-            return Convert.ToInt32(KeyAmount);
+            
         }
 
         public static int GetCommonKeyAmount()
@@ -85,18 +103,27 @@ namespace TapTapFarmer.Functions
             int MoneyValue;
 
 
-            if (MoneyText.EndsWith("k"))
+            try
             {
-                MoneyValue = MultiplyValue(MoneyText, 1000);
+                if (MoneyText.EndsWith("k"))
+                {
+                    MoneyValue = MultiplyValue(MoneyText, 1000);
+                }
+                else if (MoneyText.EndsWith("m"))
+                {
+                    MoneyValue = MultiplyValue(MoneyText, 1000000);
+                }
+                else
+                {
+                    MoneyValue = StringToInt(MoneyText);
+                }
             }
-            else if (MoneyText.EndsWith("m"))
+            catch (Exception)
             {
-                MoneyValue = MultiplyValue(MoneyText, 1000000);
+
+                MoneyValue = -1;
             }
-            else
-            {
-                MoneyValue = StringToInt(MoneyText);
-            }
+            
 
             return MoneyValue;
         }

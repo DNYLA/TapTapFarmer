@@ -56,6 +56,124 @@ namespace TapTapFarmer.Functions
             }
         }
 
+        public static bool ClaimTavernQuest()
+        {
+            Main.ResetToHome();
+            OpenObjects.OpenTavern();
+            Thread.Sleep(100);
+            MouseHandler.MoveCursor(LocationConstants.CASTLE_SCROLL_LOCATION);
+            for (int i = 0; i < 5; i++)
+            {
+                
+                MouseHandler.MouseWheelDown();
+            }
+            
+            int howmuch = 0;
+
+            if (FinishQuest())
+            {
+                howmuch++;
+                FinishQuest();
+                if (FinishQuest())
+                {
+                    howmuch++;
+                }
+            }
+
+
+            if (howmuch == 2)
+            {
+                return true;
+            }
+
+            if (CheckSpeedUp())
+            {
+                //Add Speed Up handling
+                howmuch++;
+            }
+
+            if (CheckDispatch())
+            {
+                howmuch++;
+
+                if(CheckDispatch())
+                {
+                    howmuch++;
+                }
+            }
+
+            if (howmuch > 2)
+            {
+                Main.LogConsole("Completed Daily Tavern Quests");
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool FinishQuest()
+        {
+            for (int i = 0; i < 15; i++)
+            {
+                if (PixelChecker.CheckPixelValue(LocationConstants.TAVERN_COMPLETE, ColorConstants.TAVER_FINISH))
+                {
+                    MouseHandler.MoveCursor(LocationConstants.TAVERN_COMPLETE, true);
+                    return true;
+                }
+
+                Thread.Sleep(430);
+            }
+
+            return false;
+        }
+
+        private static bool CheckSpeedUp()
+        {
+            if (PixelChecker.CheckPixelValue(LocationConstants.TAVERN_COMPLETE, ColorConstants.TAVERN_SPEEDUP))
+            {
+                MouseHandler.MoveCursor(LocationConstants.TAVERN_COMPLETE, true);
+                Thread.Sleep(1000);
+                if (PixelChecker.CheckPixelValue(LocationConstants.TAVERN_SPEED, ColorConstants.TAVERN_SPEED))
+                {
+                    MouseHandler.MoveCursor(LocationConstants.TAVERN_SPEED, true);
+                    MouseHandler.MoveCursor(LocationConstants.TAVERN_COMPLETE, true);
+                    return true;
+                }
+                else
+                {
+                    MouseHandler.MoveCursor(LocationConstants.TAVERN_COMPLETE, true);
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        private static bool CheckDispatch()
+        {
+            if (PixelChecker.CheckPixelValue(LocationConstants.TAVERN_COMPLETE, ColorConstants.TAVERN_DISPATCH))
+            {
+                MouseHandler.MoveCursor(LocationConstants.TAVERN_COMPLETE, true);
+                Main.Sleep(1);
+                MouseHandler.MoveCursor(LocationConstants.TAVERN_QUICK, true);
+                Main.Sleep(2);
+                if (PixelChecker.CheckPixelValue(LocationConstants.TAVERN_START, ColorConstants.TAVERN_START))
+                {
+                    MouseHandler.MoveCursor(LocationConstants.TAVERN_START, true);
+                    Main.Sleep(1);
+                    MouseHandler.MoveCursor(LocationConstants.TAVERN_COMPLETE, true);
+                    Main.Sleep(1);
+                    MouseHandler.MoveCursor(LocationConstants.TAVERN_COMPLETE, true);
+                    return true;
+                }
+                else
+                {
+                    Main.LogConsole("Not Enough Heroes to complete event!...");
+                    return false;
+                }
+            }
+            return false;
+        }
+
         public static int[] GetCurrecyDetails()
         {
             Main.ResetToHome();
@@ -125,6 +243,23 @@ namespace TapTapFarmer.Functions
 
             if (PixelChecker.CheckPixelValue(LocationConstants.FRIENDS_REQUESTS, ColorConstants.FRIENDS_REQUESTS_GREEN))
             {
+                MouseHandler.MoveCursor(LocationConstants.FRIENDS_REQUESTS, true);
+                Thread.Sleep(2000);
+
+                if (GlobalVariables.dailySettings.AcceptFreindReq)
+                {
+                    while(PixelChecker.CheckPixelValue(LocationConstants.FRIENDS_ACCEPT, ColorConstants.FRIENDS_ACCEPT))
+                    {
+                        MouseHandler.MoveCursor(LocationConstants.FRIENDS_ACCEPT, true);
+                        Thread.Sleep(500);
+                    }
+                }
+
+                if (GlobalVariables.dailySettings.DeclineFriendReq)
+                {
+                    MouseHandler.MoveCursor(LocationConstants.FRIENDS_DELETE, true);
+                    Thread.Sleep(500);
+                }
                 //Do Nothing for now
 
             }
@@ -282,6 +417,8 @@ namespace TapTapFarmer.Functions
         {
             Main.ResetToHome();
 
+            Thread.Sleep(4000);
+
             MouseHandler.MoveCursor(LocationConstants.HOME_PIRVALLEGE_BUTTON, true);
 
             while (PixelChecker.CheckPixelValue(LocationConstants.PRIVALLEGE_CHECKIN_BUTTON, ColorConstants.PRIVALLEGE_CHECKIN_YELLOW))
@@ -348,67 +485,74 @@ namespace TapTapFarmer.Functions
                             return true;
                         }
                         setPos = new Point(115 + (x * 95), 535 + (y * 85));
-                        if (PixelChecker.CheckPixelValue(setPos, ColorConstants.Equipments[y, x]))
+                        try
                         {
-                            if (setPos.X == 495)
+                            if (PixelChecker.CheckPixelValue(setPos, ColorConstants.Equipments[y, x]))
                             {
-                                setPos = new Point(setPos.X - 5, setPos.Y);
-                            }
-
-                            Console.WriteLine($"Found Equipment that needs to be combined. Location - {x}:{y}");
-
-                            MouseHandler.MoveCursor(setPos, true);
-
-
-
-                            int CombineAmount = ImageToText.GetCombineAmount();
-                            
-                            if (CombineAmount == -1)
-                            {
-                                Console.WriteLine($"Unable To Read Combine Amount. Combining it Once");
-
-                                LowerCombineAmont(100);
-                                int price = ImageToText.GetBlacksmithPurchaseAmount();
-
-                                MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_PURCHASE, true);
-
-                                Thread.Sleep(3000);
-
-                                if (PixelChecker.CheckPixelValue(LocationConstants.BLACKSMITH_CLAIM, ColorConstants.BLACKSMITH_CLAIM_COLOR))
+                                if (setPos.X == 495)
                                 {
-                                    MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_CLAIM, true);
-                                    combined++;
+                                    setPos = new Point(setPos.X - 5, setPos.Y);
+                                }
+
+                                Console.WriteLine($"Found Equipment that needs to be combined. Location - {x}:{y}");
+
+                                MouseHandler.MoveCursor(setPos, true);
+
+
+
+                                int CombineAmount = ImageToText.GetCombineAmount();
+
+                                if (CombineAmount == -1)
+                                {
+                                    Console.WriteLine($"Unable To Read Combine Amount. Combining it Once");
+
+                                    LowerCombineAmont(100);
+                                    int price = ImageToText.GetBlacksmithPurchaseAmount();
+
+                                    MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_PURCHASE, true);
+
+                                    Thread.Sleep(3000);
+
+                                    if (PixelChecker.CheckPixelValue(LocationConstants.BLACKSMITH_CLAIM, ColorConstants.BLACKSMITH_CLAIM_COLOR))
+                                    {
+                                        MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_CLAIM, true);
+                                        combined++;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Insufficient Gold!");
+                                    }
+
+
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Insufficient Gold!");
+                                    int loweramount = CombineAmount - 3;
+                                    LowerCombineAmont(loweramount);
+                                    int price = ImageToText.GetBlacksmithPurchaseAmount();
+
+                                    MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_PURCHASE, true);
+
+                                    Thread.Sleep(3000);
+
+                                    if (PixelChecker.CheckPixelValue(LocationConstants.BLACKSMITH_CLAIM, ColorConstants.BLACKSMITH_CLAIM_COLOR))
+                                    {
+                                        MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_CLAIM, true);
+                                        combined += 3;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Insufficient Gold!");
+                                    }
+
+
                                 }
 
-                                
                             }
-                            else
-                            {
-                                int loweramount = CombineAmount - 3;
-                                LowerCombineAmont(loweramount);
-                                int price = ImageToText.GetBlacksmithPurchaseAmount();
-
-                                MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_PURCHASE, true);
-
-                                Thread.Sleep(3000);
-
-                                if (PixelChecker.CheckPixelValue(LocationConstants.BLACKSMITH_CLAIM, ColorConstants.BLACKSMITH_CLAIM_COLOR))
-                                {
-                                    MouseHandler.MoveCursor(LocationConstants.BLACKSMITH_CLAIM, true);
-                                    combined += 3;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Insufficient Gold!");
-                                }
-
-                                
-                            }
-
+                        }
+                        catch
+                        {
+                            x++;
                         }
                     }
                 }
@@ -467,6 +611,7 @@ namespace TapTapFarmer.Functions
             bool Claim20 = false;
             bool Claim50 = false;
             MouseHandler.MoveCursor(LocationConstants.HOME_ALCHEMY_BUTTON, true);
+
             if (PixelChecker.CheckPixelValue(LocationConstants.ALCHEMY_FREE_BUTTON, ColorConstants.ALCHEMY_FREE))
             {
                 ClaimFree = true;
@@ -487,13 +632,13 @@ namespace TapTapFarmer.Functions
                 Claim50 = true;
                 if (ClaimFree && Claim20)
                 {
-                    Claim20 = false;
+                    Claim50 = false;
                     Main.LogConsole("Not Claiming 50 Gem Alchemy As Free & 20 Gem is Available");
                 }
                 else if (GlobalVariables.CURRENCY_INFO[2] < 400 && GlobalVariables.CURRENCY_INFO[2] != -1)
                 {
 
-                    Claim20 = false;
+                    Claim50 = false;
                     Main.LogConsole("Not Claiming 50 Gem Alchemy As Gem Amount is below 500");
                 }
             }
@@ -550,7 +695,7 @@ namespace TapTapFarmer.Functions
 
             task.Start();
 
-            Thread.Sleep(2 * 60000); //Sleep For 15 Minutes Before Continuing
+            Main.Sleep(25); //Sleep For 15 Minutes Before Continuing
             IdleClick = false;
             return true;
         }
@@ -564,21 +709,29 @@ namespace TapTapFarmer.Functions
             if (Tokens < 2)
             {
                 //Add Purchasing Token Below
-                if (GlobalVariables.CURRENCY_INFO[2] < 300 && GlobalVariables.CURRENCY_INFO[2] != -1)
+                if (GlobalVariables.CURRENCY_INFO[1] < 300 && GlobalVariables.CURRENCY_INFO[1] != -1)
                 {
                     Main.LogConsole("Not Enough Tokens & Gem Amount Below 300. Not Purchasing Any Tokens");
                     return false;
                 }
                 if (Tokens == 1)
                 {
-                    Main.LogConsole("Gems Above 300. Purchasing 1 Token");
+                    
                     //Add Token Purchasing
+                    if (GlobalVariables.CURRENCY_INFO[1] < 100)
+                    {
+                        Main.LogConsole("Gems Below 100. Bot Purchasing Tokens");
+                    }
+                    else
+                    {
+                        Main.LogConsole("Gems Above 300. Purchasing 1 Token");
+                        PurchaseTokens();
+                    }
                     //MouseHandler.MoveCursor()
-                    PurchaseTokens();
                     Thread.Sleep(1000);
 
                 }
-                else if (Tokens == 0)
+                else if (Tokens == 0 || Tokens == -1)
                 {
                     Main.LogConsole("Gems Above 300. Purchasing 2 Tokens");
                     //Add Token Purchasing
@@ -587,7 +740,6 @@ namespace TapTapFarmer.Functions
                     PurchaseTokens();
                     Thread.Sleep(1000);
                 }
-                return true;
             }
 
             Main.LogConsole("Got Enough Tokens Spinning Wheel");
@@ -607,16 +759,17 @@ namespace TapTapFarmer.Functions
         private static void PurchaseTokens()
         {
             MouseHandler.MoveCursor(LocationConstants.FORTUNE_PURCHASE, true);
-            if (PixelChecker.CheckPixelValue(LocationConstants.FORTUNE_PURCHASE, ColorConstants.FORTUNE_PURCHASE))
-            {
-                MouseHandler.MoveCursor(LocationConstants.FORTUNE_PURCHASE);
-            }
-            else
-            {
-                Main.ResetToHome();
-                OpenObjects.OpenFortuneWheel();
-                PurchaseTokens();
-            }
+            MouseHandler.MoveCursor(LocationConstants.FORTUNE_BUY, true);
+            //if (PixelChecker.CheckPixelValue(LocationConstants.FORTUNE_BUY, ColorConstants.FORTUNE_BUY))
+            //{
+            //    MouseHandler.MoveCursor(LocationConstants.FORTUNE_BUY, true);
+            //}
+            //else
+            //{
+            //    Main.ResetToHome();
+            //    OpenObjects.OpenFortuneWheel();
+            //    PurchaseTokens();
+            //}
 
         }
 
@@ -662,7 +815,6 @@ namespace TapTapFarmer.Functions
         public static Boolean SummonCommonKey()
         {
             Main.ResetToHome();
-            Main.Sleep(3);
             OpenObjects.OpenHeroChest();
 
             bool claimedCommon = false;
@@ -670,7 +822,7 @@ namespace TapTapFarmer.Functions
             //Goes to Bottom Of Hero Chest Screen
             for (int i = 0; i < 10; i++)
             {
-                MouseHandler.MoveCursor(LocationConstants.HOME_BOTTOM_CASTLE_LOCATION, true);
+                MouseHandler.MoveCursor(LocationConstants.CASTLE_SCROLL_LOCATION, true);
             }
 
             Main.LogConsole("Checking Daily Common Key");

@@ -16,47 +16,53 @@ namespace TapTapFarmer.Functions.Authentication
 
         public static bool CheckLogin(string username, string password)
         {
-            string resp = AuthenticateAccount(username, password);
+            Console.WriteLine(username + " " + password);
+            string resp = string.Empty;
 
+            resp = AuthenticateAccount(username, password);
+
+            Console.WriteLine("Checking Login");
             if (resp == "Subscription Active")
             {
-                MessageBox.Show("Subscription Active. Enablind Bot...");
+                Console.WriteLine("Successfully Logedi n....");
+                //MessageBox.Show("Subscription Active. Enablind Bot...");
                 return true;
             }
             else if (resp == "Subscription Ended")
             {
-                Thread LFThread = new Thread(() =>
-                {
-                    MessageBox.Show("Subscription Ended. Shutting Down in 30 seconds...");
-                });
+                //Thread LFThread = new Thread(() =>
+                //{
+                //    MessageBox.Show("Subscription Ended. Shutting Down in 30 seconds...");
+                //});
 
-                LFThread.Start();
+                //LFThread.Start();
                 return false;
             }
             else if (resp == "Login failed")
             {
-                Thread LFThread = new Thread(() =>
-                {
-                    MessageBox.Show("Incorrect Username Or Password. Shutting Down...");
-                });
+                //Thread LFThread = new Thread(() =>
+                //{
+                //    MessageBox.Show("Incorrect Username Or Password. Shutting Down...");
+                //});
 
-                LFThread.Start();
+                //LFThread.Start();
                 return false;
             }
             else
             {
-                Thread LFThread = new Thread(() =>
-                {
-                    MessageBox.Show("UnExpected Error! Shutting Down...");
-                });
+                //Thread LFThread = new Thread(() =>
+                //{
+                //    MessageBox.Show("UnExpected Error! Shutting Down...");
+                //});
 
-                LFThread.Start();
+                //LFThread.Start();
                 return false;
             }
         }
 
         public static string AuthenticateAccount(string username, string password)
         {
+
             string url = "https://TapTapFarmer.com/c-login/login.php";
             string pagesource = string.Empty;
 
@@ -96,8 +102,11 @@ namespace TapTapFarmer.Functions.Authentication
             }
             else
             {
+                
                 if (sHW == cHW)
                 {
+                    Console.WriteLine(sHW);
+                    Console.WriteLine(cHW);
                     return true;
                 }
                 else
@@ -113,6 +122,8 @@ namespace TapTapFarmer.Functions.Authentication
         {
             string url = "https://TapTapFarmer.com/hwid_check.php?method=1";
             string pagesource = string.Empty;
+
+            Console.WriteLine("Settings HWID");
 
             string HWID = FingerPrint.Value();
 
@@ -144,7 +155,8 @@ namespace TapTapFarmer.Functions.Authentication
         {
             string url = "https://TapTapFarmer.com/hwid_check.php?method=2";
             string pagesource = string.Empty;
-            string HWID = "FF";
+            string HWID = string.Empty;
+
             using (WebClient client = new WebClient())
             {
                 try

@@ -52,17 +52,7 @@ namespace TapTapFarmer
         #region Button Handlers
         private void CheckSize_Click(object sender, RoutedEventArgs e)
         {
-            //System.Drawing.Size ProcSize = WindowCapture.GetProcessSize(GlobalVariables.GLOBAL_PROC_NAME);
-
-            /* if (ProcSize != new Size(544, 994))
-            //{
-            //    MessageBox.Show("Wrong Resoloution Selected, Bot Stopped. \nGo To NOX >> SETTINGS >> ADVANCED SETTINGS >> 540x960 >> Restore Window Settings \n Start Bot Once Window Size Restored");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Valid Size");
-            //} */
-
+            Main.CheckSize();
             //MessageBox.Show(ProcSize.ToString());
         }
 
@@ -129,11 +119,11 @@ namespace TapTapFarmer
             //UpdatePlayerInfo.SpinWheel();
             //UpdatePlayerInfo.CombineEquipment();
 
+            Thread AttackThread = new Thread(Attack.HomeBossAttackHandler);
+            AttackThread.Start();
 
-            //Thread AttackThread = new Thread(Attack.BattleLeagueAttackHandler);
-            //AttackThread.Start();
-            
-            
+
+
         }
 
         private void BtnActionMinimize_OnClick(object sender, RoutedEventArgs e)
@@ -169,37 +159,92 @@ namespace TapTapFarmer
 
         private void StartBot_Click(object sender, RoutedEventArgs e)
         {
-            bool yes = false;
-            bool resp = false;
-            Task OpenObjectsThread = new Task(() =>
+            UpdateUI();
+
+            UpdateConfig();
+
+            bool HWIDCheck = false;
+            bool LoginCheck = false;
+
+            string uname = Properties.Settings.Default.username;
+            string pword = Properties.Settings.Default.password;
+
+            Task HWIDChecker = new Task(() =>
             {
-                yes = Functions.Authentication.LoginHandler.CheckHWID(Properties.Settings.Default.username);
-                Main.LogConsole("Trying To Connect to server...");
-                resp = Functions.Authentication.LoginHandler.CheckLogin(Properties.Settings.Default.username,
-                        Properties.Settings.Default.password);
-                Main.LogConsole("Sucessfully connected loging in...");
-                
-                return;
+                HWIDCheck = Functions.Authentication.LoginHandler.CheckHWID(Properties.Settings.Default.username);
             });
 
-            OpenObjectsThread.Start();
-            OpenObjectsThread.Wait();
+            LoginCheck = Functions.Authentication.LoginHandler.CheckLogin(uname, pword);
 
-            if (resp && yes)
+            HWIDChecker.Start();
+
+            Thread.Sleep(10000);
+
+            Console.WriteLine(LoginCheck);
+            Console.WriteLine(HWIDCheck);
+
+            if (LoginCheck && HWIDCheck)
             {
                 Main.LogConsole("Connected Successfully");
                 BotMain.BotStart();
-
             }
             else
             {
+                MessageBox.Show("Invalid");
                 Main.LogConsole("Unable to Connect to Server...");
                 Main.LogConsole("Shutting Down...");
                 Thread.Sleep(5);
                 Application.Current.Shutdown();
             }
+        }
+
+        private void UpdateConfig()
+        {
+            AttackModel attackModel = new AttackModel
+            {
+                Boss = (bool)BossBattle.IsChecked,
+                Friend = (bool)FriendBattle.IsChecked,
+                Guild = (bool)GuildBattle.IsChecked,
+                Brave = (bool)BraveBattle.IsChecked,
+                DoS = (bool)DoSBattle.IsChecked,
+                Expedition = (bool)ExpeditionBattle.IsChecked,
+                PlanetTrial = (bool)PlanetTrialBattle.IsChecked,
+
+                PlanetTrialRetryAmount = Convert.ToInt32(PlanetTrialRetry.Text),
+                PlanetTrialAutoRetry = (bool)PlanetTrialAutoRetry.IsChecked,
+
+                BraveMaxTickets = Convert.ToInt32(BraveMaxTickets.Text),
+                BraveMaxCE = Convert.ToInt32(BraveMaxCE.Text),
+                BraveAutoRetry = (bool)BraveAttackMore.IsChecked,
+
+                GuildRetryAmount = Convert.ToInt32(GuildMax.Text),
+
+                FriendRetryAmount = Convert.ToInt32(FriendRetry.Text),
+                FriendMaxOnly = (bool)FriendMax.IsChecked
+            };
+
+            GlobalVariables.attackSettings = attackModel;
+
+            DailyModel dailyModel = new DailyModel
+            {
+                Alchemy = (bool)Alchemy.IsChecked,
+                SendHearts = (bool)SendHearts.IsChecked,
+                SpinWheel = (bool)SpinWheel.IsChecked,
+                DailyTavern = (bool)CompleteTavern.IsChecked,
+                CombineEquip = (bool)CombineEquip.IsChecked,
+                CommonSummon = (bool)PerformCommon.IsChecked,
+                GrandSummon = (bool)PerformGrand.IsChecked,
+                DailyBrave = (bool)CompleteBrave.IsChecked,
+
+                SendFriendReq = (bool)SendFriend.IsChecked,
+                AcceptFreindReq = (bool)AcceptFriends.IsChecked,
+                DeclineFriendReq = (bool)DeclineFriends.IsChecked,
+                DailyBag = (bool)DailyBag.IsChecked,
+                PurchaseDoSTicket = (bool)PurchaseDoS.IsChecked,
+                DeleteMail = (bool)DeleteMail.IsChecked
+        };
             
-            
+            WriteIni.UpdateConfig(attackModel, dailyModel);
         }
 
         private void TextTest_Click(object sender, RoutedEventArgs e)
@@ -224,7 +269,7 @@ namespace TapTapFarmer
         }
         #endregion
 
-        private void UpdateConfig()
+        private void UpdateUI()
         {
             ConsoleLogBox.Text = $"[{DateTime.Now.ToString("h:mm:ss tt")}] Trying to Connect to server...";
             Main.LogConsole("Successfully Connected to Server. Enjoy!");
@@ -272,7 +317,8 @@ namespace TapTapFarmer
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //UpdateConfig();
+            UpdateUI();
+
         }
 
         #region Uneeded Event Handlers
@@ -354,61 +400,22 @@ namespace TapTapFarmer
 
         public void LogConsole(string message, string type = "Default")
         {
-            ConsoleLogBox.Text += $"{Environment.NewLine}[{DateTime.Now.ToString("h:mm:ss tt")}] {message}";
-            ConsoleLogBox.ScrollToEnd();
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                ConsoleLogBox.Text += $"{Environment.NewLine}[{DateTime.Now.ToString("h:mm:ss tt")}] {message}";
+            }));
+            //ConsoleLogBox.Text += $"{Environment.NewLine}[{DateTime.Now.ToString("h:mm:ss tt")}] {message}";
+            //ConsoleLogBox.ScrollToEnd();
         }
 
         private void SaveConfig_Click(object sender, RoutedEventArgs e)
         {
-            AttackModel attackModel = new AttackModel
-            {
-                Boss = (bool)BossBattle.IsChecked,
-                Friend = (bool)FriendBattle.IsChecked,
-                Guild = (bool)GuildBattle.IsChecked,
-                Brave = (bool)BraveBattle.IsChecked,
-                DoS = (bool)DoSBattle.IsChecked,
-                Expedition = (bool)ExpeditionBattle.IsChecked,
-                PlanetTrial = (bool)PlanetTrialBattle.IsChecked,
-
-                PlanetTrialRetryAmount = Convert.ToInt32(PlanetTrialRetry.Text),
-                PlanetTrialAutoRetry = (bool)PlanetTrialAutoRetry.IsChecked,
-
-                BraveMaxTickets = Convert.ToInt32(BraveMaxTickets.Text),
-                BraveMaxCE = Convert.ToInt32(BraveMaxCE.Text),
-                BraveAutoRetry = (bool)BraveAttackMore.IsChecked,
-
-                GuildRetryAmount = Convert.ToInt32(GuildMax.Text),
-
-                FriendRetryAmount = Convert.ToInt32(FriendRetry.Text),
-                FriendMaxOnly = (bool)FriendMax.IsChecked
-            };
-
-            GlobalVariables.attackSettings = attackModel;
-
-            DailyModel dailyModel = new DailyModel
-            {
-                Alchemy = (bool)Alchemy.IsChecked,
-                SendHearts = (bool)SendHearts.IsChecked,
-                SpinWheel = (bool)SpinWheel.IsChecked,
-                DailyTavern = (bool)CompleteTavern.IsChecked,
-                CombineEquip = (bool)CombineEquip.IsChecked,
-                CommonSummon = (bool)PerformCommon.IsChecked,
-                GrandSummon = (bool)PerformGrand.IsChecked,
-                DailyBrave = (bool)CompleteBrave.IsChecked,
-
-                SendFriendReq = (bool)SendFriend.IsChecked,
-                AcceptFreindReq = (bool)AcceptFriends.IsChecked,
-                DeclineFriendReq = (bool)DeclineFriends.IsChecked
-            };
-            dailyModel.DailyBag = (bool)DailyBag.IsChecked;
-            dailyModel.PurchaseDoSTicket = (bool)PurchaseDoS.IsChecked;
-            dailyModel.DeleteMail = (bool)DeleteMail.IsChecked;
-            WriteIni.UpdateConfig(attackModel, dailyModel);
+            UpdateConfig();
         }
 
         private void ReloadCofig_Click(object sender, RoutedEventArgs e)
         {
-            UpdateConfig();
+            UpdateUI();
         }
 
         private void ResetConfig_Click(object sender, RoutedEventArgs e)
@@ -417,6 +424,7 @@ namespace TapTapFarmer
             File.Delete(iniFile);
             WriteIni.WriteConfig();
             ReadIni.ReadFile();
+            UpdateUI();
         }
 
         private void OpenConfig_Click(object sender, RoutedEventArgs e)
