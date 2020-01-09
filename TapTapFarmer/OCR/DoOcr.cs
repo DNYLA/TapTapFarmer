@@ -27,6 +27,7 @@ namespace TapTapFarmer.OCR
 
             string respones = string.Empty;
 
+            string key = Functions.Authentication.LoginHandler.GetKey();
 
             try
             {
@@ -35,7 +36,7 @@ namespace TapTapFarmer.OCR
 
 
                 MultipartFormDataContent form = new MultipartFormDataContent();
-                form.Add(new StringContent("34209c846288957"), "apikey"); //Added api key in form data // WHEN SERVER IS UP GET API KEY FROM SERVER
+                form.Add(new StringContent(key), "apikey"); //Added api key in form data // WHEN SERVER IS UP GET API KEY FROM SERVER
                 form.Add(new StringContent("eng"), "language");
                 form.Add(new StringContent(OCREngine), "OCREngine");
 
@@ -58,7 +59,7 @@ namespace TapTapFarmer.OCR
                 {
                     for (int i = 0; i < ocrResult.ParsedResults.Count(); i++)
                     {
-                        respones = respones + ocrResult.ParsedResults[i].ParsedText;
+                        respones += ocrResult.ParsedResults[i].ParsedText;
                     }
                 }
                 else

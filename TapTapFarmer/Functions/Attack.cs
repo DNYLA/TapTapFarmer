@@ -176,9 +176,9 @@ namespace TapTapFarmer.Functions
                         MouseHandler.MoveCursor(Location, true);
                     }
 
-                    Main.Sleep(1);
+                    Main.Sleep(3);
                     MouseHandler.MoveCursor(LocationConstants.GLOBAL_ENEMYINFO_BATTLE_CONFIRM, true);
-                    Main.Sleep(1);
+                    Main.Sleep(3);
                     MouseHandler.MoveCursor(LocationConstants.GLOBAL_TEAM_BATTLE_CONFIRM, true);
                     Main.Sleep(3);
 
@@ -249,6 +249,75 @@ namespace TapTapFarmer.Functions
                 return CheckWin(checkAmount + 1);
             }
         }
+        #endregion
+
+        #region Guild Boss
+        public static bool GuildBossAttackHandler()
+        {
+            OpenObjects.OpenGuild();
+
+            return GuildBossAttack();
+
+        }
+
+        public static bool GuildBossAttack(int BossesAttacked = 0)
+        {
+            Main.Sleep(2);
+            MouseHandler.MoveCursor(LocationConstants.GUILD_BATTLE, true);
+            Main.Sleep(2);
+            MouseHandler.MoveCursor(LocationConstants.GUILD_ATTACK, true);
+
+            Main.Sleep(3);
+            MouseHandler.MoveCursor(LocationConstants.GLOBAL_ENEMYINFO_BATTLE_CONFIRM, true);
+            Main.Sleep(3);
+            MouseHandler.MoveCursor(LocationConstants.GLOBAL_TEAM_BATTLE_CONFIRM, true);
+            Main.Sleep(3);
+
+            MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_SKIP, true);
+            Main.Sleep(1);
+            MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_SKIP_CONFIRM, true);
+
+            bool BattleFinished = false;
+
+            while (!BattleFinished)
+            {
+                //Sleep for 2 seconds and then Check
+                Main.Sleep(2);
+
+                if (PixelChecker.CheckPixelValue(LocationConstants.GLOBAL_BATTLE_FINISHED, ColorConstants.GLOBAL_BATTLE_FINISHED))
+                {
+                    BattleFinished = true;
+                }
+            }
+
+            bool BattleWon = CheckWin();
+
+            if (BattleWon)
+            {
+                Main.Sleep(1);
+                MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
+            }
+            else
+            {
+                Main.Sleep(1);
+                MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
+            }
+
+            BossesAttacked++;
+
+            if (BossesAttacked >= GlobalVariables.attackSettings.GuildRetryAmount)
+            {
+                return true;
+            }
+            else
+            {
+                GuildBossAttack(BossesAttacked);
+            }
+
+            return true;
+        }
+
+
         #endregion
 
         #region Battle League
@@ -446,17 +515,17 @@ namespace TapTapFarmer.Functions
         }
         #endregion
 
-        public static void HomeBossAttackHandler()
+        public static void HomeBossAttackHandler(int retryAmount = 0)
         {
             WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
 
             Main.ResetToHome();
 
-            HomeBossAttack();
+            HomeBossAttack(retryAmount);
 
         }
 
-        public static void HomeBossAttack()
+        public static void HomeBossAttack(int retryAmount)
         {
             //Reset To Home
             WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
@@ -469,17 +538,23 @@ namespace TapTapFarmer.Functions
             {
                 MouseHandler.MoveCursor(LocationConstants.HOME_BOSS_BATTLE_NEXT, true);
                 Main.Sleep(2);
-                MouseHandler.MoveCursor(LocationConstants.HOME_BOSS_IDLE_NEXT, true);
+                Point loc = new Point();
+                if (PixelChecker.SearchPixel(ColorConstants.HOME_BOSS_NEXT, out loc))
+                {
+                    MouseHandler.MoveCursor(loc, true);
+                }
                 Main.Sleep(1);
-                HomeBossAttack(); //Starts Idling On Next Stage Then Re-Calls Function to Check for updates status
+                HomeBossAttack(0); //Starts Idling On Next Stage Then Re-Calls Function to Check for updates status
             }
             else if (BossStatus == "waves")
             {
-                for (int i = 0; i < 100; i++)
+                Main.LogConsole("Idling main boss...");
+                for (int i = 0; i < 250; i++)
                 {
                     MouseHandler.MoveCursor(LocationConstants.GLOBAL_BOT_IDLE_CLICK, true);
+                    Thread.Sleep(200);
                 }
-                HomeBossAttack(); //Clicks for 100 hundred times and then rechecks if waves have been defeated
+                HomeBossAttack(0); //Clicks for 100 hundred times and then rechecks if waves have been defeated
             }
             else if (BossStatus == "battle")
             {
@@ -499,9 +574,9 @@ namespace TapTapFarmer.Functions
                     if (BattleWon)
                     {
                         Main.LogConsole("Won Home Boss Attack!");
-                        Main.Sleep(1);
+                        Main.Sleep(2);
                         MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
-                        HomeBossAttack();
+                        HomeBossAttack(0);
                         break; //Not Sure if this is needed but ill just add it anyways
                     }
                     else
@@ -511,12 +586,49 @@ namespace TapTapFarmer.Functions
                         MouseHandler.MoveCursor(LocationConstants.GLOBAL_BATTLE_FINISHED, true);
                     }
 
-                    Console.WriteLine("The Outcome of the Battle Win: {0}", BattleWon);
+                    Main.LogConsole("Outcome of the Home Boss Battle Won: {0}", BattleWon.ToString());
                 }
             }
             else //Sometimes there can be trouble if the Menu shows "waves" in this case we just try again
             {
-                HomeBossAttackHandler();
+                Main.LogConsole("Unable To Read...");
+                if (PixelChecker.CheckPixelValue(LocationConstants.HOME_BOSS_MAP_CIRCLE, ColorConstants.HOME_BOSS_MAP_CIRCLE))
+                {
+                    Main.LogConsole("Yeet Skeet Neet Pee");
+                    Main.Sleep(2);
+                    MouseHandler.MoveCursor(LocationConstants.HOME_BOSS_MAP_CIRCLE, true);
+                    if (PixelChecker.SearchPixel(ColorConstants.HOME_NEXT_MAP, out var loc))
+                    {
+                        MouseHandler.MoveCursor(loc, true);
+                        if (PixelChecker.SearchPixel(ColorConstants.HOME_BOSS_NEXT, out var loc3))
+                        {
+                            MouseHandler.MoveCursor(loc3, true);
+                            HomeBossAttackHandler();
+                        }
+                    }
+                    else
+                    {
+                        bool found = PixelChecker.SearchPixel(ColorConstants.HOME_NEXT_MAP, out var locs);
+                        if (found) { MouseHandler.MoveCursor(loc, true); }
+                        MouseHandler.MoveCursor(loc, true);
+                        if (PixelChecker.SearchPixel(ColorConstants.HOME_BOSS_NEXT, out var loc3))
+                        {
+                            MouseHandler.MoveCursor(loc3, true);
+                            HomeBossAttackHandler();
+                        }
+                    }
+                    
+                }
+
+                if (retryAmount == 15)
+                {
+                    Main.LogConsole("Unable to read Boss Status...");
+                    return;
+                }
+
+                Main.LogConsole("Moving Onto Next Stage..");
+
+                HomeBossAttackHandler(retryAmount++);
             }
         }
 

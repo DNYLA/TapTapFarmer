@@ -184,7 +184,7 @@ namespace TapTapFarmer.Functions
         private static bool AttackBattles()
         {
             AttackModel AS = GlobalVariables.attackSettings;
-            Attack.DenOfSecretAttackHandler();
+
             if (AS.Boss)
             {
                 Attack.HomeBossAttackHandler();
@@ -231,6 +231,7 @@ namespace TapTapFarmer.Functions
             {
                 Main.LogConsole($"Bot Hasn't Been Ran Since {GlobalVariables.LAST_RAN} Completing Daily Tasks");
                 GlobalVariables.tasksSettings = new TasksModel(); //Resets Everything back to default
+                GlobalVariables.LAST_RAN = DateTime.Now;
             }
             else
             {
@@ -327,6 +328,9 @@ namespace TapTapFarmer.Functions
                 UpdatePlayerInfo.ClaimQuestReward();
             }
 
+            UpdatePlayerInfo.MineGuildGold();
+            UpdatePlayerInfo.SetGuildTeam();
+
             GlobalVariables.LAST_RAN = DateTime.Now;
 
 
@@ -336,6 +340,8 @@ namespace TapTapFarmer.Functions
             //Update Global Variables Settings
             GlobalVariables.tasksSettings = tasks;
             GlobalVariables.LAST_RAN = DateTime.Now;
+
+            Ini.WriteIni.UpdateConfig(GlobalVariables.attackSettings, GlobalVariables.dailySettings);
 
             return true;
         }

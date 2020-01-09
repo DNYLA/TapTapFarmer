@@ -29,6 +29,19 @@ namespace TapTapFarmer.Functions
             Main.Sleep(2);
         }
 
+        public static void OpenGuild()
+        {
+            WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
+
+            Main.ResetToHome();
+
+            Main.Sleep(2);
+
+            MouseHandler.MoveCursor(LocationConstants.HOME_BOTTOM_GUILD, true);
+
+            Main.Sleep(2);
+        }
+
         public static void OpenEvents()
         {
             Main.ResetToHome();

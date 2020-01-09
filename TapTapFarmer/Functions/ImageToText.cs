@@ -243,8 +243,6 @@ namespace TapTapFarmer.Functions
         {
             WindowCapture.CaptureApplication(GlobalVariables.GLOBAL_PROC_NAME);
 
-
-            string BossStat = string.Empty;
             //Task task = Task.Factory.StartNew(() =>
             //{
             //    UpdateVar(TextConstants.HOME_BOSS_START, TextConstants.HOME_BOSS_SIZE);
@@ -259,17 +257,16 @@ namespace TapTapFarmer.Functions
 
             string BossStatus;
 
-            BossStatus = GetOcrResponse(TextConstants.HOME_BOSS_START, TextConstants.HOME_BOSS_SIZE);
-
-            Console.WriteLine("The Finale: " + BossStatus);
+            BossStatus = GetOcrResponse(TextConstants.HOME_BOSS_START, TextConstants.HOME_BOSS_SIZE);  
 
             //Main.Sleep(5);
 
-            
             BossStatus = BossStatus.ToLower();
 
             BossStatus = RemoveWhiteSpace(BossStatus);
             //BossStatus = BossStatus.Split()[0]; //Using .Contains on a string now makes the use of removing exsess lines usless.
+
+            Main.LogConsole("Boss Status: " + BossStatus);
 
             if (BossStatus.Contains("boss"))
             {
@@ -286,9 +283,7 @@ namespace TapTapFarmer.Functions
                 return "next";
             }
 
-            Console.WriteLine(BossStatus);
-            Console.WriteLine("Problem With Conversion.");
-            return "Invalid";
+            return BossStatus;
         }
         #endregion
         #endregion

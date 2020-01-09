@@ -893,5 +893,48 @@ namespace TapTapFarmer.Functions
             return true;
         }
 
+        public static Boolean MineGuildGold()
+        {
+            OpenObjects.OpenGuild();
+
+            if (PixelChecker.CheckPixelValue(LocationConstants.GUILD_DAILY_COINS, ColorConstants.GUILD_DAILY_COINS))
+            {
+                MouseHandler.MoveCursor(LocationConstants.GUILD_DAILY_COINS, true);
+            }
+
+            if (PixelChecker.CheckPixelValue(LocationConstants.GUILD_MINE_BONUS, ColorConstants.GUILD_MINE_BONUS))
+            {
+                Main.LogConsole("Claiming Previous Bonus");
+                MouseHandler.MoveCursor(LocationConstants.GUILD_CLAIM_BONUS, true);
+                Main.Sleep(2);
+                MouseHandler.MoveCursor(LocationConstants.GUILD_CLAIM, true);
+                MineGuildGold();
+            }
+
+            if (PixelChecker.CheckPixelValue(LocationConstants.GUILD_START_DIGGING, ColorConstants.GUILD_START_DIGGING))
+            {
+                Main.LogConsole("Digging next bonus...");
+                Main.Sleep(2);
+                MouseHandler.MoveCursor(LocationConstants.GUILD_START_DIGGING, true);
+            }
+
+            return true;
+        }
+
+        public static Boolean SetGuildTeam()
+        {
+            OpenObjects.OpenGuild();
+
+            if (PixelChecker.CheckPixelValue(LocationConstants.GUILD_WAR_TEAM, ColorConstants.GUILD_SET_WAR))
+            {
+                Main.Sleep(2);
+                MouseHandler.MoveCursor(LocationConstants.GUILD_WAR_TEAM, true);
+                Main.Sleep(2);
+                MouseHandler.MoveCursor(LocationConstants.GUILD_SET_TEAM, true);
+                Main.Sleep(2);
+            }
+            return true;
+        }
+
     }
 }

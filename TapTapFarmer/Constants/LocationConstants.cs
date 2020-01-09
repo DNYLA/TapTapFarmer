@@ -30,9 +30,10 @@ namespace TapTapFarmer.Constants
         public static Point HOME_DAILYBONUS_BUTTON = new Point(493, 155);
         public static Point HOME_PROFILE_BUTTON = new Point(42, 10);
         public static Point HOME_ACCOUNT_ALREADY_LOGGED = new Point(267, 590);
-        public static Point HOME_BOSS_BATTLE_NEXT = new Point(290, 196);
+        public static Point HOME_BOSS_BATTLE_NEXT = new Point(270, 165);
         public static Point HOME_BOSS_IDLE_NEXT = new Point(288, 634);
         public static Point HOME_PIRVALLEGE_BUTTON = new Point(492, 155);
+        public static Point HOME_BOSS_MAP_CIRCLE = new Point(446, 125);
         public static Point PRIVALLEGE_CHECKIN_BUTTON = new Point(434, 852);
 
         // Profile Buttons
@@ -133,6 +134,7 @@ namespace TapTapFarmer.Constants
         //Home Bottom Buttons
         public static Point HOME_BOTTOM_HEROES_LOCATION = new Point(46, 909);
         public static Point HOME_BOTTOM_CASTLE_LOCATION = new Point(404, 941);
+        public static Point HOME_BOTTOM_GUILD = new Point(139, 909);
         public static Point HOME_BOTTOM_BATTLE_LOCATION = new Point(270, 980);
         public static Point HOME_BOTTOM_ACTIVE_BATTLE_LOCATION = new Point(296, 902);
         public static Point HOME_ALCHEMY_BUTTON = new Point(515, 28);
@@ -195,6 +197,18 @@ namespace TapTapFarmer.Constants
         public static Point CASTLE_TAVERN_LOCATION = new Point(253, 581);
         public static Point CASTLE_EXPEDITION_LOCATION = new Point(217, 826);
         public static Point CASTLE_PLANET_TRIAL_LOCATION = new Point(323, 580);
+
+        //Guild
+        public static Point GUILD_BATTLE = new Point(347, 637);
+        public static Point GUILD_ATTACK = new Point(306, 438);
+        public static Point GUILD_MINE = new Point(163, 358);
+        public static Point GUILD_MINE_BONUS = new Point(371, 750);
+        public static Point GUILD_CLAIM_BONUS = new Point(330, 770);
+        public static Point GUILD_CLAIM = new Point(275, 691);
+        public static Point GUILD_START_DIGGING = new Point(486, 755);
+        public static Point GUILD_WAR_TEAM = new Point(104, 474);
+        public static Point GUILD_SET_TEAM = new Point(275, 825);
+        public static Point GUILD_DAILY_COINS = new Point(336, 258);
 
         //Den Of Secrets
         public static Point DOS_BATTLE_LOCATION = new Point(479, 585);

@@ -107,6 +107,8 @@ namespace TapTapFarmer.Functions.Ini
             // Modify the loaded ini file
             //General Header
             parsedData["General"]["version"] = "1.0";
+            parsedData["General"]["Bot Last Ran"] = GlobalVariables.LAST_RAN.ToString();
+            parsedData["General"]["Player Last"] = "0";
             //parsedData["General"]["Bot Last Ran"] = DateTime.Now.ToString();
 
             parsedData["Battle"]["Boss Battle"] = attackModel.Boss.ToString();

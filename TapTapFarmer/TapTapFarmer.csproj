@@ -75,6 +75,7 @@
     <Compile Include="Functions\Authentication\FingerPrint.cs" />
     <Compile Include="Functions\Authentication\LoginHandler.cs" />
     <Compile Include="Functions\BotMain.cs" />
+    <Compile Include="Functions\Guild.cs" />
     <Compile Include="Functions\ImageToText.cs" />
     <Compile Include="Functions\Ini\ReadIni.cs" />
     <Compile Include="Functions\Ini\WriteIni.cs" />

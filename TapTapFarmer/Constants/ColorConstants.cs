@@ -23,6 +23,9 @@ namespace TapTapFarmer.Constants
         public static Color HOME_PROFILE_REDINFO_COLOR = Color.FromArgb(253, 86, 60);
         public static Color HOME_BOSS_BATTLE_COLOR = Color.FromArgb(255, 143, 34);
         public static Color HOME_BOSS_IDLE = Color.FromArgb(255, 186, 99);
+        public static Color HOME_BOSS_NEXT = Color.FromArgb(255, 211, 23);
+        public static Color HOME_BOSS_MAP_CIRCLE = Color.FromArgb(255, 62, 18);
+        public static Color HOME_NEXT_MAP = Color.FromArgb(255, 236, 22);
 
         //Battles
         //public static Color SKYPILLAR_BATTLE_LOCATION = Color.FromArgb(95, 232, 140);
@@ -46,8 +49,11 @@ namespace TapTapFarmer.Constants
         public static Color TAVERN_DISPATCH = Color.FromArgb(172, 186, 225);
         public static Color TAVERN_START = Color.FromArgb(255, 231, 102);
         public static Color TAVERN_SPEED = Color.FromArgb(254, 230, 99);
-        
 
+        public static Color GUILD_MINE_BONUS = Color.FromArgb(255, 101, 72);
+        public static Color GUILD_START_DIGGING = Color.FromArgb(244, 62, 14);
+        public static Color GUILD_SET_WAR = Color.FromArgb(6, 188, 230);
+        public static Color GUILD_DAILY_COINS = Color.FromArgb(73, 237, 255);
 
         //City Constants
         public static Color CITY_ITEMCENTER_COLOR = Color.FromArgb(254, 252, 247);

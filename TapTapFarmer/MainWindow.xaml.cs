@@ -119,7 +119,14 @@ namespace TapTapFarmer
             //UpdatePlayerInfo.SpinWheel();
             //UpdatePlayerInfo.CombineEquipment();
 
-            Thread AttackThread = new Thread(Attack.HomeBossAttackHandler);
+            Thread AttackThread = new Thread(() =>
+            {
+                UpdatePlayerInfo.MineGuildGold();
+                //Attack.GuildBossAttackHandler();
+                //Attack.HomeBossAttackHandler();
+                //Attack.PlanetTrialAttackHandler();
+            });
+
             AttackThread.Start();
 
 
@@ -139,6 +146,8 @@ namespace TapTapFarmer
 
         private void btnActionClose_Click(object sender, RoutedEventArgs e)
         {
+            Application.Current.Shutdown();
+            Process.GetCurrentProcess().Kill();
             Application.Current.Shutdown();
         }
 
@@ -437,6 +446,12 @@ namespace TapTapFarmer
 
         }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            Application.Current.Shutdown();
+        }
         private void FindConfigs_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://sbond.ml/p/trainerbotsite/forum/forum-8.html");

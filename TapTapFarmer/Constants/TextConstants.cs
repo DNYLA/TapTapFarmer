@@ -19,7 +19,7 @@ namespace TapTapFarmer.Constants
 
 
         //upoodated
-        public static Point HOME_BOSS_START = new Point(205, 145);
+        public static Point HOME_BOSS_START = new Point(216, 137);
         public static Point SKYPILLAR_BATTLE_START = new Point(366, 552);
         public static Point GOLD_START = new Point(433, 19);
         public static Point GEM_START = new Point(290, 17);
@@ -34,7 +34,7 @@ namespace TapTapFarmer.Constants
         //public static Point BLACKSMITH_COMBINEAMOUNT = new Point(229, 296);
         public static Point BLACKSMITH_PURCHASEAMOUNT = new Point(360, 371);
 
-        public static Size HOME_BOSS_SIZE = new Size(137, 47);
+        public static Size HOME_BOSS_SIZE = new Size(104, 49);
         public static Size SKYPILLAR_BATTLE_SIZE = new Size(94, 34);
         public static Size GLOBAL_CURRENCY_SIZE = new Size(68, 23);
         public static Size HOME_LEVEL_SIZE = new Size(173, 27);

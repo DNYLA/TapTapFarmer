@@ -209,5 +209,30 @@ namespace TapTapFarmer.Functions.Authentication
 
             return pagesource;
         }
+
+        public static string GetKey()
+        {
+            string url = "https://taptapfarmer.com/c-login/key.php";
+            string pagesource = string.Empty;
+
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    NameValueCollection postData = new NameValueCollection();
+
+                    // client.UploadValues returns page's source as byte array (byte[])
+                    // so it must be transformed into a string
+                    pagesource = Encoding.UTF8.GetString(client.UploadValues(url, postData));
+                    //Main.LogConsole(pagesource);
+                }
+                catch (Exception)
+                {
+                    Main.LogConsole("Unable To Connect to Server...");
+                }
+            }
+
+            return pagesource;
+        }
     }
 }
